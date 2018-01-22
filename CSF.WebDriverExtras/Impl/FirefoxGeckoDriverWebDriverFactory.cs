@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using OpenQA.Selenium;
-using OpenQA.Selenium.IE;
+using OpenQA.Selenium.Firefox;
 
-namespace CSF.WebDriverFactory.Impl
+namespace CSF.WebDriverExtras.Impl
 {
   /// <summary>
-  /// Implementation of <see cref="IWebDriverFactory"/> which gets an Internet Explorer web driver.
+  /// Implementation of <see cref="IWebDriverFactory"/> which is suitable for Firefox versions 47+, using the
+  /// <c>geckodriver</c> executable.
   /// </summary>
-  public class InternetExplorerWebDriverFactory : IWebDriverFactory
+  public class FirefoxGeckoDriverWebDriverFactory : IWebDriverFactory
   {
     /// <summary>
     /// Gets or sets the timeout (in seconds) between issuing a command to the web driver and receiving a response.
@@ -19,20 +20,26 @@ namespace CSF.WebDriverFactory.Impl
     /// <summary>
     /// Gets or sets the TCP port on which the web driver process will listen.
     /// </summary>
-    /// <value>The IE driver port.</value>
+    /// <value>The gecko driver port.</value>
     public int? DriverPort { get; set; }
 
     /// <summary>
     /// Gets or sets the filesystem path to the web-driver executable (<c>chromedriver</c>).
     /// </summary>
-    /// <value>The IE driver path.</value>
+    /// <value>The gecko driver path.</value>
     public string DriverPath { get; set; }
+
+    /// <summary>
+    /// Gets or sets the filesystem path to the Mozilla Firefox web browser executable.
+    /// </summary>
+    /// <value>The firefox executable path.</value>
+    public string BrowserExecutablePath { get; set; }
 
     /// <summary>
     /// Gets the name of the web browser that this factory will create.
     /// </summary>
     /// <returns>The browser name.</returns>
-    public string GetBrowserName() => "Internet explorer";
+    public string GetBrowserName() => "Firefox";
 
     /// <summary>
     /// Gets the version of the web browser that this factory will create.
@@ -56,7 +63,7 @@ namespace CSF.WebDriverFactory.Impl
     public IWebDriver GetWebDriver(IDictionary<string,object> capabilities)
     {
       var driverService = GetDriverService();
-      var options = GetIEOptions();
+      var options = GetFirefoxOptions();
 
       if(capabilities != null)
       {
@@ -67,7 +74,7 @@ namespace CSF.WebDriverFactory.Impl
       }
 
       var timeout = GetTimeout();
-      return new InternetExplorerDriver(driverService, options, timeout);
+      return new FirefoxDriver(driverService, options, timeout);
     }
 
     TimeSpan GetTimeout()
@@ -75,14 +82,14 @@ namespace CSF.WebDriverFactory.Impl
       return TimeSpan.FromSeconds(CommandTimeoutSeconds);
     }
 
-    InternetExplorerDriverService GetDriverService()
+    FirefoxDriverService GetDriverService()
     {
-      InternetExplorerDriverService output;
+      FirefoxDriverService output;
 
       if(String.IsNullOrEmpty(DriverPath))
-        output = InternetExplorerDriverService.CreateDefaultService();
+        output = FirefoxDriverService.CreateDefaultService();
       else
-        output = InternetExplorerDriverService.CreateDefaultService(DriverPath);
+        output = FirefoxDriverService.CreateDefaultService(DriverPath);
 
       output.HideCommandPromptWindow = true;
       output.SuppressInitialDiagnosticInformation = true;
@@ -90,12 +97,18 @@ namespace CSF.WebDriverFactory.Impl
       if(DriverPort.HasValue)
         output.Port = DriverPort.Value;
 
+      if(!String.IsNullOrEmpty(BrowserExecutablePath))
+        output.FirefoxBinaryPath = BrowserExecutablePath;
+
       return output;
     }
 
-    InternetExplorerOptions GetIEOptions()
+    FirefoxOptions GetFirefoxOptions()
     {
-      var output = new InternetExplorerOptions();
+      var output = new FirefoxOptions();
+
+      if(!String.IsNullOrEmpty(BrowserExecutablePath))
+        output.BrowserExecutableLocation = BrowserExecutablePath;
 
       return output;
     }

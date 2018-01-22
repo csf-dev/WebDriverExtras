@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Reflection;
 using CSF.Configuration;
-using CSF.WebDriverFactory.Config;
+using CSF.WebDriverExtras.Config;
 
-namespace CSF.WebDriverFactory
+namespace CSF.WebDriverExtras
 {
   /// <summary>
   /// Implementation of <see cref="IWebDriverFactoryProvider"/> which reads information from a configuration source

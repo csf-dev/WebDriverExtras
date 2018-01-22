@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using OpenQA.Selenium;
 
-namespace CSF.WebDriverFactory
+namespace CSF.WebDriverExtras
 {
   /// <summary>
   /// The main interface all factory implementations must implement.  Provides the functionality to get a fully-configured

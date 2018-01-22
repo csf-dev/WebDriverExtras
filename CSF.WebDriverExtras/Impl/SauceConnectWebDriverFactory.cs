@@ -1,7 +1,7 @@
 ﻿using System;
 using OpenQA.Selenium;
 
-namespace CSF.WebDriverFactory.Impl
+namespace CSF.WebDriverExtras.Impl
 {
   /// <summary>
   /// Web driver factory base type designed for integration with Sauce Connect by Sauce Labs:

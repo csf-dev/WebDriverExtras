@@ -1,7 +1,7 @@
 ﻿using System;
 using OpenQA.Selenium;
 
-namespace CSF.WebDriverFactory
+namespace CSF.WebDriverExtras
 {
   /// <summary>
   /// Indicates a type which is capable of marking a web driver with outcome-related information.

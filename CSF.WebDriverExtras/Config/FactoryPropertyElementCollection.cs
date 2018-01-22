@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Configuration;
 
-namespace CSF.WebDriverFactory.Config
+namespace CSF.WebDriverExtras.Config
 {
   /// <summary>
   /// Represents a collection of <see cref="FactoryProperty"/> within a configuration file.

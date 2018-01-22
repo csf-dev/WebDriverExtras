@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package>
   <metadata>
-    <id>CSF.WebDriverFactory</id>
+    <id>CSF.WebDriverExtras</id>
     <version>0.8.0-alpha</version>
-    <title>CSF.WebDriverFactory</title>
+    <title>CSF.WebDriverExtras</title>
     <authors>CSF Software Ltd</authors>
     <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
     <projectUrl>https://github.com/csf-dev/CSF.Screenplay</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>A configuration or environment-variable-based factory for Selenium WebDriver instances</description>
+    <description>Types to support the usage of a Selenium IWebDriver, particularly in cross-browser testing.</description>
     <copyright>Copyright 2017</copyright>
     <dependencies>
       <dependency id="CSF.Configuration" version="[1.1.0,2.0.0)" />
@@ -16,7 +16,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="bin/Release/CSF.WebDriverFactory.dll" target="lib/net45" />
-    <file src="bin/Release/CSF.WebDriverFactory.xml" target="lib/net45" />
+    <file src="bin/Release/CSF.WebDriverExtras.dll" target="lib/net45" />
+    <file src="bin/Release/CSF.WebDriverExtras.xml" target="lib/net45" />
   </files>
 </package>

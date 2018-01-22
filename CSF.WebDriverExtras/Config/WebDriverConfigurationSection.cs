@@ -4,7 +4,7 @@ using System.Configuration;
 using System.Linq;
 using CSF.Configuration;
 
-namespace CSF.WebDriverFactory.Config
+namespace CSF.WebDriverExtras.Config
 {
   /// <summary>
   /// Implementation of <see cref="IWebDriverFactoryConfiguration"/> which makes use of a <c>ConfigurationSection</c>

@@ -3,7 +3,7 @@ using Ploeh.AutoFixture;
 using Ploeh.AutoFixture.AutoMoq;
 using Ploeh.AutoFixture.NUnit3;
 
-namespace CSF.WebDriverFactory.Tests
+namespace CSF.WebDriverExtras.Tests
 {
   public class AutoMoqDataAttribute : AutoDataAttribute
   {

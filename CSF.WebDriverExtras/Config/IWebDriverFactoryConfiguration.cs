@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CSF.WebDriverFactory.Config
+namespace CSF.WebDriverExtras.Config
 {
   /// <summary>
   /// Represents configuration information which will enable calling code to get a <see cref="IWebDriverFactory"/>.

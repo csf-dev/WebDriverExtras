@@ -1,5 +1,5 @@
 ﻿using System;
-namespace CSF.WebDriverFactory
+namespace CSF.WebDriverExtras
 {
   /// <summary>
   /// Provides an entry point to this API, creating and returning an instance of <see cref="IWebDriverFactory"/>.

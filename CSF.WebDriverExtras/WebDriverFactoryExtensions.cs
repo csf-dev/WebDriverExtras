@@ -1,7 +1,7 @@
 ﻿using System;
 using OpenQA.Selenium;
 
-namespace CSF.WebDriverFactory
+namespace CSF.WebDriverExtras
 {
   /// <summary>
   /// Extension methods to web driver factory types.

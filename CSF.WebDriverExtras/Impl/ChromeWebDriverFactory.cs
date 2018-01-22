@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
-namespace CSF.WebDriverFactory.Impl
+namespace CSF.WebDriverExtras.Impl
 {
   /// <summary>
   /// Implementation of <see cref="IWebDriverFactory"/> which gets a Google Chrome web driver.

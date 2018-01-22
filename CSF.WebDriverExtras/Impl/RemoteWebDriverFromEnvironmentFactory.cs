@@ -2,7 +2,7 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
 
-namespace CSF.WebDriverFactory.Impl
+namespace CSF.WebDriverExtras.Impl
 {
   /// <summary>
   /// Implementation of <see cref="IWebDriverFactory"/> which gets a web driver for a remote web browser, but also
