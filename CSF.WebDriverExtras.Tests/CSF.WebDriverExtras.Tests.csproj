@@ -5,8 +5,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{9A92340A-F3AA-445B-955D-DCF68B3580AC}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>CSF.WebDriverFactory.Tests</RootNamespace>
-    <AssemblyName>CSF.WebDriverFactory.Tests</AssemblyName>
+    <RootNamespace>CSF.WebDriverExtras.Tests</RootNamespace>
+    <AssemblyName>CSF.WebDriverExtras.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <ReleaseVersion>0.8.0-alpha</ReleaseVersion>
   </PropertyGroup>
