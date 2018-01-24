@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
 using CSF.Configuration;
 using CSF.WebDriverExtras.Factories;
 
@@ -8,121 +6,56 @@ namespace CSF.WebDriverExtras.Config
 {
   public class ConfigurationWebDriverProviderFactorySource
   {
-    const BindingFlags PropertySearchFlags
-      = BindingFlags.GetProperty | BindingFlags.IgnoreCase | BindingFlags.Instance | BindingFlags.Public;
-
     readonly IConfigurationReader configReader;
-    readonly IInstanceCreator instanceCreator;
+    readonly ICreatesWebDriverProviderFactories factoryCreator;
+    readonly ICreatesProviderOptions optionsCreator;
 
-    public virtual bool HasConfiguration() => GetConfiguration() != null;
+    public virtual bool HasConfiguration()
+      => configReader.ReadSection<WebDriverProviderFactoryConfigurationSection>() != null;
 
     public virtual ICreatesWebDriverProviders GetWebDriverProviderFactory()
     {
-      var config = GetConfiguration();
+      var config = configReader.ReadSection<WebDriverProviderFactoryConfigurationSection>();
       if(config == null)
         return null;
 
-      var type = GetFactoryType(config);
-      if(type == null)
-        return null;
-
-      var factory = GetFactory(type);
+      var factory = factoryCreator.GetFactory(config.WebDriverFactoryAssemblyQualifiedType);
       if(factory == null)
         return null;
 
-      return GetFactory(factory, config.GetFactoryOptions());
+      var options = optionsCreator.GetProviderOptions(factory, config.GetFactoryOptions());
+
+      return GetFactory(factory, options);
     }
 
-    Type GetFactoryType(WebDriverProviderFactoryConfigurationSection config)
+    ICreatesWebDriverProviders GetFactory(ICreatesWebDriverProviders factory,
+                                          object options)
     {
-      try
-      {
-        return Type.GetType(config.WebDriverFactoryAssemblyQualifiedType);
-      }
-      catch(Exception)
-      {
-        // We're dealing with user data from the config, bad config just means no factory type found
-        return null;
-      }
+      if(options != null && (factory is ICreatesWebDriverProvidersWithOptions))
+        return new ConfigurationWebDriverProviderFactoryProxy((ICreatesWebDriverProvidersWithOptions) factory, options);
+
+      return factory;
     }
 
-    ICreatesWebDriverProviders GetFactory(Type type)
-    {
-      object factory;
+    public ConfigurationWebDriverProviderFactorySource() : this(null, null, null) {}
 
-      try
-      {
-        factory = instanceCreator.CreateInstance(type);
-      }
-      catch(Exception)
-      {
-        // If there was a problem creating the factory just squelch the error and return null for no factory.
-        return null;
-      }
-
-      return factory as ICreatesWebDriverProviders;
-    }
-
-    ICreatesWebDriverProviders GetFactory(ICreatesWebDriverProviders baseFactory,
-                                          IDictionary<string,string> configuredOptions)
-    {
-      var factoryWithOptionsSupport = baseFactory as ICreatesWebDriverProvidersWithOptions;
-      if(factoryWithOptionsSupport == null)
-        return baseFactory;
-
-      var optionsObject = factoryWithOptionsSupport.CreateEmptyProviderOptions();
-      if(optionsObject == null)
-        return baseFactory;
-
-      PopulateOptions(optionsObject, configuredOptions);
-      return new ConfigurationWebDriverProviderFactoryProxy(factoryWithOptionsSupport, optionsObject);
-    }
-
-    void PopulateOptions(object options, IDictionary<string,string> optionValues)
-    {
-      if(options == null)
-        throw new ArgumentNullException(nameof(options));
-      if(optionValues == null)
-        throw new ArgumentNullException(nameof(optionValues));
-
-      var optionsType = options.GetType();
-
-      foreach(var optionName in optionValues.Keys)
-      {
-        PopulateOption(optionsType, options, optionName, optionValues[optionName]);
-      }
-    }
-
-    void PopulateOption(Type optionsType, object options, string optionName, string optionValue)
-    {
-      var property = optionsType.GetProperty(optionName, PropertySearchFlags);
-      if(property == null || !property.CanWrite)
-        return;
-
-      object convertedValue;
-      try
-      {
-        convertedValue = Convert.ChangeType(optionValue, property.PropertyType);
-      }
-      catch(Exception)
-      {
-        // If we can't convert the user-supplied value into the property then skip that property.
-        return;
-      }
-
-      property.SetValue(options, convertedValue);
-    }
-
-    WebDriverProviderFactoryConfigurationSection GetConfiguration()
-      => configReader.ReadSection<WebDriverProviderFactoryConfigurationSection>();
-
-    public ConfigurationWebDriverProviderFactorySource() : this(null, null) {}
 
     public ConfigurationWebDriverProviderFactorySource(IConfigurationReader configReader,
-                                                       IInstanceCreator instanceCreator)
+                                                       ICreatesWebDriverProviderFactories factoryCreator,
+                                                       ICreatesProviderOptions optionsCreator)
     {
-      this.instanceCreator = instanceCreator ?? new ActivatorInstanceCreator();
+      if(factoryCreator == null)
+      {
+        var instanceCreator = new ActivatorInstanceCreator();
+        this.factoryCreator = new WebDriverProviderFactoryCreator(instanceCreator);
+      }
+      else
+      {
+        this.factoryCreator = factoryCreator;
+      }
+
       this.configReader = configReader ?? new ConfigurationReader();
+      this.optionsCreator = optionsCreator ?? new ProviderOptionsFactory();
     }
   }
 }

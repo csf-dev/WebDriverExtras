@@ -68,6 +68,10 @@
     <Compile Include="Factories\FirefoxProviderFactory.cs" />
     <Compile Include="Factories\RemoteProviderFactory.cs" />
     <Compile Include="Factories\RemoteOptions.cs" />
+    <Compile Include="Config\ICreatesWebDriverProviderFactories.cs" />
+    <Compile Include="Config\WebDriverProviderFactoryCreator.cs" />
+    <Compile Include="Config\ICreatesProviderOptions.cs" />
+    <Compile Include="Config\ProviderOptionsFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

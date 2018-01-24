@@ -46,9 +46,18 @@
     <Reference Include="Ploeh.AutoFixture.NUnit3">
       <HintPath>..\packages\AutoFixture.NUnit3.3.50.3\lib\net40\Ploeh.AutoFixture.NUnit3.dll</HintPath>
     </Reference>
+    <Reference Include="CSF.Configuration">
+      <HintPath>..\packages\CSF.Configuration.1.1.0\lib\net45\CSF.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoMoqDataAttribute.cs" />
+    <Compile Include="Config\ActivatorInstanceCreatorTests.cs" />
+    <Compile Include="Config\ConfigurationWebDriverProviderFactoryProxyTests.cs" />
+    <Compile Include="Config\WebDriverProviderFactoryCreatorTests.cs" />
+    <Compile Include="Config\ProviderOptionsFactoryTests.cs" />
+    <Compile Include="Config\ConfigurationWebDriverProviderFactorySourceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -59,6 +68,9 @@
       <Project>{C99466AD-CA21-4C12-9E05-6730CDC3C031}</Project>
       <Name>CSF.WebDriverExtras</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Config\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

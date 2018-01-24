@@ -1,8 +1,6 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{ED939EED-BD26-4C3C-9089-48E04DD01CD8}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSF.WebDriverExtras", "CSF.WebDriverExtras\CSF.WebDriverExtras.csproj", "{C99466AD-CA21-4C12-9E05-6730CDC3C031}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSF.WebDriverExtras.Tests", "CSF.WebDriverExtras.Tests\CSF.WebDriverExtras.Tests.csproj", "{9A92340A-F3AA-445B-955D-DCF68B3580AC}"
