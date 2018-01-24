@@ -72,6 +72,7 @@
     <Compile Include="Config\WebDriverProviderFactoryCreator.cs" />
     <Compile Include="Config\ICreatesProviderOptions.cs" />
     <Compile Include="Config\ProviderOptionsFactory.cs" />
+    <Compile Include="Factories\DesiredCapabilitiesExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

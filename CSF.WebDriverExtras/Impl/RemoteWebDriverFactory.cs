@@ -12,18 +12,6 @@ namespace CSF.WebDriverExtras.Impl
   {
 
     /// <summary>
-    /// Gets or sets the endpoint address for the remote web browser driver.
-    /// </summary>
-    /// <value>The remote address.</value>
-    public string RemoteAddress { get; set; }
-
-    /// <summary>
-    /// Gets or sets the timeout (in seconds) between issuing a command to the web driver and receiving a response.
-    /// </summary>
-    /// <value>The command timeout seconds.</value>
-    public int CommandTimeoutSeconds { get; set; }
-
-    /// <summary>
     /// Gets the name of the web browser that this factory will create.
     /// </summary>
     /// <returns>The browser name.</returns>
@@ -66,29 +54,6 @@ namespace CSF.WebDriverExtras.Impl
     }
 
     /// <summary>
-    /// Gets a set of <c>ICapabilities</c> from the current state of this instance.
-    /// </summary>
-    /// <returns>The capabilities.</returns>
-    protected virtual DesiredCapabilities GetCapabilities()
-    {
-      var caps = new DesiredCapabilities();
-      ConfigureCapabilities(caps);
-      return caps;
-    }
-
-    /// <summary>
-    /// Configures the capabilities desired for the current instance.
-    /// </summary>
-    /// <param name="caps">Caps.</param>
-    protected virtual void ConfigureCapabilities(DesiredCapabilities caps)
-    {
-      caps.SetCapability(CapabilityType.BrowserName, BrowserName);
-
-      SetCapabilityIfNotNull(caps, CapabilityType.Version, BrowserVersion);
-      SetCapabilityIfNotNull(caps, CapabilityType.Platform, Platform);
-    }
-
-    /// <summary>
     /// Gets the timeout.
     /// </summary>
     /// <returns>The timeout.</returns>
@@ -127,7 +92,7 @@ namespace CSF.WebDriverExtras.Impl
     public RemoteWebDriverFactory()
     {
       BrowserName = "Chrome";
-      RemoteAddress = "http://127.0.0.1:4444/wd/hub";
+      RemoteAddress = ;
       CommandTimeoutSeconds = 60;
     }
   }
