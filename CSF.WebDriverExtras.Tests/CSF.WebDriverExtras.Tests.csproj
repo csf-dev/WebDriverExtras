@@ -48,7 +48,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConfigurationWebDriverFactoryProviderTests.cs" />
     <Compile Include="AutoMoqDataAttribute.cs" />
   </ItemGroup>
   <ItemGroup>

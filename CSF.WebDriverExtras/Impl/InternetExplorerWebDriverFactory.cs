@@ -10,35 +10,12 @@ namespace CSF.WebDriverExtras.Impl
   /// </summary>
   public class InternetExplorerWebDriverFactory : IWebDriverFactory
   {
-    /// <summary>
-    /// Gets or sets the timeout (in seconds) between issuing a command to the web driver and receiving a response.
-    /// </summary>
-    /// <value>The command timeout seconds.</value>
-    public int CommandTimeoutSeconds { get; set; }
-
-    /// <summary>
-    /// Gets or sets the TCP port on which the web driver process will listen.
-    /// </summary>
-    /// <value>The IE driver port.</value>
-    public int? DriverPort { get; set; }
-
-    /// <summary>
-    /// Gets or sets the filesystem path to the web-driver executable (<c>chromedriver</c>).
-    /// </summary>
-    /// <value>The IE driver path.</value>
-    public string DriverPath { get; set; }
 
     /// <summary>
     /// Gets the name of the web browser that this factory will create.
     /// </summary>
     /// <returns>The browser name.</returns>
     public string GetBrowserName() => "Internet explorer";
-
-    /// <summary>
-    /// Gets the version of the web browser that this factory will create.
-    /// </summary>
-    /// <returns>The browser version.</returns>
-    public string GetBrowserVersion() => null;
 
     /// <summary>
     /// Gets the web driver.

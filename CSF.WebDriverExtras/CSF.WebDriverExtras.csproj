@@ -43,28 +43,46 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="IWebDriverFactory.cs" />
-    <Compile Include="IWebDriverFactoryProvider.cs" />
-    <Compile Include="ConfigurationWebDriverFactoryProvider.cs" />
-    <Compile Include="Config\FactoryPropertyElementCollection.cs" />
-    <Compile Include="Config\IWebDriverFactoryConfiguration.cs" />
-    <Compile Include="Config\WebDriverConfigurationSection.cs" />
-    <Compile Include="Impl\FirefoxGeckoDriverWebDriverFactory.cs" />
-    <Compile Include="Impl\ChromeWebDriverFactory.cs" />
-    <Compile Include="Impl\InternetExplorerWebDriverFactory.cs" />
-    <Compile Include="Impl\RemoteWebDriverFactory.cs" />
-    <Compile Include="Impl\RemoteWebDriverFromEnvironmentFactory.cs" />
-    <Compile Include="Impl\SauceConnectWebDriverFactory.cs" />
-    <Compile Include="WebDriverFactoryExtensions.cs" />
-    <Compile Include="IMarksWebDriverWithOutcome.cs" />
+    <Compile Include="Config\FactoryOptionsCollection.cs" />
+    <Compile Include="ICanSendSuccessFailureInfo.cs" />
+    <Compile Include="ICreatesWebDriverProviders.cs" />
+    <Compile Include="IHasBrowserFlags.cs" />
+    <Compile Include="IHasBrowserInfo.cs" />
+    <Compile Include="IHasPlatformInfo.cs" />
+    <Compile Include="IHasRequestedCapabilities.cs" />
+    <Compile Include="IProvidesWebDriver.cs" />
+    <Compile Include="Providers\WebDriverProvider.cs" />
+    <Compile Include="Providers\WebDriverProviderWithFlags.cs" />
+    <Compile Include="BrowserName.cs" />
+    <Compile Include="Factories\LocalProviderOptions.cs" />
+    <Compile Include="Factories\LocalChromeOptions.cs" />
+    <Compile Include="Factories\LocalFirefoxOptions.cs" />
+    <Compile Include="Factories\ChromeProviderFactory.cs" />
+    <Compile Include="Flags\IGetsBrowserFlags.cs" />
+    <Compile Include="Config\ConfigurationWebDriverProviderFactorySource.cs" />
+    <Compile Include="Config\WebDriverProviderFactoryConfigurationSection.cs" />
+    <Compile Include="Config\ConfigurationWebDriverProviderFactoryProxy.cs" />
+    <Compile Include="Config\IInstanceCreator.cs" />
+    <Compile Include="Config\ActivatorInstanceCreator.cs" />
+    <Compile Include="Factories\ICreatesWebDriverProvidersWithOptions.cs" />
+    <Compile Include="Factories\FirefoxProviderFactory.cs" />
+    <Compile Include="Factories\RemoteProviderFactory.cs" />
+    <Compile Include="Factories\RemoteOptions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="CSF.WebDriverExtras.nuspec" />
+    <None Include="Impl\InternetExplorerWebDriverFactory.cs" />
+    <None Include="Impl\RemoteWebDriverFactory.cs" />
+    <None Include="Impl\RemoteWebDriverFromEnvironmentFactory.cs" />
+    <None Include="Impl\SauceConnectWebDriverFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Impl\" />
     <Folder Include="Config\" />
+    <Folder Include="Providers\" />
+    <Folder Include="Factories\" />
+    <Folder Include="Flags\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
