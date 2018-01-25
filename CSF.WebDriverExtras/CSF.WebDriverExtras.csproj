@@ -82,6 +82,7 @@
     <Compile Include="SuccessAndFailure\ISuccessAndFailureGateway.cs" />
     <Compile Include="SuccessAndFailure\NoOpSuccessAndFailureGateway.cs" />
     <Compile Include="WebDriverProvider.cs" />
+    <Compile Include="SuccessAndFailure\SauceLabsSuccessFailureGateway.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
