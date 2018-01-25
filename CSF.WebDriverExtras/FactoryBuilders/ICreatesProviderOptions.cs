@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CSF.WebDriverExtras.Config
+namespace CSF.WebDriverExtras.FactoryBuilders
 {
   public interface ICreatesProviderOptions
   {

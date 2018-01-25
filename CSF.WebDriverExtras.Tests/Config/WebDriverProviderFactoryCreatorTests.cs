@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using CSF.WebDriverExtras.Config;
+using CSF.WebDriverExtras.FactoryBuilders;
 using CSF.WebDriverExtras.Flags;
 using Moq;
 using NUnit.Framework;
 using Ploeh.AutoFixture.NUnit3;
 
-namespace CSF.WebDriverExtras.Tests.Config
+namespace CSF.WebDriverExtras.Tests.FactoryBuilders
 {
   [TestFixture,Parallelizable(ParallelScope.All)]
   public class WebDriverProviderFactoryCreatorTests

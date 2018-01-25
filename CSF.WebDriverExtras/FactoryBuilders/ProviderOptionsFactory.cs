@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using CSF.WebDriverExtras.Factories;
 
-namespace CSF.WebDriverExtras.Config
+namespace CSF.WebDriverExtras.FactoryBuilders
 {
   public class ProviderOptionsFactory : ICreatesProviderOptions
   {
