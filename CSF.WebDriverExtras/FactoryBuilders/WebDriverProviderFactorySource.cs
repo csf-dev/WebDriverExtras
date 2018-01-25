@@ -4,7 +4,7 @@ using CSF.WebDriverExtras.Factories;
 
 namespace CSF.WebDriverExtras.FactoryBuilders
 {
-  public class WebDriverProviderFactorySource : IGetsProviderFactory
+  public class WebDriverProviderFactorySource
   {
     readonly IGetsFactoryConfiguration configReader;
     readonly ICreatesWebDriverProviderFactories factoryCreator;
@@ -33,8 +33,15 @@ namespace CSF.WebDriverExtras.FactoryBuilders
       return factory;
     }
 
-    public WebDriverProviderFactorySource() : this(null, null, null) {}
+    IGetsFactoryConfiguration GetDefaultConfigurationReader()
+    {
+      var configFileReader = new ConfigurationFileFactoryConfigurationReader();
+      var environmentBasedReader = new EnvironmentVariableFactoryConfigReaderProxy(configFileReader);
 
+      return environmentBasedReader;
+    }
+
+    public WebDriverProviderFactorySource() : this(null, null, null) {}
 
     public WebDriverProviderFactorySource(IGetsFactoryConfiguration configReader,
                                           ICreatesWebDriverProviderFactories factoryCreator,
@@ -50,7 +57,7 @@ namespace CSF.WebDriverExtras.FactoryBuilders
         this.factoryCreator = factoryCreator;
       }
 
-      this.configReader = configReader ?? new ConfigurationFileFactoryConfigurationReader();
+      this.configReader = configReader ?? GetDefaultConfigurationReader();
       this.optionsCreator = optionsCreator ?? new ProviderOptionsFactory();
     }
   }

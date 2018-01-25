@@ -10,7 +10,7 @@ using Ploeh.AutoFixture.NUnit3;
 namespace CSF.WebDriverExtras.Tests.FactoryBuilders
 {
   [TestFixture,Parallelizable(ParallelScope.All)]
-  public class ConfigurationWebDriverProviderFactoryProxyTests
+  public class OptionsCachingProviderFactoryProxyTests
   {
     [Test,AutoMoqData]
     public void CreateProvider_calls_method_from_proxied_type([Frozen] ICreatesWebDriverProvidersWithOptions proxied,

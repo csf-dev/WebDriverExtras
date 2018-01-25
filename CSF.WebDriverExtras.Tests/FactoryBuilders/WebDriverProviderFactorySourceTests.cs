@@ -10,7 +10,7 @@ using CSF.WebDriverExtras.Config;
 namespace CSF.WebDriverExtras.Tests.FactoryBuilders
 {
   [TestFixture,Parallelizable(ParallelScope.All)]
-  public class ConfigurationWebDriverProviderFactorySourceTests
+  public class WebDriverProviderFactorySourceTests
   {
     [Test,AutoMoqData]
     public void GetWebDriverProviderFactory_returns_null_when_config_does_not_exist(IGetsFactoryConfiguration config,

@@ -4,18 +4,23 @@ using CSF.Configuration;
 
 namespace CSF.WebDriverExtras.Config
 {
-  public class ConfigurationFileFactoryConfigurationReader : IGetsFactoryConfiguration
+  public class ConfigurationFileFactoryConfigurationReader : IGetsFactoryConfiguration, IIndicatesEnvironmentSupport
   {
     readonly IConfigurationReader configReader;
 
     public bool HasConfiguration => GetConfig() != null;
 
+    public bool EnvironmentVariableSupportEnabled
+      => (GetConfig()?.EnvironmentVariableSupportEnabled).GetValueOrDefault();
+
     public string GetFactoryAssemblyQualifiedTypeName() => GetConfig()?.WebDriverFactoryAssemblyQualifiedType;
 
     public IDictionary<string, string> GetProviderOptions() => GetConfig()?.GetFactoryOptions();
 
-    WebDriverProviderFactoryConfigurationSection GetConfig()
+    public WebDriverProviderFactoryConfigurationSection GetConfig()
       => configReader.ReadSection<WebDriverProviderFactoryConfigurationSection>();
+
+    public string GetEnvironmentVariablePrefix() => GetConfig()?.EnvironmentVariablePrefix;
 
     public ConfigurationFileFactoryConfigurationReader() : this(null) {}
 
