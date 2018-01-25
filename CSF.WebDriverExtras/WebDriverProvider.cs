@@ -8,9 +8,7 @@ using OpenQA.Selenium;
 
 namespace CSF.WebDriverExtras
 {
-  public class WebDriverProvider
-    : IProvidesWebDriver, IHasRequestedCapabilities, IHasBrowserInfo, IHasPlatformInfo,
-      IHasBrowserFlags, ICanSendSuccessFailureInfo
+  public class WebDriverProvider : IProvidesWebDriver, ICanSendSuccessFailureInfo
   {
     readonly string browserName, browserVersion, platform;
     readonly IDictionary<string, object> requestedCapabilities;

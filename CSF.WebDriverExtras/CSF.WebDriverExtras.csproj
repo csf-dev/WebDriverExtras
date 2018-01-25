@@ -46,10 +46,6 @@
     <Compile Include="Config\FactoryOptionsCollection.cs" />
     <Compile Include="ICanSendSuccessFailureInfo.cs" />
     <Compile Include="ICreatesWebDriverProviders.cs" />
-    <Compile Include="IHasBrowserFlags.cs" />
-    <Compile Include="IHasBrowserInfo.cs" />
-    <Compile Include="IHasPlatformInfo.cs" />
-    <Compile Include="IHasRequestedCapabilities.cs" />
     <Compile Include="IProvidesWebDriver.cs" />
     <Compile Include="BrowserName.cs" />
     <Compile Include="Factories\LocalProviderOptions.cs" />
