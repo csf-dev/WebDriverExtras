@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using CSF.WebDriverExtras.Flags;
-using CSF.WebDriverExtras.Providers;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
 
@@ -66,24 +65,13 @@ namespace CSF.WebDriverExtras.Factories
                                    RemoteOptions options,
                                    IGetsBrowserFlags flagsProvider)
     {
-      var baseProvider = GetProvider(webDriver, requestedCapabilities, options);
-
-      if(flagsProvider == null)
-        return baseProvider;
-
-      var flags = flagsProvider.GetFlags(requestedCapabilities, options);
-      return new WebDriverProviderWithFlags(baseProvider, flags);
-    }
-
-    WebDriverProvider GetProvider(IWebDriver webDriver,
-                                  IDictionary<string,object> requestedCapabilities,
-                                  RemoteOptions options)
-    {
       return new WebDriverProvider(webDriver,
                                    options?.BrowserName,
                                    options?.BrowserVersion,
                                    options?.Platform,
-                                   requestedCapabilities);
+                                   requestedCapabilities,
+                                   options,
+                                   flagsProvider);
     }
   }
 }
