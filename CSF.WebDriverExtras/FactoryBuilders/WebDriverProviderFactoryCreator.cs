@@ -1,5 +1,5 @@
 ﻿using System;
-namespace CSF.WebDriverExtras.Config
+namespace CSF.WebDriverExtras.FactoryBuilders
 {
   public class WebDriverProviderFactoryCreator : ICreatesWebDriverProviderFactories
   {

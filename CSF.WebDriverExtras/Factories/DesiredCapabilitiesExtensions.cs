@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using OpenQA.Selenium.Remote;
 
 namespace CSF.WebDriverExtras.Factories
@@ -9,7 +10,7 @@ namespace CSF.WebDriverExtras.Factories
     public static void SetCapability(this DesiredCapabilities capabilities,
                                      string name,
                                      IDictionary<string,object> requestedCapabilities,
-                                     object fallbackValue)
+                                     params object[] fallbackValues)
     {
       if(capabilities == null)
         throw new ArgumentNullException(nameof(capabilities));
@@ -23,8 +24,10 @@ namespace CSF.WebDriverExtras.Factories
         return;
       }
 
+      var fallbackValue = GetFallbackValue(fallbackValues);
+
       if(ReferenceEquals(fallbackValue, null))
-        throw new ArgumentException($"Either the {nameof(requestedCapabilities)} or {nameof(fallbackValue)} must contain a non-null value for capability '{name}'");
+        throw new ArgumentException($"Either the {nameof(requestedCapabilities)} or {nameof(fallbackValues)} must contain a non-null value for capability '{name}'");
 
       capabilities.SetCapability(name, fallbackValue);
     }
@@ -32,7 +35,7 @@ namespace CSF.WebDriverExtras.Factories
     public static void SetOptionalCapability(this DesiredCapabilities capabilities,
                                              string name,
                                              IDictionary<string,object> requestedCapabilities,
-                                             object fallbackValue)
+                                             params object[] fallbackValues)
     {
       if(capabilities == null)
         throw new ArgumentNullException(nameof(capabilities));
@@ -46,8 +49,18 @@ namespace CSF.WebDriverExtras.Factories
         return;
       }
 
+      var fallbackValue = GetFallbackValue(fallbackValues);
+
       if(!ReferenceEquals(fallbackValue, null))
         capabilities.SetCapability(name, fallbackValue);
+    }
+
+    static object GetFallbackValue(object[] values)
+    {
+      if(values == null)
+        return null;
+
+      return values.FirstOrDefault(x => x != null);
     }
   }
 }

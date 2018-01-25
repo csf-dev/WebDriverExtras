@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using CSF.WebDriverExtras.Factories;
 using CSF.WebDriverExtras.Flags;
 
-namespace CSF.WebDriverExtras.Config
+namespace CSF.WebDriverExtras.FactoryBuilders
 {
-  public class ConfigurationWebDriverProviderFactoryProxy : ICreatesWebDriverProviders
+  public class OptionsCachingProviderFactoryProxy : ICreatesWebDriverProviders
   {
     readonly object options;
     readonly ICreatesWebDriverProvidersWithOptions proxiedProvider;
@@ -16,7 +16,7 @@ namespace CSF.WebDriverExtras.Config
                                              IGetsBrowserFlags flagsProvider = null)
       => proxiedProvider.CreateProvider(this.options, requestedCapabilities, flagsProvider);
 
-    public ConfigurationWebDriverProviderFactoryProxy(ICreatesWebDriverProvidersWithOptions proxiedProvider,
+    public OptionsCachingProviderFactoryProxy(ICreatesWebDriverProvidersWithOptions proxiedProvider,
                                                       object options)
     {
       if(proxiedProvider == null)

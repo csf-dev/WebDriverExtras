@@ -53,11 +53,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoMoqDataAttribute.cs" />
-    <Compile Include="Config\ActivatorInstanceCreatorTests.cs" />
-    <Compile Include="Config\ConfigurationWebDriverProviderFactoryProxyTests.cs" />
-    <Compile Include="Config\WebDriverProviderFactoryCreatorTests.cs" />
-    <Compile Include="Config\ProviderOptionsFactoryTests.cs" />
-    <Compile Include="Config\ConfigurationWebDriverProviderFactorySourceTests.cs" />
+    <Compile Include="FactoryBuilders\ActivatorInstanceCreatorTests.cs" />
+    <Compile Include="FactoryBuilders\OptionsCachingProviderFactoryProxyTests.cs" />
+    <Compile Include="FactoryBuilders\WebDriverProviderFactoryCreatorTests.cs" />
+    <Compile Include="FactoryBuilders\ProviderOptionsFactoryTests.cs" />
+    <Compile Include="FactoryBuilders\WebDriverProviderFactorySourceTests.cs" />
+    <Compile Include="Config\EnvironmentVariableFactoryConfigReaderProxyTests.cs" />
+    <Compile Include="HasValuesAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -70,6 +72,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="FactoryBuilders\" />
     <Folder Include="Config\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

@@ -1,8 +1,8 @@
 ﻿using System;
-using CSF.WebDriverExtras.Config;
+using CSF.WebDriverExtras.FactoryBuilders;
 using NUnit.Framework;
 
-namespace CSF.WebDriverExtras.Tests.Config
+namespace CSF.WebDriverExtras.Tests.FactoryBuilders
 {
   [TestFixture,Parallelizable(ParallelScope.All)]
   public class ActivatorInstanceCreatorTests

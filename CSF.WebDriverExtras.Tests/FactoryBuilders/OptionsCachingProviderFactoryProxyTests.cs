@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using CSF.WebDriverExtras.Config;
+using CSF.WebDriverExtras.FactoryBuilders;
 using CSF.WebDriverExtras.Factories;
 using CSF.WebDriverExtras.Flags;
 using Moq;
 using NUnit.Framework;
 using Ploeh.AutoFixture.NUnit3;
 
-namespace CSF.WebDriverExtras.Tests.Config
+namespace CSF.WebDriverExtras.Tests.FactoryBuilders
 {
   [TestFixture,Parallelizable(ParallelScope.All)]
-  public class ConfigurationWebDriverProviderFactoryProxyTests
+  public class OptionsCachingProviderFactoryProxyTests
   {
     [Test,AutoMoqData]
     public void CreateProvider_calls_method_from_proxied_type([Frozen] ICreatesWebDriverProvidersWithOptions proxied,
-                                                              ConfigurationWebDriverProviderFactoryProxy sut)
+                                                              OptionsCachingProviderFactoryProxy sut)
     {
       // Act
       sut.CreateProvider();
@@ -26,7 +26,7 @@ namespace CSF.WebDriverExtras.Tests.Config
 
     [Test,AutoMoqData]
     public void CreateProvider_returns_result_from_proxied_type([Frozen] ICreatesWebDriverProvidersWithOptions proxied,
-                                                                ConfigurationWebDriverProviderFactoryProxy sut,
+                                                                OptionsCachingProviderFactoryProxy sut,
                                                                 IProvidesWebDriver provider)
     {
       // Arrange
@@ -46,7 +46,7 @@ namespace CSF.WebDriverExtras.Tests.Config
                                                          object options)
     {
       // Arrange
-      var sut = new ConfigurationWebDriverProviderFactoryProxy(proxied, options);
+      var sut = new OptionsCachingProviderFactoryProxy(proxied, options);
 
       // Act
       var result = sut.CreateProvider();
@@ -58,7 +58,7 @@ namespace CSF.WebDriverExtras.Tests.Config
 
     [Test,AutoMoqData]
     public void CreateProvider_passes_capabilities_to_proxied_factory([Frozen] ICreatesWebDriverProvidersWithOptions proxied,
-                                                                      ConfigurationWebDriverProviderFactoryProxy sut,
+                                                                      OptionsCachingProviderFactoryProxy sut,
                                                                       IDictionary<string,object> capabilities)
     {
       // Act
@@ -71,7 +71,7 @@ namespace CSF.WebDriverExtras.Tests.Config
 
     [Test,AutoMoqData]
     public void CreateProvider_passes_flags_provider_to_proxied_factory([Frozen] ICreatesWebDriverProvidersWithOptions proxied,
-                                                                        ConfigurationWebDriverProviderFactoryProxy sut,
+                                                                        OptionsCachingProviderFactoryProxy sut,
                                                                         IGetsBrowserFlags flagsProvider)
     {
       // Act

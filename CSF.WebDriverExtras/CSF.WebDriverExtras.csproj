@@ -59,20 +59,27 @@
     <Compile Include="Factories\LocalFirefoxOptions.cs" />
     <Compile Include="Factories\ChromeProviderFactory.cs" />
     <Compile Include="Flags\IGetsBrowserFlags.cs" />
-    <Compile Include="Config\ConfigurationWebDriverProviderFactorySource.cs" />
     <Compile Include="Config\WebDriverProviderFactoryConfigurationSection.cs" />
-    <Compile Include="Config\ConfigurationWebDriverProviderFactoryProxy.cs" />
-    <Compile Include="Config\IInstanceCreator.cs" />
-    <Compile Include="Config\ActivatorInstanceCreator.cs" />
     <Compile Include="Factories\ICreatesWebDriverProvidersWithOptions.cs" />
     <Compile Include="Factories\FirefoxProviderFactory.cs" />
     <Compile Include="Factories\RemoteProviderFactory.cs" />
     <Compile Include="Factories\RemoteOptions.cs" />
-    <Compile Include="Config\ICreatesWebDriverProviderFactories.cs" />
-    <Compile Include="Config\WebDriverProviderFactoryCreator.cs" />
-    <Compile Include="Config\ICreatesProviderOptions.cs" />
-    <Compile Include="Config\ProviderOptionsFactory.cs" />
     <Compile Include="Factories\DesiredCapabilitiesExtensions.cs" />
+    <Compile Include="Config\IGetsFactoryConfiguration.cs" />
+    <Compile Include="FactoryBuilders\OptionsCachingProviderFactoryProxy.cs" />
+    <Compile Include="FactoryBuilders\WebDriverProviderFactorySource.cs" />
+    <Compile Include="FactoryBuilders\ActivatorInstanceCreator.cs" />
+    <Compile Include="FactoryBuilders\ProviderOptionsFactory.cs" />
+    <Compile Include="FactoryBuilders\ICreatesProviderOptions.cs" />
+    <Compile Include="FactoryBuilders\ICreatesWebDriverProviderFactories.cs" />
+    <Compile Include="FactoryBuilders\IInstanceCreator.cs" />
+    <Compile Include="FactoryBuilders\WebDriverProviderFactoryCreator.cs" />
+    <Compile Include="Config\ConfigurationFileFactoryConfigurationReader.cs" />
+    <Compile Include="Config\EnvironmentVariableFactoryConfigReaderProxy.cs" />
+    <Compile Include="Config\IIndicatesEnvironmentSupport.cs" />
+    <Compile Include="Config\IReadsEnvironmentVariables.cs" />
+    <Compile Include="Config\EnvironmentReader.cs" />
+    <Compile Include="Get.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -88,6 +95,7 @@
     <Folder Include="Providers\" />
     <Folder Include="Factories\" />
     <Folder Include="Flags\" />
+    <Folder Include="FactoryBuilders\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

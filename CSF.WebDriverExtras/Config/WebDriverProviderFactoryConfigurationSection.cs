@@ -25,6 +25,22 @@ namespace CSF.WebDriverExtras.Config
       set { this[FactoryOptionsConfigName] = value; }
     }
 
+    const string EnvironmentVariableSupportEnabledConfigName = @"EnvironmentVariableSupportEnabled";
+    [ConfigurationProperty(EnvironmentVariableSupportEnabledConfigName, IsRequired = false, DefaultValue = "False")]
+    public virtual bool EnvironmentVariableSupportEnabled
+    {
+      get { return (bool) this[EnvironmentVariableSupportEnabledConfigName]; }
+      set { this[EnvironmentVariableSupportEnabledConfigName] = value; }
+    }
+
+    const string EnvironmentVariablePrefixConfigName = @"EnvironmentVariablePrefix";
+    [ConfigurationProperty(EnvironmentVariablePrefixConfigName, IsRequired = false)]
+    public virtual string EnvironmentVariablePrefix
+    {
+      get { return (string) this[EnvironmentVariablePrefixConfigName]; }
+      set { this[EnvironmentVariablePrefixConfigName] = value; }
+    }
+
     /// <summary>
     /// Gets a collection of name/value pairs which indicate public settable properties on the factory instance
     /// and values to set into them.
