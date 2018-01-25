@@ -51,8 +51,6 @@
     <Compile Include="IHasPlatformInfo.cs" />
     <Compile Include="IHasRequestedCapabilities.cs" />
     <Compile Include="IProvidesWebDriver.cs" />
-    <Compile Include="Providers\WebDriverProvider.cs" />
-    <Compile Include="Providers\WebDriverProviderWithFlags.cs" />
     <Compile Include="BrowserName.cs" />
     <Compile Include="Factories\LocalProviderOptions.cs" />
     <Compile Include="Factories\LocalChromeOptions.cs" />
@@ -80,22 +78,25 @@
     <Compile Include="Config\IReadsEnvironmentVariables.cs" />
     <Compile Include="Config\EnvironmentReader.cs" />
     <Compile Include="Get.cs" />
+    <Compile Include="Flags\EmptyFlagsProvider.cs" />
+    <Compile Include="SuccessAndFailure\ISuccessAndFailureGateway.cs" />
+    <Compile Include="SuccessAndFailure\NoOpSuccessAndFailureGateway.cs" />
+    <Compile Include="WebDriverProvider.cs" />
+    <Compile Include="SuccessAndFailure\SauceLabsSuccessFailureGateway.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="CSF.WebDriverExtras.nuspec" />
     <None Include="Impl\InternetExplorerWebDriverFactory.cs" />
-    <None Include="Impl\RemoteWebDriverFactory.cs" />
-    <None Include="Impl\RemoteWebDriverFromEnvironmentFactory.cs" />
     <None Include="Impl\SauceConnectWebDriverFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Impl\" />
     <Folder Include="Config\" />
-    <Folder Include="Providers\" />
     <Folder Include="Factories\" />
     <Folder Include="Flags\" />
     <Folder Include="FactoryBuilders\" />
+    <Folder Include="SuccessAndFailure\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

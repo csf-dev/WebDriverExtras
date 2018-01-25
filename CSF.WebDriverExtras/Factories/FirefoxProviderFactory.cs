@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using CSF.WebDriverExtras.Flags;
-using CSF.WebDriverExtras.Providers;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 
@@ -82,24 +81,13 @@ namespace CSF.WebDriverExtras.Factories
                                    LocalFirefoxOptions options,
                                    IGetsBrowserFlags flagsProvider)
     {
-      var baseProvider = GetProvider(webDriver, requestedCapabilities, options);
-
-      if(flagsProvider == null)
-        return baseProvider;
-
-      var flags = flagsProvider.GetFlags(requestedCapabilities, options);
-      return new WebDriverProviderWithFlags(baseProvider, flags);
-    }
-
-    WebDriverProvider GetProvider(IWebDriver webDriver,
-                                  IDictionary<string,object> requestedCapabilities,
-                                  LocalFirefoxOptions options)
-    {
       return new WebDriverProvider(webDriver,
                                    BrowserName.MozillaFirefox,
                                    options?.BrowserVersion,
                                    Environment.OSVersion.ToString(),
-                                   requestedCapabilities);
+                                   requestedCapabilities,
+                                   options,
+                                   flagsProvider);
     }
   }
 }

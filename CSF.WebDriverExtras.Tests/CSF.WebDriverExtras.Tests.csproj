@@ -50,6 +50,10 @@
       <HintPath>..\packages\CSF.Configuration.1.1.0\lib\net45\CSF.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="System.Configuration" />
+    <Reference Include="WebDriver">
+      <HintPath>..\packages\Selenium.WebDriver.3.4.0\lib\net40\WebDriver.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoMoqDataAttribute.cs" />
@@ -60,6 +64,8 @@
     <Compile Include="FactoryBuilders\WebDriverProviderFactorySourceTests.cs" />
     <Compile Include="Config\EnvironmentVariableFactoryConfigReaderProxyTests.cs" />
     <Compile Include="HasValuesAttribute.cs" />
+    <Compile Include="SuccessAndFailure\SauceLabsSuccessFailureGatewayTests.cs" />
+    <Compile Include="ExecutesScriptAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -74,6 +80,7 @@
   <ItemGroup>
     <Folder Include="FactoryBuilders\" />
     <Folder Include="Config\" />
+    <Folder Include="SuccessAndFailure\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

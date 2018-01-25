@@ -14,8 +14,7 @@ namespace CSF.WebDriverExtras.Impl
       UsernameCapability = "username",
       ApiKeyCapability = "accessKey",
       TestNameCapabilityName = "name",
-      BuildNameCapability = "build",
-      PassedScriptTemplate = "sauce:job-result={0}";
+      BuildNameCapability = "build";
 
     /// <summary>
     /// Gets the name of the capability which provides the test name.
@@ -68,36 +67,5 @@ namespace CSF.WebDriverExtras.Impl
     /// </summary>
     /// <returns>The sauce build name.</returns>
     protected abstract string GetSauceBuildName();
-
-    /// <summary>
-    /// Marks the web driver as having passed the current test scenario.
-    /// </summary>
-    /// <param name="driver">Driver.</param>
-    public void MarkAsSuccess(IWebDriver driver)
-    {
-      MarkWithOutcome(driver, true);
-    }
-
-    /// <summary>
-    /// Marks the web driver as having failed the current test scenario.
-    /// </summary>
-    /// <param name="driver">Driver.</param>
-    public void MarkAsFailure(IWebDriver driver)
-    {
-      MarkWithOutcome(driver, false);
-    }
-
-    void MarkWithOutcome(IWebDriver driver, bool passed)
-    {
-      if(driver == null)
-        throw new ArgumentNullException(nameof(driver));
-
-      var javascriptExecutor = driver as IJavaScriptExecutor;
-      if(javascriptExecutor == null)
-        return;
-
-      var outcome = passed.ToString().ToLowerInvariant();
-      javascriptExecutor.ExecuteScript(String.Format(PassedScriptTemplate, outcome));
-    }
   }
 }
