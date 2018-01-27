@@ -79,12 +79,15 @@
     <Compile Include="SuccessAndFailure\NoOpSuccessAndFailureGateway.cs" />
     <Compile Include="WebDriverProvider.cs" />
     <Compile Include="SuccessAndFailure\SauceLabsSuccessFailureGateway.cs" />
+    <Compile Include="Factories\SauceConnectOptions.cs" />
+    <Compile Include="IReceivesScenarioName.cs" />
+    <Compile Include="SauceConnectWebDriverProvider.cs" />
+    <Compile Include="Factories\SauceConnectFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="CSF.WebDriverExtras.nuspec" />
     <None Include="Impl\InternetExplorerWebDriverFactory.cs" />
-    <None Include="Impl\SauceConnectWebDriverFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Impl\" />

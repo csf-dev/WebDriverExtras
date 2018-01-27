@@ -8,7 +8,9 @@ namespace CSF.WebDriverExtras.Factories
 {
   public class RemoteProviderFactory : ICreatesWebDriverProvidersWithOptions
   {
-    object ICreatesWebDriverProvidersWithOptions.CreateEmptyProviderOptions() => new RemoteOptions();
+    object ICreatesWebDriverProvidersWithOptions.CreateEmptyProviderOptions() => CreateEmptyOptions();
+
+    protected virtual RemoteOptions CreateEmptyOptions() => new RemoteOptions();
 
     IProvidesWebDriver ICreatesWebDriverProviders.CreateProvider(IDictionary<string,object> requestedCapabilities,
                                                                  IGetsBrowserFlags flagsProvider)
@@ -47,10 +49,22 @@ namespace CSF.WebDriverExtras.Factories
                                                  IDictionary<string,object> requestedCapabilities,
                                                  RemoteOptions options)
     {
+      SetStandardCapabilities(caps, requestedCapabilities, options);
+      SetExtraCapabilities(caps, requestedCapabilities);
+    }
+
+    protected virtual void SetStandardCapabilities(DesiredCapabilities caps,
+                                                   IDictionary<string,object> requestedCapabilities,
+                                                   RemoteOptions options)
+    {
       caps.SetCapability(CapabilityType.BrowserName, requestedCapabilities, options?.BrowserName);
       caps.SetOptionalCapability(CapabilityType.Version, requestedCapabilities, options?.BrowserVersion);
       caps.SetOptionalCapability(CapabilityType.Platform, requestedCapabilities, options?.Platform);
+    }
 
+    protected virtual void SetExtraCapabilities(DesiredCapabilities caps,
+                                                IDictionary<string,object> requestedCapabilities)
+    {
       if(requestedCapabilities == null)
         return;
 
@@ -60,10 +74,10 @@ namespace CSF.WebDriverExtras.Factories
       }
     }
 
-    IProvidesWebDriver GetProvider(IWebDriver webDriver,
-                                   IDictionary<string,object> requestedCapabilities,
-                                   RemoteOptions options,
-                                   IGetsBrowserFlags flagsProvider)
+    protected virtual IProvidesWebDriver GetProvider(IWebDriver webDriver,
+                                                     IDictionary<string,object> requestedCapabilities,
+                                                     RemoteOptions options,
+                                                     IGetsBrowserFlags flagsProvider)
     {
       return new WebDriverProvider(webDriver,
                                    options?.BrowserName,
