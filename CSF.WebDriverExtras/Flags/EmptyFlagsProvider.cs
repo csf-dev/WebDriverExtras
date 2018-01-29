@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using OpenQA.Selenium;
 
 namespace CSF.WebDriverExtras.Flags
 {
@@ -7,7 +8,6 @@ namespace CSF.WebDriverExtras.Flags
   {
     static IReadOnlyCollection<string> Empty => new string[0];
 
-    public IReadOnlyCollection<string> GetFlags(IDictionary<string, object> requestedCapabilities,
-                                                object providerOptions) => Empty;
+    public IReadOnlyCollection<string> GetFlags(IHasCapabilities webDriver) => Empty;
   }
 }

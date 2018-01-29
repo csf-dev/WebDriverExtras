@@ -5,22 +5,22 @@ using CSF.WebDriverExtras.Factories;
 
 namespace CSF.WebDriverExtras.FactoryBuilders
 {
-  public class ProviderOptionsFactory : ICreatesProviderOptions
+  public class DriverOptionsFactory : ICreatesDriverOptions
   {
     const BindingFlags PropertySearchFlags
       = BindingFlags.GetProperty | BindingFlags.IgnoreCase | BindingFlags.Instance | BindingFlags.Public;
 
-    public object GetProviderOptions(ICreatesWebDriverProviders factory,
+    public object GetDriverOptions(ICreatesWebDriver factory,
                                      IDictionary<string, string> optionsDictionary)
     {
       if(factory == null)
         throw new ArgumentNullException(nameof(factory));
 
-      var factoryWithOptionsSupport = factory as ICreatesWebDriverProvidersWithOptions;
+      var factoryWithOptionsSupport = factory as ICreatesWebDriverFromOptions;
       if(factoryWithOptionsSupport == null)
         return null;
 
-      var optionsObject = factoryWithOptionsSupport.CreateEmptyProviderOptions();
+      var optionsObject = factoryWithOptionsSupport.CreateEmptyOptions();
       PopulateOptions(optionsObject, optionsDictionary);
 
       return optionsObject;

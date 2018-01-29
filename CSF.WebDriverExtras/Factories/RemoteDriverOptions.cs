@@ -1,7 +1,7 @@
 ﻿using System;
 namespace CSF.WebDriverExtras.Factories
 {
-  public class RemoteOptions
+  public class RemoteDriverOptions
   {
     static internal readonly TimeSpan DefaultCommandTimeout = TimeSpan.FromSeconds(60);
 

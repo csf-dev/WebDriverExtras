@@ -1,7 +1,7 @@
 ﻿using System;
 namespace CSF.WebDriverExtras.Factories
 {
-  public abstract class LocalProviderOptions
+  public abstract class LocalDriverOptions
   {
     static internal readonly TimeSpan DefaultCommandTimeout = TimeSpan.FromSeconds(60);
 

@@ -4,6 +4,7 @@ using CSF.WebDriverExtras.FactoryBuilders;
 using CSF.WebDriverExtras.Flags;
 using Moq;
 using NUnit.Framework;
+using OpenQA.Selenium;
 using Ploeh.AutoFixture.NUnit3;
 
 namespace CSF.WebDriverExtras.Tests.FactoryBuilders
@@ -13,7 +14,7 @@ namespace CSF.WebDriverExtras.Tests.FactoryBuilders
   {
     [Test,AutoMoqData]
     public void CreateFactory_calls_instance_creator_using_correct_type([Frozen] IInstanceCreator creator,
-                                                                        WebDriverProviderFactoryCreator sut)
+                                                                        WebDriverFactoryCreator sut)
     {
       // Arrange
       var typeName = typeof(FactoryType).AssemblyQualifiedName;
@@ -27,7 +28,7 @@ namespace CSF.WebDriverExtras.Tests.FactoryBuilders
 
     [Test,AutoMoqData]
     public void CreateFactory_returns_null_for_nonexistent_type([Frozen] IInstanceCreator creator,
-                                                                WebDriverProviderFactoryCreator sut,
+                                                                WebDriverFactoryCreator sut,
                                                                 string invalidType)
     {
       // Arrange
@@ -42,7 +43,7 @@ namespace CSF.WebDriverExtras.Tests.FactoryBuilders
 
     [Test,AutoMoqData]
     public void CreateFactory_returns_null_for_null_type([Frozen] IInstanceCreator creator,
-                                                         WebDriverProviderFactoryCreator sut)
+                                                         WebDriverFactoryCreator sut)
     {
       // Arrange
       Mock.Get(creator).Setup(x => x.CreateInstance(It.IsAny<Type>())).Returns((object) null);
@@ -56,8 +57,8 @@ namespace CSF.WebDriverExtras.Tests.FactoryBuilders
 
     [Test,AutoMoqData]
     public void CreateFactory_returns_result_from_instance_creator([Frozen] IInstanceCreator creator,
-                                                                   WebDriverProviderFactoryCreator sut,
-                                                                   ICreatesWebDriverProviders expectedResult)
+                                                                   WebDriverFactoryCreator sut,
+                                                                   ICreatesWebDriver expectedResult)
     {
       // Arrange
       var typeName = typeof(FactoryType).AssemblyQualifiedName;
@@ -70,10 +71,11 @@ namespace CSF.WebDriverExtras.Tests.FactoryBuilders
       Assert.That(result, Is.SameAs(expectedResult));
     }
 
-    public class FactoryType : ICreatesWebDriverProviders
+    public class FactoryType : ICreatesWebDriver
     {
-      public IProvidesWebDriver CreateProvider(IDictionary<string, object> requestedCapabilities = null,
-                                               IGetsBrowserFlags flagsProvider = null)
+      public IWebDriver CreateWebDriver(IDictionary<string, object> requestedCapabilities = null,
+                                        IGetsBrowserFlags flagsProvider = null,
+                                        string scenarioName = null)
       {
         throw new NotImplementedException();
       }

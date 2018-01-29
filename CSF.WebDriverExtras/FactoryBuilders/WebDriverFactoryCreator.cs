@@ -1,11 +1,11 @@
 ﻿using System;
 namespace CSF.WebDriverExtras.FactoryBuilders
 {
-  public class WebDriverProviderFactoryCreator : ICreatesWebDriverProviderFactories
+  public class WebDriverFactoryCreator : ICreatesWebDriverFactory
   {
     readonly IInstanceCreator instanceCreator;
 
-    public ICreatesWebDriverProviders GetFactory(string assemblyQualifiedTypeName)
+    public ICreatesWebDriver GetFactory(string assemblyQualifiedTypeName)
     {
       if(String.IsNullOrEmpty(assemblyQualifiedTypeName))
         return null;
@@ -31,7 +31,7 @@ namespace CSF.WebDriverExtras.FactoryBuilders
       }
     }
 
-    ICreatesWebDriverProviders GetFactory(Type type)
+    ICreatesWebDriver GetFactory(Type type)
     {
       object factory;
 
@@ -45,10 +45,10 @@ namespace CSF.WebDriverExtras.FactoryBuilders
         return null;
       }
 
-      return factory as ICreatesWebDriverProviders;
+      return factory as ICreatesWebDriver;
     }
 
-    public WebDriverProviderFactoryCreator(IInstanceCreator instanceCreator)
+    public WebDriverFactoryCreator(IInstanceCreator instanceCreator)
     {
       if(instanceCreator == null)
         throw new ArgumentNullException(nameof(instanceCreator));

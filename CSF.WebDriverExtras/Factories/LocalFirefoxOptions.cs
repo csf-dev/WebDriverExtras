@@ -1,7 +1,7 @@
 ﻿using System;
 namespace CSF.WebDriverExtras.Factories
 {
-  public class LocalFirefoxOptions : LocalProviderOptions
+  public class LocalFirefoxOptions : LocalDriverOptions
   {
     public string WebBrowserExecutablePath { get; set; }
   }

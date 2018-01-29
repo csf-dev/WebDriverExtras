@@ -44,30 +44,28 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Config\FactoryOptionsCollection.cs" />
-    <Compile Include="ICanSendSuccessFailureInfo.cs" />
-    <Compile Include="ICreatesWebDriverProviders.cs" />
-    <Compile Include="IProvidesWebDriver.cs" />
+    <Compile Include="ICanReceiveScenarioStatus.cs" />
+    <Compile Include="ICreatesWebDriver.cs" />
     <Compile Include="BrowserName.cs" />
-    <Compile Include="Factories\LocalProviderOptions.cs" />
+    <Compile Include="Factories\LocalDriverOptions.cs" />
     <Compile Include="Factories\LocalChromeOptions.cs" />
     <Compile Include="Factories\LocalFirefoxOptions.cs" />
-    <Compile Include="Factories\ChromeProviderFactory.cs" />
+    <Compile Include="Factories\ChromeDriverFactory.cs" />
     <Compile Include="Flags\IGetsBrowserFlags.cs" />
-    <Compile Include="Config\WebDriverProviderFactoryConfigurationSection.cs" />
-    <Compile Include="Factories\ICreatesWebDriverProvidersWithOptions.cs" />
-    <Compile Include="Factories\FirefoxProviderFactory.cs" />
-    <Compile Include="Factories\RemoteProviderFactory.cs" />
-    <Compile Include="Factories\RemoteOptions.cs" />
+    <Compile Include="Config\WebDriverFactoryConfigurationSection.cs" />
+    <Compile Include="Factories\FirefoxDriverFactory.cs" />
+    <Compile Include="Factories\RemoteDriverFactory.cs" />
+    <Compile Include="Factories\RemoteDriverOptions.cs" />
     <Compile Include="Factories\DesiredCapabilitiesExtensions.cs" />
     <Compile Include="Config\IGetsFactoryConfiguration.cs" />
-    <Compile Include="FactoryBuilders\OptionsCachingProviderFactoryProxy.cs" />
-    <Compile Include="FactoryBuilders\WebDriverProviderFactorySource.cs" />
+    <Compile Include="FactoryBuilders\OptionsCachingDriverFactoryProxy.cs" />
+    <Compile Include="FactoryBuilders\WebDriverFactorySource.cs" />
     <Compile Include="FactoryBuilders\ActivatorInstanceCreator.cs" />
-    <Compile Include="FactoryBuilders\ProviderOptionsFactory.cs" />
-    <Compile Include="FactoryBuilders\ICreatesProviderOptions.cs" />
-    <Compile Include="FactoryBuilders\ICreatesWebDriverProviderFactories.cs" />
+    <Compile Include="FactoryBuilders\DriverOptionsFactory.cs" />
+    <Compile Include="FactoryBuilders\ICreatesDriverOptions.cs" />
+    <Compile Include="FactoryBuilders\ICreatesWebDriverFactory.cs" />
     <Compile Include="FactoryBuilders\IInstanceCreator.cs" />
-    <Compile Include="FactoryBuilders\WebDriverProviderFactoryCreator.cs" />
+    <Compile Include="FactoryBuilders\WebDriverFactoryCreator.cs" />
     <Compile Include="Config\ConfigurationFileFactoryConfigurationReader.cs" />
     <Compile Include="Config\EnvironmentVariableFactoryConfigReaderProxy.cs" />
     <Compile Include="Config\IIndicatesEnvironmentSupport.cs" />
@@ -77,12 +75,17 @@
     <Compile Include="Flags\EmptyFlagsProvider.cs" />
     <Compile Include="SuccessAndFailure\ISuccessAndFailureGateway.cs" />
     <Compile Include="SuccessAndFailure\NoOpSuccessAndFailureGateway.cs" />
-    <Compile Include="WebDriverProvider.cs" />
     <Compile Include="SuccessAndFailure\SauceLabsSuccessFailureGateway.cs" />
-    <Compile Include="Factories\SauceConnectOptions.cs" />
-    <Compile Include="IReceivesScenarioName.cs" />
-    <Compile Include="SauceConnectWebDriverProvider.cs" />
-    <Compile Include="Factories\SauceConnectFactory.cs" />
+    <Compile Include="Factories\SauceConnectDriverOptions.cs" />
+    <Compile Include="Factories\SauceConnectDriverFactory.cs" />
+    <Compile Include="Proxies\RemoteWebDriverProxy.cs" />
+    <Compile Include="IHasFlags.cs" />
+    <Compile Include="Proxies\SauceConnectWebDriverProxy.cs" />
+    <Compile Include="Factories\ICreatesWebDriverFromOptions.cs" />
+    <Compile Include="Factories\RemoteDriverFactoryBase.cs" />
+    <Compile Include="Proxies\RemoteWebDriverProxyCreator.cs" />
+    <Compile Include="Proxies\IWrapsRemoteDriversInProxies.cs" />
+    <Compile Include="Proxies\SauceConnectWebDriverProxyCreator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -96,6 +99,7 @@
     <Folder Include="Flags\" />
     <Folder Include="FactoryBuilders\" />
     <Folder Include="SuccessAndFailure\" />
+    <Folder Include="Proxies\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

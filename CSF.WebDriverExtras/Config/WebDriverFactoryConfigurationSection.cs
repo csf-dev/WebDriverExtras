@@ -7,7 +7,7 @@ using CSF.Configuration;
 namespace CSF.WebDriverExtras.Config
 {
   [ConfigurationPath("WebDriverFactory")]
-  public class WebDriverProviderFactoryConfigurationSection : ConfigurationSection
+  public class WebDriverFactoryConfigurationSection : ConfigurationSection
   {
     const string WebDriverFactoryAssemblyQualifiedTypeConfigName = @"AssemblyQualifiedTypeName";
     [ConfigurationProperty(WebDriverFactoryAssemblyQualifiedTypeConfigName, IsRequired = true)]
@@ -34,7 +34,9 @@ namespace CSF.WebDriverExtras.Config
     }
 
     const string EnvironmentVariablePrefixConfigName = @"EnvironmentVariablePrefix";
-    [ConfigurationProperty(EnvironmentVariablePrefixConfigName, IsRequired = false)]
+    [ConfigurationProperty(EnvironmentVariablePrefixConfigName,
+                           IsRequired = false,
+                           DefaultValue = EnvironmentVariableFactoryConfigReaderProxy.DefaultEnvironmentVariablePrefix)]
     public virtual string EnvironmentVariablePrefix
     {
       get { return (string) this[EnvironmentVariablePrefixConfigName]; }

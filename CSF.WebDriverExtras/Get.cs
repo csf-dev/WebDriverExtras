@@ -3,14 +3,14 @@ namespace CSF.WebDriverExtras
 {
   public static class Get
   {
-    static readonly FactoryBuilders.WebDriverProviderFactorySource factorySource;
+    static readonly FactoryBuilders.WebDriverFactorySource factorySource;
 
-    public static ICreatesWebDriverProviders WebDriverProviderFactory()
-      => factorySource.GetWebDriverProviderFactory();
+    public static ICreatesWebDriver WebDriverFactory()
+      => factorySource.GetWebDriverFactory();
 
     static Get()
     {
-      factorySource = new FactoryBuilders.WebDriverProviderFactorySource();
+      factorySource = new FactoryBuilders.WebDriverFactorySource();
     }
   }
 }

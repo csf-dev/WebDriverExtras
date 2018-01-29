@@ -17,8 +17,8 @@ namespace CSF.WebDriverExtras.Config
 
     public IDictionary<string, string> GetProviderOptions() => GetConfig()?.GetFactoryOptions();
 
-    public WebDriverProviderFactoryConfigurationSection GetConfig()
-      => configReader.ReadSection<WebDriverProviderFactoryConfigurationSection>();
+    public WebDriverFactoryConfigurationSection GetConfig()
+      => configReader.ReadSection<WebDriverFactoryConfigurationSection>();
 
     public string GetEnvironmentVariablePrefix() => GetConfig()?.EnvironmentVariablePrefix;
 

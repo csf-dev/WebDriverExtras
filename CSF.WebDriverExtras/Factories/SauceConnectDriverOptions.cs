@@ -1,7 +1,7 @@
 ﻿using System;
 namespace CSF.WebDriverExtras.Factories
 {
-  public class SauceConnectOptions : RemoteOptions
+  public class SauceConnectDriverOptions : RemoteDriverOptions
   {
     public string TunnelIdentifier { get; set; }
 

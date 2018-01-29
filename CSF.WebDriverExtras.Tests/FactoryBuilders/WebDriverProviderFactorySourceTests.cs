@@ -14,31 +14,31 @@ namespace CSF.WebDriverExtras.Tests.FactoryBuilders
   {
     [Test,AutoMoqData]
     public void GetWebDriverProviderFactory_returns_null_when_config_does_not_exist(IGetsFactoryConfiguration config,
-                                                                                    ICreatesWebDriverProviderFactories factoryCreator,
-                                                                                    ICreatesProviderOptions optionsCreator)
+                                                                                    ICreatesWebDriverFactory factoryCreator,
+                                                                                    ICreatesDriverOptions optionsCreator)
     {
       // Arrange
-      var sut = new WebDriverProviderFactorySource(config, factoryCreator, optionsCreator);
+      var sut = new WebDriverFactorySource(config, factoryCreator, optionsCreator);
       Mock.Get(config)
           .Setup(x => x.HasConfiguration)
           .Returns(false);
 
       // Act
-      var result = sut.GetWebDriverProviderFactory();
+      var result = sut.GetWebDriverFactory();
 
       // Assert
       Assert.That(result, Is.Null);
     }
 
     [Test,AutoMoqData]
-    public void GetWebDriverProviderFactory_passes_assembly_name_to_factory_creator(ICreatesWebDriverProviderFactories factoryCreator,
-                                                                         ICreatesProviderOptions optionsCreator,
+    public void GetWebDriverProviderFactory_passes_assembly_name_to_factory_creator(ICreatesWebDriverFactory factoryCreator,
+                                                                         ICreatesDriverOptions optionsCreator,
                                                                                     IGetsFactoryConfiguration config,
                                                                          string typeName,
                                                                                     Dictionary<string,string> optionsDictionary)
     {
       // Arrange
-      var sut = new WebDriverProviderFactorySource(config, factoryCreator, optionsCreator);
+      var sut = new WebDriverFactorySource(config, factoryCreator, optionsCreator);
       Mock.Get(config)
           .Setup(x => x.HasConfiguration)
           .Returns(true);
@@ -50,22 +50,22 @@ namespace CSF.WebDriverExtras.Tests.FactoryBuilders
           .Returns(optionsDictionary);
 
       // Act
-      var result = sut.GetWebDriverProviderFactory();
+      var result = sut.GetWebDriverFactory();
 
       // Assert
       Mock.Get(factoryCreator).Verify(x => x.GetFactory(typeName), Times.Once);
     }
 
     [Test,AutoMoqData]
-    public void GetWebDriverProviderFactory_returns_factory_creator_result_when_factory_does_not_support_options(ICreatesWebDriverProviderFactories factoryCreator,
-                                                                                                                 ICreatesProviderOptions optionsCreator,
+    public void GetWebDriverProviderFactory_returns_factory_creator_result_when_factory_does_not_support_options(ICreatesWebDriverFactory factoryCreator,
+                                                                                                                 ICreatesDriverOptions optionsCreator,
                                                                                                                  IGetsFactoryConfiguration config,
-                                                                                                                 ICreatesWebDriverProviders factory,
+                                                                                                                 ICreatesWebDriver factory,
                                                                                                                  string typeName,
                                                                                                                  Dictionary<string,string> optionsDictionary)
     {
       // Arrange
-      var sut = new WebDriverProviderFactorySource(config, factoryCreator, optionsCreator);
+      var sut = new WebDriverFactorySource(config, factoryCreator, optionsCreator);
       Mock.Get(config)
           .Setup(x => x.HasConfiguration)
           .Returns(true);
@@ -80,23 +80,23 @@ namespace CSF.WebDriverExtras.Tests.FactoryBuilders
           .Returns(factory);
 
       // Act
-      var result = sut.GetWebDriverProviderFactory();
+      var result = sut.GetWebDriverFactory();
 
       // Assert
       Assert.That(result, Is.SameAs(factory));
     }
 
     [Test,AutoMoqData]
-    public void GetWebDriverProviderFactory_returns_proxy_when_factory_supports_options(ICreatesWebDriverProviderFactories factoryCreator,
-                                                                                        ICreatesProviderOptions optionsCreator,
+    public void GetWebDriverProviderFactory_returns_proxy_when_factory_supports_options(ICreatesWebDriverFactory factoryCreator,
+                                                                                        ICreatesDriverOptions optionsCreator,
                                                                                         IGetsFactoryConfiguration config,
-                                                                                        ICreatesWebDriverProvidersWithOptions factory,
+                                                                                        ICreatesWebDriverFromOptions factory,
                                                                                         object options,
                                                                                         string typeName,
                                                                                         Dictionary<string,string> optionsDictionary)
     {
       // Arrange
-      var sut = new WebDriverProviderFactorySource(config, factoryCreator, optionsCreator);
+      var sut = new WebDriverFactorySource(config, factoryCreator, optionsCreator);
       Mock.Get(config)
           .Setup(x => x.HasConfiguration)
           .Returns(true);
@@ -110,15 +110,15 @@ namespace CSF.WebDriverExtras.Tests.FactoryBuilders
           .Setup(x => x.GetFactory(It.IsAny<string>()))
           .Returns(factory);
       Mock.Get(optionsCreator)
-          .Setup(x => x.GetProviderOptions(factory, It.IsAny<IDictionary<string,string>>()))
+          .Setup(x => x.GetDriverOptions(factory, It.IsAny<IDictionary<string,string>>()))
           .Returns(options);
 
       // Act
-      var result = sut.GetWebDriverProviderFactory();
+      var result = sut.GetWebDriverFactory();
 
       // Assert
-      Assert.That(result, Is.InstanceOf<OptionsCachingProviderFactoryProxy>());
-      var proxy = (OptionsCachingProviderFactoryProxy) result;
+      Assert.That(result, Is.InstanceOf<OptionsCachingDriverFactoryProxy>());
+      var proxy = (OptionsCachingDriverFactoryProxy) result;
       Assert.That(proxy.ProxiedProvider, Is.SameAs(factory));
     }
   }
