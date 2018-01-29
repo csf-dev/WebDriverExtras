@@ -10,16 +10,13 @@ using OpenQA.Selenium.Remote;
 
 namespace CSF.WebDriverExtras.Proxies
 {
-  public class RemoteWebDriverProxy : 
+  public class RemoteWebDriverProxy : IHasFlags,
   #region Selenium interfaces
   IWebDriver, IDisposable, ISearchContext, IJavaScriptExecutor, IFindsById,
   IFindsByClassName, IFindsByLinkText, IFindsByName, IFindsByTagName, IFindsByXPath,
   IFindsByPartialLinkText, IFindsByCssSelector, ITakesScreenshot, IHasInputDevices,
   IHasCapabilities, IHasWebStorage, IHasLocationContext, IHasApplicationCache,
-  IAllowsFileDetection, IHasSessionId, IActionExecutor,
-  #endregion
-  #region WebDriverExtras interfaces
-  IHasFlags
+  IAllowsFileDetection, IHasSessionId, IActionExecutor
   #endregion
   {
     #region fields
@@ -164,6 +161,17 @@ namespace CSF.WebDriverExtras.Proxies
     public IReadOnlyCollection<string> GetFlags() => flags;
 
     public bool HasFlag(string flag) => flags.Contains(flag);
+
+    public string GetFirstFlagPresent(params string[] flags)
+      => GetFirstFlagPresent((IList<string>) flags ?? new string[0]);
+
+    public string GetFirstFlagPresent(IList<string> flags)
+    {
+      if(flags == null)
+        throw new ArgumentNullException(nameof(flags));
+
+      return flags.FirstOrDefault(HasFlag);
+    }
 
     #endregion
 
