@@ -66,6 +66,7 @@
     <Compile Include="HasValuesAttribute.cs" />
     <Compile Include="SuccessAndFailure\SauceLabsSuccessFailureGatewayTests.cs" />
     <Compile Include="ExecutesScriptAttribute.cs" />
+    <Compile Include="Flags\SemanticVersionTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -81,6 +82,7 @@
     <Folder Include="FactoryBuilders\" />
     <Folder Include="Config\" />
     <Folder Include="SuccessAndFailure\" />
+    <Folder Include="Flags\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
