@@ -3,6 +3,7 @@
 SOLUTION_ROOT="$(dirname $0)/.."
 NEW_VERSION="$1"
 ASSEMBLY_VERSION="$(echo "$NEW_VERSION" | egrep -o "([0-9]+\.){2}[0-9]+").0"
+SOLUTION_NAME="CSF.WebDriverExtras.sln"
 
 function bump_assembly_info()
 {
@@ -27,7 +28,7 @@ function bump_nuspec_version()
 
 function bump_solution_version()
 {
-  sed -ri "s/version *= *.+/version = ${NEW_VERSION}/g" "$SOLUTION_ROOT/CSF.Screenplay.sln"
+  sed -ri "s/version *= *.+/version = ${NEW_VERSION}/g" "$SOLUTION_ROOT/$SOLUTION_NAME"
   
   find "$SOLUTION_ROOT" \
     \! -path "*/.git/*" \
