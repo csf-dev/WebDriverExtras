@@ -25,7 +25,7 @@ build_solution()
 run_unit_tests()
 {
   echo "Running unit tests ..."
-  test_assemblies=$(find ./Tests/ -type f -path "*/bin/Debug/*" -name "$TEST_PATTERN")
+  test_assemblies=$(find . -type f -path "*/bin/Debug/*" -name "$TEST_PATTERN" \! -path "./.git/*")
   mono "$NUNIT_PATH" $test_assemblies
   stop_if_failure $? "Run unit tests"
 }
