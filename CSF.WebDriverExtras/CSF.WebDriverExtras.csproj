@@ -97,6 +97,8 @@
     <Compile Include="Flags\Reading\SingleOrArrayConverter.cs" />
     <Compile Include="Flags\IReadsFlagsDefinitions.cs" />
     <Compile Include="Flags\DefinitionReader.cs" />
+    <Compile Include="Flags\ICreatesBrowserVersions.cs" />
+    <Compile Include="Flags\VersionFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

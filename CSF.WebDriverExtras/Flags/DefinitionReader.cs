@@ -12,6 +12,8 @@ namespace CSF.WebDriverExtras.Flags
   {
     static readonly JsonSerializer converter;
 
+    readonly ICreatesBrowserVersions versionFactory;
+
     public IReadOnlyCollection<FlagsDefinition> GetFlagsDefinitions(string inputString)
       => GetFlagsDefinitions(inputString, Encoding.UTF8);
 
@@ -66,12 +68,19 @@ namespace CSF.WebDriverExtras.Flags
         output.Platforms = new HashSet<string>(definition.Platform);
 
       if(definition.MinVersion != null)
-        output.MinimumVersion = SemanticVersion.Parse(definition.MinVersion);
+        output.MinimumVersion = versionFactory.CreateVersion(definition.MinVersion);
 
       if(definition.MaxVersion != null)
-        output.MaximumVersion = SemanticVersion.Parse(definition.MaxVersion);
+        output.MaximumVersion = versionFactory.CreateVersion(definition.MaxVersion);
 
       return output;
+    }
+
+    public DefinitionReader() : this(null) {}
+
+    public DefinitionReader(ICreatesBrowserVersions versionFactory)
+    {
+      this.versionFactory = versionFactory ?? new VersionFactory();
     }
 
     static DefinitionReader()
