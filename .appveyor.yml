@@ -3,26 +3,10 @@ init:
 - cmd: git config --global core.autocrlf true
 before_build:
 - cmd: Tools\Appveyor.before_build.bat
-services:
-  - iis
 build:
-  project: CSF.Screenplay.sln
+  project: CSF.WebDriverExtras.sln
   verbosity: normal
 test:
   assemblies:
     except:
-    - '**\CSF.Screenplay.Web.Tests.dll'
-    - '**\CSF.Screenplay.JsonApis.Tests.dll'
     - '**\Ploeh.AutoFixture.NUnit3.dll'
-    - '**\CSF.Screenplay.NUnit.dll'
-artifacts:
-  - path: Tests\CSF.Screenplay.WebTestWebsite
-    name: TestWebsite
-    type: WebDeployPackage
-deploy:
-  - provider: Local
-    TestWebsite.deploy_website: true
-    TestWebsite.site_name: "Test Web Site"
-    TestWebsite.port: 8080
-after_deploy:
-- cmd: Tools\Appveyor.after_deploy.bat
