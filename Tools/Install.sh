@@ -33,7 +33,7 @@ install_test_runner()
 restore_solution_nuget_packages()
 {
   echo "Restoring NuGet packages for the solution ..."
-  $NUGET_COMMAND restore CSF.Screenplay.sln
+  $NUGET_COMMAND restore CSF.WebDriverExtras.sln
   stop_if_failure $? "Restore NuGet packages"
 }
 
