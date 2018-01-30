@@ -1,0 +1,12 @@
+﻿version: '{branch}-{build}'
+init:
+- cmd: git config --global core.autocrlf true
+before_build:
+- cmd: Tools\Appveyor.before_build.bat
+build:
+  project: CSF.WebDriverExtras.sln
+  verbosity: normal
+test:
+  assemblies:
+    except:
+    - '**\Ploeh.AutoFixture.NUnit3.dll'
