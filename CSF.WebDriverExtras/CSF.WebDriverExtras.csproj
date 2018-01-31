@@ -99,6 +99,9 @@
     <Compile Include="Flags\DefinitionReader.cs" />
     <Compile Include="Flags\ICreatesBrowserVersions.cs" />
     <Compile Include="Flags\VersionFactory.cs" />
+    <Compile Include="Flags\BrowserFlagsProvider.cs" />
+    <Compile Include="Flags\IGetsBrowserIdentification.cs" />
+    <Compile Include="Flags\BrowserIdentificationFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -142,5 +142,47 @@ namespace CSF.WebDriverExtras.Tests.Flags
       // Assert
       Assert.That(result, Is.False);
     }
+
+    [Test,AutoMoqData]
+    [Description("The browser version must be greater-than-or-equal-to the min version but less-than the max version")]
+    public void Matches_returns_false_when_version_is_equal_to_max(string browserName, string platform)
+    {
+      // Arrange
+      var browserId = new BrowserIdentification(browserName, new SimpleStringVersion("d"), platform);
+
+      var sut = new FlagsDefinition {
+        MinimumVersion = new SimpleStringVersion("b"),
+        MaximumVersion = new SimpleStringVersion("d"),
+      };
+      sut.BrowserNames.Add(browserName);
+      sut.Platforms.Add(platform);
+
+      // Act
+      var result = sut.Matches(browserId);
+
+      // Assert
+      Assert.That(result, Is.False);
+    }
+
+    [Test,AutoMoqData]
+    [Description("The browser version must be greater-than-or-equal-to the min version but less-than the max version")]
+    public void Matches_returns_true_when_version_is_equal_to_min(string browserName, string platform)
+    {
+      // Arrange
+      var browserId = new BrowserIdentification(browserName, new SimpleStringVersion("b"), platform);
+
+      var sut = new FlagsDefinition {
+        MinimumVersion = new SimpleStringVersion("b"),
+        MaximumVersion = new SimpleStringVersion("d"),
+      };
+      sut.BrowserNames.Add(browserName);
+      sut.Platforms.Add(platform);
+
+      // Act
+      var result = sut.Matches(browserId);
+
+      // Assert
+      Assert.That(result, Is.True);
+    }
   }
 }
