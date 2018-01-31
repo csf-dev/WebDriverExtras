@@ -8,7 +8,7 @@ namespace CSF.WebDriverExtras.Flags
   /// <summary>
   /// This follows Semantic versioning v2.0.0: https://semver.org/spec/v2.0.0.html
   /// </summary>
-  public class SemanticVersion : IBrowserVersion, IComparable<SemanticVersion>
+  public class SemanticVersion : BrowserVersion, IComparable<SemanticVersion>, IEquatable<SemanticVersion>
   {
     const string
       NumericPattern = @"^\d+$",
@@ -31,7 +31,7 @@ namespace CSF.WebDriverExtras.Flags
 
     public IReadOnlyList<string> Metadata => metadata;
 
-    public int CompareTo(IBrowserVersion other) => CompareTo(other as SemanticVersion);
+    public override int CompareTo(BrowserVersion other) => CompareTo(other as SemanticVersion);
 
     public int CompareTo(SemanticVersion other)
     {
@@ -120,6 +120,27 @@ namespace CSF.WebDriverExtras.Flags
     }
 
     bool IsNumeric(string str) => Numeric.IsMatch(str);
+
+    public override bool Equals(BrowserVersion other) => Equals(other as SemanticVersion);
+
+    public bool Equals(SemanticVersion other)
+    {
+      if(ReferenceEquals(other, null))
+        return false;
+
+      return (Major == other.Major
+              && Minor == other.Minor
+              && Patch == other.Patch
+              && PrereleaseIdentifiers.SequenceEqual(other.PrereleaseIdentifiers));
+    }
+
+    public override int GetHashCode()
+    {
+      return (Major.GetHashCode()
+              ^ Minor.GetHashCode()
+              ^ Patch.GetHashCode()
+              ^ PrereleaseIdentifiers.GetHashCode());
+    }
 
     public override string ToString()
       => $"v{Major}.{Minor}.{Patch}{GetPrereleaseIdentifiersString()}{GetMetadataString()}";

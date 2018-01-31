@@ -7,9 +7,9 @@ namespace CSF.WebDriverExtras.Flags
 
     public string Platform { get; private set; }
 
-    public IBrowserVersion Version { get; private set; }
+    public BrowserVersion Version { get; private set; }
 
-    public BrowserIdentification(string name, IBrowserVersion version, string platform)
+    public BrowserIdentification(string name, BrowserVersion version, string platform)
     {
       if(name == null)
         throw new ArgumentNullException(nameof(name));

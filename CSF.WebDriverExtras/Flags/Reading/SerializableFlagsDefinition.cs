@@ -25,5 +25,9 @@ namespace CSF.WebDriverExtras.Flags.Reading
     [JsonProperty]
     [JsonConverter(typeof(SingleOrArrayConverter<string>))]
     internal List<string> Flags { get; set; }
+
+    [JsonProperty]
+    [JsonConverter(typeof(SingleOrArrayConverter<string>))]
+    internal List<string> RemoveFlags { get; set; }
   }
 }

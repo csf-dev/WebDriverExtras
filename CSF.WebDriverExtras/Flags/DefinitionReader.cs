@@ -54,18 +54,21 @@ namespace CSF.WebDriverExtras.Flags
       if(definition == null) return null;
 
       if(definition.BrowserName == null
-         || !definition.BrowserName.Any()
-         || definition.Flags == null
-         || !definition.Flags.Any())
+         || !definition.BrowserName.Any())
         return null;
 
+      if((definition.Flags == null || !definition.Flags.Any())
+         && (definition.RemoveFlags == null || !definition.RemoveFlags.Any()))
+         return null;
+
       var output = new FlagsDefinition {
-        BrowserNames = new HashSet<string>(definition.BrowserName),
-        Flags = new HashSet<string>(definition.Flags),
+        BrowserNames = new HashSet<string>(definition.BrowserName ?? Enumerable.Empty<string>()),
+        AddFlags = new HashSet<string>(definition.Flags ?? Enumerable.Empty<string>()),
+        RemoveFlags = new HashSet<string>(definition.RemoveFlags ?? Enumerable.Empty<string>()),
       };
 
       if(definition.Platform != null)
-        output.Platforms = new HashSet<string>(definition.Platform);
+        output.Platforms = new HashSet<string>(definition.Platform ?? Enumerable.Empty<string>());
 
       if(definition.MinVersion != null)
         output.MinimumVersion = versionFactory.CreateVersion(definition.MinVersion);

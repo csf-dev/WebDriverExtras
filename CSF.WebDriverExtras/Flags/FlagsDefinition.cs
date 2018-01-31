@@ -4,9 +4,9 @@ using System.Linq;
 
 namespace CSF.WebDriverExtras.Flags
 {
-  public class FlagsDefinition
+  public class FlagsDefinition : IEquatable<FlagsDefinition>
   {
-    ISet<string> browserNames, flags;
+    ISet<string> platforms, browserNames, addFlags, removeFlags;
 
     public ISet<string> BrowserNames
     {
@@ -18,19 +18,37 @@ namespace CSF.WebDriverExtras.Flags
       }
     }
 
-    public IBrowserVersion MinimumVersion { get; set; }
+    public BrowserVersion MinimumVersion { get; set; }
 
-    public IBrowserVersion MaximumVersion { get; set; }
+    public BrowserVersion MaximumVersion { get; set; }
 
-    public ISet<string> Platforms { get; set; }
-
-    public ISet<string> Flags
+    public ISet<string> Platforms
     {
-      get { return flags; }
+      get { return platforms; }
       set {
         if(value == null)
           throw new ArgumentNullException(nameof(value));
-        flags = value;
+        platforms = value;
+      }
+    }
+
+    public ISet<string> AddFlags
+    {
+      get { return addFlags; }
+      set {
+        if(value == null)
+          throw new ArgumentNullException(nameof(value));
+        addFlags = value;
+      }
+    }
+
+    public ISet<string> RemoveFlags
+    {
+      get { return removeFlags; }
+      set {
+        if(value == null)
+          throw new ArgumentNullException(nameof(value));
+        removeFlags = value;
       }
     }
 
@@ -72,7 +90,7 @@ namespace CSF.WebDriverExtras.Flags
       if(MinimumVersion == null)
         return true;
       
-      return browserId.Version.CompareTo(MinimumVersion) >= 0;
+      return browserId.Version >= MinimumVersion;
     }
 
     bool SatisfiesMaxVersion(BrowserIdentification browserId)
@@ -80,13 +98,28 @@ namespace CSF.WebDriverExtras.Flags
       if(MaximumVersion == null)
         return true;
 
-      return browserId.Version.CompareTo(MaximumVersion) <= 0;
+      return browserId.Version < MaximumVersion;
+    }
+
+    public bool Equals(FlagsDefinition other)
+    {
+      if(ReferenceEquals(other, null))
+        return false;
+
+      return (MinimumVersion == other.MinimumVersion
+              && MaximumVersion == other.MaximumVersion
+              && BrowserNames.SetEquals(other.BrowserNames)
+              && Platforms.SetEquals(other.Platforms)
+              && AddFlags.SetEquals(other.AddFlags)
+              && RemoveFlags.SetEquals(other.RemoveFlags));
     }
 
     public FlagsDefinition()
     {
+      platforms = new HashSet<string>();
       browserNames = new HashSet<string>();
-      flags = new HashSet<string>();
+      addFlags = new HashSet<string>();
+      removeFlags = new HashSet<string>();
     }
   }
 }

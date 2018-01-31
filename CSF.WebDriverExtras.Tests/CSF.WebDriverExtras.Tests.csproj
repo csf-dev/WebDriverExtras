@@ -67,6 +67,9 @@
     <Compile Include="SuccessAndFailure\SauceLabsSuccessFailureGatewayTests.cs" />
     <Compile Include="ExecutesScriptAttribute.cs" />
     <Compile Include="Flags\SemanticVersionTests.cs" />
+    <Compile Include="Flags\DefinitionReaderTests.cs" />
+    <Compile Include="Flags\SimpleStringVersion.cs" />
+    <Compile Include="Flags\FlagsDefinitionTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -83,6 +86,11 @@
     <Folder Include="Config\" />
     <Folder Include="SuccessAndFailure\" />
     <Folder Include="Flags\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Flags\SampleFlagsDefinitions.json">
+      <LogicalName>SampleFlagsDefinitions.json</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

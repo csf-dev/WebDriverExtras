@@ -90,7 +90,7 @@
     <Compile Include="Proxies\IWrapsRemoteDriversInProxies.cs" />
     <Compile Include="Proxies\SauceConnectWebDriverProxyCreator.cs" />
     <Compile Include="Flags\FlagsDefinition.cs" />
-    <Compile Include="Flags\IBrowserVersion.cs" />
+    <Compile Include="Flags\BrowserVersion.cs" />
     <Compile Include="Flags\SemanticVersion.cs" />
     <Compile Include="Flags\BrowserIdentification.cs" />
     <Compile Include="Flags\Reading\SerializableFlagsDefinition.cs" />
