@@ -8,15 +8,30 @@ using Newtonsoft.Json;
 
 namespace CSF.WebDriverExtras.Flags
 {
+  /// <summary>
+  /// Implementation of <see cref="IReadsFlagsDefinitions"/> which reads JSON data and deserialises flags definitions
+  /// from it.
+  /// </summary>
   public class DefinitionReader : IReadsFlagsDefinitions
   {
     static readonly JsonSerializer converter;
 
     readonly ICreatesBrowserVersions versionFactory;
 
+    /// <summary>
+    /// Gets the flags definitions from a string (UTF-8 encoding is assumed).
+    /// </summary>
+    /// <returns>The flags definitions.</returns>
+    /// <param name="inputString">A string.</param>
     public IReadOnlyCollection<FlagsDefinition> GetFlagsDefinitions(string inputString)
       => GetFlagsDefinitions(inputString, Encoding.UTF8);
 
+    /// <summary>
+    /// Gets the flags definitions from a string.
+    /// </summary>
+    /// <returns>The flags definitions.</returns>
+    /// <param name="inputString">A string.</param>
+    /// <param name="encoding">The string encoding.</param>
     public IReadOnlyCollection<FlagsDefinition> GetFlagsDefinitions(string inputString, Encoding encoding)
     {
       if(inputString == null) return new FlagsDefinition[0];
@@ -30,6 +45,11 @@ namespace CSF.WebDriverExtras.Flags
       }
     }
 
+    /// <summary>
+    /// Gets the flags definitions from a <c>System.Stream</c>.
+    /// </summary>
+    /// <returns>The flags definitions.</returns>
+    /// <param name="inputStream">A stream, such as a file stream or manifest resource.</param>
     public IReadOnlyCollection<FlagsDefinition> GetFlagsDefinitions(Stream inputStream)
     {
       if(inputStream == null) return new FlagsDefinition[0];
@@ -79,8 +99,15 @@ namespace CSF.WebDriverExtras.Flags
       return output;
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DefinitionReader"/> class.
+    /// </summary>
     public DefinitionReader() : this(null) {}
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DefinitionReader"/> class.
+    /// </summary>
+    /// <param name="versionFactory">A factory which creates version numbers.</param>
     public DefinitionReader(ICreatesBrowserVersions versionFactory)
     {
       this.versionFactory = versionFactory ?? new VersionFactory();

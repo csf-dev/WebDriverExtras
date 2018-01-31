@@ -4,20 +4,28 @@ using CSF.WebDriverExtras.Factories;
 
 namespace CSF.WebDriverExtras.FactoryBuilders
 {
+  /// <summary>
+  /// A service which 'spawns' web driver factories from descriptions.
+  /// </summary>
   public class WebDriverFactorySource
   {
     readonly ICreatesWebDriverFactory factoryCreator;
-    readonly ICreatesDriverOptions optionsCreator;
+    readonly ICreatesFactoryOptions optionsCreator;
 
-    public virtual ICreatesWebDriver GetWebDriverFactory(IDescribesWebDriverFactory config)
+    /// <summary>
+    /// Gets a web driver factory matching the given description.
+    /// </summary>
+    /// <returns>The web driver factory.</returns>
+    /// <param name="description">An object which describes a web driver factory.</param>
+    public virtual ICreatesWebDriver GetWebDriverFactory(IDescribesWebDriverFactory description)
     {
-      if(config == null) return null;
+      if(description == null) return null;
 
-      var factory = factoryCreator.GetFactory(config.GetFactoryAssemblyQualifiedTypeName());
+      var factory = factoryCreator.GetFactory(description.GetFactoryAssemblyQualifiedTypeName());
       if(factory == null)
         return null;
 
-      var options = optionsCreator.GetDriverOptions(factory, config.GetOptionKeyValuePairs());
+      var options = optionsCreator.GetFactoryOptions(factory, description.GetOptionKeyValuePairs());
 
       return GetFactory(factory, options);
     }
@@ -30,10 +38,18 @@ namespace CSF.WebDriverExtras.FactoryBuilders
       return factory;
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="WebDriverFactorySource"/> class.
+    /// </summary>
     public WebDriverFactorySource() : this(null, null) {}
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="WebDriverFactorySource"/> class.
+    /// </summary>
+    /// <param name="factoryCreator">A factory service which creates web driver factories (a factory-factory if you will).</param>
+    /// <param name="optionsCreator">A factory service which instantiates instances of factory options.</param>
     public WebDriverFactorySource(ICreatesWebDriverFactory factoryCreator,
-                                  ICreatesDriverOptions optionsCreator)
+                                  ICreatesFactoryOptions optionsCreator)
     {
       if(factoryCreator == null)
       {
@@ -45,7 +61,7 @@ namespace CSF.WebDriverExtras.FactoryBuilders
         this.factoryCreator = factoryCreator;
       }
 
-      this.optionsCreator = optionsCreator ?? new DriverOptionsFactory();
+      this.optionsCreator = optionsCreator ?? new FactoryOptionsFactory();
     }
   }
 }

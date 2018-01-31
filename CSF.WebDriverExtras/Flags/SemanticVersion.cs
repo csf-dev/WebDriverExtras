@@ -6,8 +6,13 @@ using System.Text.RegularExpressions;
 namespace CSF.WebDriverExtras.Flags
 {
   /// <summary>
-  /// This follows Semantic versioning v2.0.0: https://semver.org/spec/v2.0.0.html
+  /// Implementation of <see cref="BrowserVersion"/> which follows the semantic versioning v2.0.0 spec
   /// </summary>
+  /// <remarks>
+  /// <para>
+  /// The semantic versioning specification may be found at https://semver.org/spec/v2.0.0.html
+  /// </para>
+  /// </remarks>
   public class SemanticVersion : BrowserVersion, IComparable<SemanticVersion>, IEquatable<SemanticVersion>
   {
     const string
@@ -21,18 +26,48 @@ namespace CSF.WebDriverExtras.Flags
     readonly IReadOnlyList<string> prereleaseIdentifiers;
     readonly IReadOnlyList<string> metadata;
 
+    /// <summary>
+    /// Gets the major version component.
+    /// </summary>
+    /// <value>The major version component.</value>
     public int Major => major;
 
+    /// <summary>
+    /// Gets the minor version component.
+    /// </summary>
+    /// <value>The minor version component.</value>
     public int Minor => minor;
 
+    /// <summary>
+    /// Gets the patch version component.
+    /// </summary>
+    /// <value>The patch version component.</value>
     public int Patch => patch;
 
+    /// <summary>
+    /// Gets an ordered collection of the pre-release identifiers which apply to this version.
+    /// </summary>
+    /// <value>The prerelease identifiers.</value>
     public IReadOnlyList<string> PrereleaseIdentifiers => prereleaseIdentifiers;
 
+    /// <summary>
+    /// Gets an ordered collection of release metadata which is present in this version.
+    /// </summary>
+    /// <value>The metadata.</value>
     public IReadOnlyList<string> Metadata => metadata;
 
+    /// <summary>
+    /// Compares the current instance to another <see cref="BrowserVersion" /> instance, returning eiher
+    /// minus one, zero or one.
+    /// </summary>
+    /// <param name="other">The browser version to compare with.</param>
     public override int CompareTo(BrowserVersion other) => CompareTo(other as SemanticVersion);
 
+    /// <summary>
+    /// Compares the current instance to another <see cref="SemanticVersion" /> instance, returning eiher
+    /// minus one, zero or one.
+    /// </summary>
+    /// <param name="other">The browser version to compare with.</param>
     public int CompareTo(SemanticVersion other)
     {
       if(other == null) return 1;
@@ -121,8 +156,20 @@ namespace CSF.WebDriverExtras.Flags
 
     bool IsNumeric(string str) => Numeric.IsMatch(str);
 
+    /// <summary>
+    /// Determines whether the specified <see cref="BrowserVersion"/> is equal to the current <see cref="SemanticVersion"/>.
+    /// </summary>
+    /// <param name="other">The <see cref="BrowserVersion"/> to compare with the current <see cref="SemanticVersion"/>.</param>
+    /// <returns><c>true</c> if the specified <see cref="BrowserVersion"/> is equal to the current
+    /// <see cref="SemanticVersion"/>; otherwise, <c>false</c>.</returns>
     public override bool Equals(BrowserVersion other) => Equals(other as SemanticVersion);
 
+    /// <summary>
+    /// Determines whether the specified <see cref="SemanticVersion"/> is equal to the current <see cref="SemanticVersion"/>.
+    /// </summary>
+    /// <param name="other">The <see cref="SemanticVersion"/> to compare with the current <see cref="SemanticVersion"/>.</param>
+    /// <returns><c>true</c> if the specified <see cref="SemanticVersion"/> is equal to the current
+    /// <see cref="SemanticVersion"/>; otherwise, <c>false</c>.</returns>
     public bool Equals(SemanticVersion other)
     {
       if(ReferenceEquals(other, null))
@@ -134,6 +181,10 @@ namespace CSF.WebDriverExtras.Flags
               && PrereleaseIdentifiers.SequenceEqual(other.PrereleaseIdentifiers));
     }
 
+    /// <summary>
+    /// Serves as a hash function for a <see cref="SemanticVersion"/> object.
+    /// </summary>
+    /// <returns>A hash code for this instance that is suitable for use in hashing algorithms and data structures such as a hash table.</returns>
     public override int GetHashCode()
     {
       return (Major.GetHashCode()
@@ -142,6 +193,10 @@ namespace CSF.WebDriverExtras.Flags
               ^ PrereleaseIdentifiers.GetHashCode());
     }
 
+    /// <summary>
+    /// Returns a <see cref="T:System.String"/> that represents the current <see cref="SemanticVersion"/>.
+    /// </summary>
+    /// <returns>A <see cref="T:System.String"/> that represents the current <see cref="SemanticVersion"/>.</returns>
     public override string ToString()
       => $"v{Major}.{Minor}.{Patch}{GetPrereleaseIdentifiersString()}{GetMetadataString()}";
 
@@ -161,6 +216,14 @@ namespace CSF.WebDriverExtras.Flags
       return "+" + String.Join(".", Metadata);
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SemanticVersion"/> class.
+    /// </summary>
+    /// <param name="major">Major.</param>
+    /// <param name="minor">Minor.</param>
+    /// <param name="patch">Patch.</param>
+    /// <param name="prereleaseIdentifiers">Prerelease identifiers.</param>
+    /// <param name="metadata">Metadata.</param>
     public SemanticVersion(int major, int minor, int patch,
                            IList<string> prereleaseIdentifiers = null,
                            IList<string> metadata = null)
@@ -177,6 +240,11 @@ namespace CSF.WebDriverExtras.Flags
       this.metadata = metadata?.ToArray() ?? new string[0];
     }
 
+    /// <summary>
+    /// Parses an input string which may or may not represent a properly-formed semantic version string.
+    /// Returns either a semantic version instance or <c>null</c> if the string is not a properly-formed semantic version.
+    /// </summary>
+    /// <param name="versionString">Version string.</param>
     public static SemanticVersion Parse(string versionString)
     {
       if(versionString == null) return null;

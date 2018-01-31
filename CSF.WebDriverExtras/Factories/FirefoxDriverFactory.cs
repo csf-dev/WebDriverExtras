@@ -7,15 +7,27 @@ using OpenQA.Selenium.Remote;
 
 namespace CSF.WebDriverExtras.Factories
 {
+  /// <summary>
+  /// Implementation of <see cref="T:RemoteDriverFactoryBase{TOptions}"/> for Mozilla Firefox, using
+  /// <see cref="LocalFirefoxOptions"/>
+  /// </summary>
   public class FirefoxDriverFactory : RemoteDriverFactoryBase<LocalFirefoxOptions>
   {
+    /// <summary>
+    /// Creates and returns a web driver instance.
+    /// </summary>
+    /// <returns>The web driver.</returns>
+    /// <param name="requestedCapabilities">A collection of requested web driver capabilities.</param>
+    /// <param name="options">A factory options instance.</param>
+    /// <param name="flagsProvider">A service which derives a collection of browser flags for the created web driver.</param>
+    /// <param name="scenarioName">The name for the current test scenario.</param>
     public override IWebDriver CreateWebDriver(IDictionary<string,object> requestedCapabilities,
                                                LocalFirefoxOptions options,
                                                IGetsBrowserFlags flagsProvider,
                                                string scenarioName)
     {
       var webDriver = GetWebDriver(requestedCapabilities, options);
-      return CreateProxy(webDriver, flagsProvider);
+      return WrapWithProxy(webDriver, flagsProvider);
     }
 
     RemoteWebDriver GetWebDriver(IDictionary<string,object> requestedCapabilities,

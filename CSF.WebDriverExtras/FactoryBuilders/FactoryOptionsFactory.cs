@@ -5,13 +5,23 @@ using CSF.WebDriverExtras.Factories;
 
 namespace CSF.WebDriverExtras.FactoryBuilders
 {
-  public class DriverOptionsFactory : ICreatesDriverOptions
+  /// <summary>
+  /// Implementation of <see cref="ICreatesFactoryOptions"/> which uses reflection to populate
+  /// values into a web driver factory options type.
+  /// </summary>
+  public class FactoryOptionsFactory : ICreatesFactoryOptions
   {
     const BindingFlags PropertySearchFlags
       = BindingFlags.GetProperty | BindingFlags.IgnoreCase | BindingFlags.Instance | BindingFlags.Public;
 
-    public object GetDriverOptions(ICreatesWebDriver factory,
-                                     IDictionary<string, string> optionsDictionary)
+    /// <summary>
+    /// Gets the factory options.
+    /// </summary>
+    /// <returns>The factory options.</returns>
+    /// <param name="factory">A web driver factory.</param>
+    /// <param name="optionsDictionary">A collection of key-value pairs which indicate the values to populate into the created options instance.</param>
+    public object GetFactoryOptions(ICreatesWebDriver factory,
+                                    IDictionary<string, string> optionsDictionary)
     {
       if(factory == null)
         throw new ArgumentNullException(nameof(factory));

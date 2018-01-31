@@ -14,7 +14,7 @@ namespace CSF.WebDriverExtras.Tests.FactoryBuilders
   {
     [Test,AutoMoqData]
     public void GetWebDriverProviderFactory_returns_null_when_config_does_not_exist(ICreatesWebDriverFactory factoryCreator,
-                                                                                    ICreatesDriverOptions optionsCreator)
+                                                                                    ICreatesFactoryOptions optionsCreator)
     {
       // Arrange
       var sut = new WebDriverFactorySource(factoryCreator, optionsCreator);
@@ -28,7 +28,7 @@ namespace CSF.WebDriverExtras.Tests.FactoryBuilders
 
     [Test,AutoMoqData]
     public void GetWebDriverProviderFactory_passes_assembly_name_to_factory_creator(ICreatesWebDriverFactory factoryCreator,
-                                                                         ICreatesDriverOptions optionsCreator,
+                                                                         ICreatesFactoryOptions optionsCreator,
                                                                                     IDescribesWebDriverFactory config,
                                                                          string typeName,
                                                                                     Dictionary<string,string> optionsDictionary)
@@ -51,7 +51,7 @@ namespace CSF.WebDriverExtras.Tests.FactoryBuilders
 
     [Test,AutoMoqData]
     public void GetWebDriverProviderFactory_returns_factory_creator_result_when_factory_does_not_support_options(ICreatesWebDriverFactory factoryCreator,
-                                                                                                                 ICreatesDriverOptions optionsCreator,
+                                                                                                                 ICreatesFactoryOptions optionsCreator,
                                                                                                                  IDescribesWebDriverFactory config,
                                                                                                                  ICreatesWebDriver factory,
                                                                                                                  string typeName,
@@ -78,7 +78,7 @@ namespace CSF.WebDriverExtras.Tests.FactoryBuilders
 
     [Test,AutoMoqData]
     public void GetWebDriverProviderFactory_returns_proxy_when_factory_supports_options(ICreatesWebDriverFactory factoryCreator,
-                                                                                        ICreatesDriverOptions optionsCreator,
+                                                                                        ICreatesFactoryOptions optionsCreator,
                                                                                         IDescribesWebDriverFactory config,
                                                                                         ICreatesWebDriverFromOptions factory,
                                                                                         object options,
@@ -97,7 +97,7 @@ namespace CSF.WebDriverExtras.Tests.FactoryBuilders
           .Setup(x => x.GetFactory(It.IsAny<string>()))
           .Returns(factory);
       Mock.Get(optionsCreator)
-          .Setup(x => x.GetDriverOptions(factory, It.IsAny<IDictionary<string,string>>()))
+          .Setup(x => x.GetFactoryOptions(factory, It.IsAny<IDictionary<string,string>>()))
           .Returns(options);
 
       // Act
@@ -106,7 +106,7 @@ namespace CSF.WebDriverExtras.Tests.FactoryBuilders
       // Assert
       Assert.That(result, Is.InstanceOf<OptionsCachingDriverFactoryProxy>());
       var proxy = (OptionsCachingDriverFactoryProxy) result;
-      Assert.That(proxy.ProxiedProvider, Is.SameAs(factory));
+      Assert.That(proxy.ProxiedFactory, Is.SameAs(factory));
     }
   }
 }

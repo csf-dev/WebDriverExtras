@@ -15,7 +15,7 @@ namespace CSF.WebDriverExtras.Tests.Config
                                                                                      string baseResult)
     {
       // Arrange
-      var sut = new EnvironmentVariableFactoryConfigProxy(proxied);
+      var sut = new EnvironmentVariableFactoryDescriptionProxy(proxied);
       Mock.Get(proxied).Setup(x => x.GetFactoryAssemblyQualifiedTypeName()).Returns(baseResult);
 
       // Act
@@ -30,7 +30,7 @@ namespace CSF.WebDriverExtras.Tests.Config
                                                                                                        [HasValues] Dictionary<string,string> proxiedResult)
     {
       // Arrange
-      var sut = new EnvironmentVariableFactoryConfigProxy(proxied);
+      var sut = new EnvironmentVariableFactoryDescriptionProxy(proxied);
       Mock.Get(proxied).Setup(x => x.GetOptionKeyValuePairs()).Returns(proxiedResult);
 
       // Act
@@ -46,7 +46,7 @@ namespace CSF.WebDriverExtras.Tests.Config
                                                                                                     IReadsEnvironmentVariables environment)
     {
       // Arrange
-      var sut = new EnvironmentVariableFactoryConfigProxy(proxied, environment);
+      var sut = new EnvironmentVariableFactoryDescriptionProxy(proxied, environment);
       Mock.Get(proxied).Setup(x => x.GetOptionKeyValuePairs()).Returns(proxiedResult);
       Mock.Get(proxied).SetupGet(x => x.EnvironmentVariableSupportEnabled).Returns(false);
       Mock.Get(proxied).Setup(x => x.GetEnvironmentVariablePrefix()).Returns("E_");
@@ -67,7 +67,7 @@ namespace CSF.WebDriverExtras.Tests.Config
                                                                                 IReadsEnvironmentVariables environment)
     {
       // Arrange
-      var sut = new EnvironmentVariableFactoryConfigProxy(proxied, environment);
+      var sut = new EnvironmentVariableFactoryDescriptionProxy(proxied, environment);
       Mock.Get(proxied).Setup(x => x.GetOptionKeyValuePairs()).Returns(proxiedResult);
       Mock.Get(proxied).SetupGet(x => x.EnvironmentVariableSupportEnabled).Returns(true);
       Mock.Get(proxied).Setup(x => x.GetEnvironmentVariablePrefix()).Returns("E_");
@@ -90,7 +90,7 @@ namespace CSF.WebDriverExtras.Tests.Config
                                                                                                           IReadsEnvironmentVariables environment)
     {
       // Arrange
-      var sut = new EnvironmentVariableFactoryConfigProxy(proxied, environment);
+      var sut = new EnvironmentVariableFactoryDescriptionProxy(proxied, environment);
       Mock.Get(proxied).Setup(x => x.GetOptionKeyValuePairs()).Returns(proxiedResult);
       Mock.Get(proxied).SetupGet(x => x.EnvironmentVariableSupportEnabled).Returns(true);
       Mock.Get(proxied).Setup(x => x.GetEnvironmentVariablePrefix()).Returns("E_");
@@ -112,7 +112,7 @@ namespace CSF.WebDriverExtras.Tests.Config
                                                                                          IReadsEnvironmentVariables environment)
     {
       // Arrange
-      var sut = new EnvironmentVariableFactoryConfigProxy(proxied, environment);
+      var sut = new EnvironmentVariableFactoryDescriptionProxy(proxied, environment);
       proxiedResult.Add("VariableName", "ValueFromBase");
       Mock.Get(proxied).Setup(x => x.GetOptionKeyValuePairs()).Returns(proxiedResult);
       Mock.Get(proxied).SetupGet(x => x.EnvironmentVariableSupportEnabled).Returns(true);

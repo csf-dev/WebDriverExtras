@@ -66,7 +66,7 @@ namespace CSF.WebDriverExtras.Config
     /// <value>The environment variable prefix.</value>
     [ConfigurationProperty(EnvironmentVariablePrefixConfigName,
                            IsRequired = false,
-                           DefaultValue = EnvironmentVariableFactoryConfigProxy.DefaultEnvironmentVariablePrefix)]
+                           DefaultValue = EnvironmentVariableFactoryDescriptionProxy.DefaultEnvironmentVariablePrefix)]
     public virtual string EnvironmentVariablePrefix
     {
       get { return (string) this[EnvironmentVariablePrefixConfigName]; }

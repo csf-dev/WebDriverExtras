@@ -14,10 +14,10 @@ namespace CSF.WebDriverExtras.Tests.FactoryBuilders
     [Test,AutoMoqData]
     public void GetProviderOptions_returns_null_for_unsupported_factory(ICreatesWebDriver factory,
                                                                         Dictionary<string,string> options,
-                                                                        DriverOptionsFactory sut)
+                                                                        FactoryOptionsFactory sut)
     {
       // Act
-      var result = sut.GetDriverOptions(factory, options);
+      var result = sut.GetFactoryOptions(factory, options);
 
       // Assert
       Assert.That(result, Is.Null);
@@ -25,7 +25,7 @@ namespace CSF.WebDriverExtras.Tests.FactoryBuilders
 
     [Test,AutoMoqData]
     public void GetProviderOptions_returns_created_instance_from_factory(ICreatesWebDriverFromOptions factory,
-                                                                         DriverOptionsFactory sut,
+                                                                         FactoryOptionsFactory sut,
                                                                          SampleOptionsType expectedResult)
     {
       // Arrange
@@ -35,7 +35,7 @@ namespace CSF.WebDriverExtras.Tests.FactoryBuilders
       var options = new Dictionary<string,string>();
 
       // Act
-      var result = sut.GetDriverOptions(factory, options);
+      var result = sut.GetFactoryOptions(factory, options);
 
       // Assert
       Assert.That(result, Is.SameAs(expectedResult));
@@ -43,7 +43,7 @@ namespace CSF.WebDriverExtras.Tests.FactoryBuilders
 
     [Test,AutoMoqData]
     public void GetProviderOptions_can_set_a_string_option(ICreatesWebDriverFromOptions factory,
-                                                           DriverOptionsFactory sut,
+                                                           FactoryOptionsFactory sut,
                                                            [NoAutoProperties] SampleOptionsType expectedResult,
                                                            string expectedValue)
     {
@@ -56,7 +56,7 @@ namespace CSF.WebDriverExtras.Tests.FactoryBuilders
       };
 
       // Act
-      var result = (SampleOptionsType) sut.GetDriverOptions(factory, options);
+      var result = (SampleOptionsType) sut.GetFactoryOptions(factory, options);
 
       // Assert
       Assert.That(result.AStringProperty, Is.EqualTo(expectedValue));
@@ -64,7 +64,7 @@ namespace CSF.WebDriverExtras.Tests.FactoryBuilders
 
     [Test,AutoMoqData]
     public void GetProviderOptions_can_set_a_nullable_integer(ICreatesWebDriverFromOptions factory,
-                                                              DriverOptionsFactory sut,
+                                                              FactoryOptionsFactory sut,
                                                               [NoAutoProperties] SampleOptionsType expectedResult,
                                                               int expectedValue)
     {
@@ -77,7 +77,7 @@ namespace CSF.WebDriverExtras.Tests.FactoryBuilders
       };
 
       // Act
-      var result = (SampleOptionsType) sut.GetDriverOptions(factory, options);
+      var result = (SampleOptionsType) sut.GetFactoryOptions(factory, options);
 
       // Assert
       Assert.That(result.ANullableIntegerProperty, Is.EqualTo(expectedValue));
@@ -85,7 +85,7 @@ namespace CSF.WebDriverExtras.Tests.FactoryBuilders
 
     [Test,AutoMoqData]
     public void GetProviderOptions_can_leave_a_nullable_integer_unset(ICreatesWebDriverFromOptions factory,
-                                                                      DriverOptionsFactory sut,
+                                                                      FactoryOptionsFactory sut,
                                                                       [NoAutoProperties] SampleOptionsType expectedResult)
     {
       // Arrange
@@ -95,7 +95,7 @@ namespace CSF.WebDriverExtras.Tests.FactoryBuilders
       var options = new Dictionary<string,string>();
 
       // Act
-      var result = (SampleOptionsType) sut.GetDriverOptions(factory, options);
+      var result = (SampleOptionsType) sut.GetFactoryOptions(factory, options);
 
       // Assert
       Assert.That(result.ANullableIntegerProperty, Is.Null);
@@ -103,7 +103,7 @@ namespace CSF.WebDriverExtras.Tests.FactoryBuilders
 
     [Test,AutoMoqData]
     public void GetProviderOptions_can_set_a_boolean(ICreatesWebDriverFromOptions factory,
-                                                              DriverOptionsFactory sut,
+                                                              FactoryOptionsFactory sut,
                                                               [NoAutoProperties] SampleOptionsType expectedResult,
                                                               bool expectedValue)
     {
@@ -116,7 +116,7 @@ namespace CSF.WebDriverExtras.Tests.FactoryBuilders
       };
 
       // Act
-      var result = (SampleOptionsType) sut.GetDriverOptions(factory, options);
+      var result = (SampleOptionsType) sut.GetFactoryOptions(factory, options);
 
       // Assert
       Assert.That(result.ABooleanProperty, Is.EqualTo(expectedValue));
