@@ -40,6 +40,9 @@
       <HintPath>..\packages\CSF.Configuration.1.1.0\lib\net45\CSF.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="System.Configuration" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -86,6 +89,16 @@
     <Compile Include="Proxies\RemoteWebDriverProxyCreator.cs" />
     <Compile Include="Proxies\IWrapsRemoteDriversInProxies.cs" />
     <Compile Include="Proxies\SauceConnectWebDriverProxyCreator.cs" />
+    <Compile Include="Flags\FlagsDefinition.cs" />
+    <Compile Include="Flags\BrowserVersion.cs" />
+    <Compile Include="Flags\SemanticVersion.cs" />
+    <Compile Include="Flags\BrowserIdentification.cs" />
+    <Compile Include="Flags\Reading\SerializableFlagsDefinition.cs" />
+    <Compile Include="Flags\Reading\SingleOrArrayConverter.cs" />
+    <Compile Include="Flags\IReadsFlagsDefinitions.cs" />
+    <Compile Include="Flags\DefinitionReader.cs" />
+    <Compile Include="Flags\ICreatesBrowserVersions.cs" />
+    <Compile Include="Flags\VersionFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -100,6 +113,7 @@
     <Folder Include="FactoryBuilders\" />
     <Folder Include="SuccessAndFailure\" />
     <Folder Include="Proxies\" />
+    <Folder Include="Flags\Reading\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
