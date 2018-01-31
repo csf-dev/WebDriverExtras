@@ -10,6 +10,11 @@ using OpenQA.Selenium.Remote;
 
 namespace CSF.WebDriverExtras.Proxies
 {
+  /// <summary>
+  /// A type which proxies/wraps a given Selenium <c>RemoteWebDriver</c> and allows us to add additional
+  /// functionality/interfaces to that instance, whilst still supporting all of Selenium's underlying
+  /// functionality.
+  /// </summary>
   public class RemoteWebDriverProxy : IHasFlags,
   #region Selenium interfaces
   IWebDriver, IDisposable, ISearchContext, IJavaScriptExecutor, IFindsById,
@@ -28,143 +33,169 @@ namespace CSF.WebDriverExtras.Proxies
 
     #region properties
 
+    /// <summary>
+    /// Gets the wrapped/proxied driver.
+    /// </summary>
+    /// <value>The proxied driver.</value>
     protected RemoteWebDriver ProxiedDriver => proxiedDriver;
 
     #endregion
 
     #region Selenium built-in functionality
 
-    public IApplicationCache ApplicationCache => proxiedDriver.ApplicationCache;
+    IApplicationCache IHasApplicationCache.ApplicationCache => proxiedDriver.ApplicationCache;
 
-    public ICapabilities Capabilities => proxiedDriver.Capabilities;
+    ICapabilities IHasCapabilities.Capabilities => proxiedDriver.Capabilities;
 
-    public string CurrentWindowHandle => proxiedDriver.CurrentWindowHandle;
+    string IWebDriver.CurrentWindowHandle => proxiedDriver.CurrentWindowHandle;
 
-    public IFileDetector FileDetector
+    IFileDetector IAllowsFileDetection.FileDetector
     {
       get { return proxiedDriver.FileDetector; }
       set { proxiedDriver.FileDetector = value; }
     }
 
-    public bool HasApplicationCache => proxiedDriver.HasApplicationCache;
+    bool IHasApplicationCache.HasApplicationCache => proxiedDriver.HasApplicationCache;
 
-    public bool HasLocationContext => proxiedDriver.HasLocationContext;
+    bool IHasLocationContext.HasLocationContext => proxiedDriver.HasLocationContext;
 
-    public bool HasWebStorage => proxiedDriver.HasWebStorage;
+    bool IHasWebStorage.HasWebStorage => proxiedDriver.HasWebStorage;
 
-    public bool IsActionExecutor => proxiedDriver.IsActionExecutor;
+    bool IActionExecutor.IsActionExecutor => proxiedDriver.IsActionExecutor;
 
-    public IKeyboard Keyboard => proxiedDriver.Keyboard;
+    IKeyboard IHasInputDevices.Keyboard => proxiedDriver.Keyboard;
 
-    public ILocationContext LocationContext => proxiedDriver.LocationContext;
+    ILocationContext IHasLocationContext.LocationContext => proxiedDriver.LocationContext;
 
-    public IMouse Mouse => proxiedDriver.Mouse;
+    IMouse IHasInputDevices.Mouse => proxiedDriver.Mouse;
 
-    public string PageSource => proxiedDriver.PageSource;
+    string IWebDriver.PageSource => proxiedDriver.PageSource;
 
-    public SessionId SessionId => proxiedDriver.SessionId;
+    SessionId IHasSessionId.SessionId => proxiedDriver.SessionId;
 
-    public string Title => proxiedDriver.Title;
+    string IWebDriver.Title => proxiedDriver.Title;
 
-    public string Url
+    string IWebDriver.Url
     {
       get { return proxiedDriver.Url; }
       set { proxiedDriver.Url = value; }
     }
 
-    public IWebStorage WebStorage => proxiedDriver.WebStorage;
+    IWebStorage IHasWebStorage.WebStorage => proxiedDriver.WebStorage;
 
-    public ReadOnlyCollection<string> WindowHandles => proxiedDriver.WindowHandles;
+    ReadOnlyCollection<string> IWebDriver.WindowHandles => proxiedDriver.WindowHandles;
 
-    public void Close() => proxiedDriver.Close();
+    void IWebDriver.Close() => proxiedDriver.Close();
 
-    public void Dispose() => proxiedDriver.Dispose();
+    void IDisposable.Dispose() => proxiedDriver.Dispose();
 
-    public object ExecuteAsyncScript(string script, params object[] args)
+    object IJavaScriptExecutor.ExecuteAsyncScript(string script, params object[] args)
       => proxiedDriver.ExecuteAsyncScript(script, args);
 
-    public object ExecuteScript(string script, params object[] args)
+    object IJavaScriptExecutor.ExecuteScript(string script, params object[] args)
       => proxiedDriver.ExecuteScript(script, args);
 
-    public IWebElement FindElement(By by) => proxiedDriver.FindElement(by);
+    IWebElement ISearchContext.FindElement(By by) => proxiedDriver.FindElement(by);
 
-    public IWebElement FindElementByClassName(string className)
+    IWebElement IFindsByClassName.FindElementByClassName(string className)
       => proxiedDriver.FindElementByClassName(className);
 
-    public IWebElement FindElementByCssSelector(string cssSelector)
+    IWebElement IFindsByCssSelector.FindElementByCssSelector(string cssSelector)
      => proxiedDriver.FindElementByCssSelector(cssSelector);
 
-    public IWebElement FindElementById(string id)
+    IWebElement IFindsById.FindElementById(string id)
      => proxiedDriver.FindElementById(id);
 
-    public IWebElement FindElementByLinkText(string linkText)
+    IWebElement IFindsByLinkText.FindElementByLinkText(string linkText)
      => proxiedDriver.FindElementByLinkText(linkText);
 
-    public IWebElement FindElementByName(string name)
+    IWebElement IFindsByName.FindElementByName(string name)
      => proxiedDriver.FindElementByName(name);
 
-    public IWebElement FindElementByPartialLinkText(string partialLinkText)
+    IWebElement IFindsByPartialLinkText.FindElementByPartialLinkText(string partialLinkText)
      => proxiedDriver.FindElementByPartialLinkText(partialLinkText);
 
-    public IWebElement FindElementByTagName(string tagName)
+    IWebElement IFindsByTagName.FindElementByTagName(string tagName)
      => proxiedDriver.FindElementByTagName(tagName);
 
-    public IWebElement FindElementByXPath(string xpath)
+    IWebElement IFindsByXPath.FindElementByXPath(string xpath)
      => proxiedDriver.FindElementByXPath(xpath);
 
-    public ReadOnlyCollection<IWebElement> FindElements(By by)
+    ReadOnlyCollection<IWebElement> ISearchContext.FindElements(By by)
      => proxiedDriver.FindElements(by);
 
-    public ReadOnlyCollection<IWebElement> FindElementsByClassName(string className)
+    ReadOnlyCollection<IWebElement> IFindsByClassName.FindElementsByClassName(string className)
      => proxiedDriver.FindElementsByClassName(className);
 
-    public ReadOnlyCollection<IWebElement> FindElementsByCssSelector(string cssSelector)
+    ReadOnlyCollection<IWebElement> IFindsByCssSelector.FindElementsByCssSelector(string cssSelector)
      => proxiedDriver.FindElementsByCssSelector(cssSelector);
 
-    public ReadOnlyCollection<IWebElement> FindElementsById(string id)
+    ReadOnlyCollection<IWebElement> IFindsById.FindElementsById(string id)
      => proxiedDriver.FindElementsById(id);
 
-    public ReadOnlyCollection<IWebElement> FindElementsByLinkText(string linkText)
+    ReadOnlyCollection<IWebElement> IFindsByLinkText.FindElementsByLinkText(string linkText)
      => proxiedDriver.FindElementsByLinkText(linkText);
 
-    public ReadOnlyCollection<IWebElement> FindElementsByName(string name)
+    ReadOnlyCollection<IWebElement> IFindsByName.FindElementsByName(string name)
      => proxiedDriver.FindElementsByName(name);
 
-    public ReadOnlyCollection<IWebElement> FindElementsByPartialLinkText(string partialLinkText)
+    ReadOnlyCollection<IWebElement> IFindsByPartialLinkText.FindElementsByPartialLinkText(string partialLinkText)
      => proxiedDriver.FindElementsByPartialLinkText(partialLinkText);
 
-    public ReadOnlyCollection<IWebElement> FindElementsByTagName(string tagName)
+    ReadOnlyCollection<IWebElement> IFindsByTagName.FindElementsByTagName(string tagName)
      => proxiedDriver.FindElementsByTagName(tagName);
 
-    public ReadOnlyCollection<IWebElement> FindElementsByXPath(string xpath)
+    ReadOnlyCollection<IWebElement> IFindsByXPath.FindElementsByXPath(string xpath)
      => proxiedDriver.FindElementsByXPath(xpath);
 
-    public Screenshot GetScreenshot() => proxiedDriver.GetScreenshot();
+    Screenshot ITakesScreenshot.GetScreenshot() => proxiedDriver.GetScreenshot();
 
-    public IOptions Manage() => proxiedDriver.Manage();
+    IOptions IWebDriver.Manage() => proxiedDriver.Manage();
 
-    public INavigation Navigate() => proxiedDriver.Navigate();
+    INavigation IWebDriver.Navigate() => proxiedDriver.Navigate();
 
-    public void PerformActions(IList<ActionSequence> actionSequenceList)
+    void IActionExecutor.PerformActions(IList<ActionSequence> actionSequenceList)
      => proxiedDriver.PerformActions(actionSequenceList);
 
-    public void Quit() => proxiedDriver.Quit();
+    void IWebDriver.Quit() => proxiedDriver.Quit();
 
-    public void ResetInputState() => proxiedDriver.ResetInputState();
+    void IActionExecutor.ResetInputState() => proxiedDriver.ResetInputState();
 
-    public ITargetLocator SwitchTo() => proxiedDriver.SwitchTo();
+    ITargetLocator IWebDriver.SwitchTo() => proxiedDriver.SwitchTo();
 
+    /// <summary>
+    /// Gets a collection of all of the flags associated with the current driver.
+    /// </summary>
+    /// <returns>The flags.</returns>
     #endregion
 
     #region WebDriverExtras functionality
 
     public IReadOnlyCollection<string> GetFlags() => flags;
 
+    /// <summary>
+    /// Gets a value indicating whether or not the current driver has a given flag.
+    /// </summary>
+    /// <returns>
+    /// <c>true</c>, if the flag is present on the driver, <c>false</c> otherwise.</returns>
+    /// <param name="flag">A flag name.</param>
     public bool HasFlag(string flag) => flags.Contains(flag);
 
+    /// <summary>
+    /// Analyses an ordered collection of web driver flags and returns the first of which that is present
+    /// upon the current web driver.  Returns <c>null</c> if none of the provided flags were present.
+    /// </summary>
+    /// <returns>The first flag present on this driver.</returns>
+    /// <param name="flags">A collection of flags.</param>
     public string GetFirstFlagPresent(params string[] flags)
       => GetFirstFlagPresent((IList<string>) flags ?? new string[0]);
 
+    /// <summary>
+    /// Analyses an ordered collection of web driver flags and returns the first of which that is present
+    /// upon the current web driver.  Returns <c>null</c> if none of the provided flags were present.
+    /// </summary>
+    /// <returns>The first flag present on this driver.</returns>
+    /// <param name="flags">A collection of flags.</param>
     public string GetFirstFlagPresent(IList<string> flags)
     {
       if(flags == null)
@@ -177,6 +208,11 @@ namespace CSF.WebDriverExtras.Proxies
 
     #region constructor
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RemoteWebDriverProxy"/> class.
+    /// </summary>
+    /// <param name="proxiedDriver">The proxied/wrapped web driver.</param>
+    /// <param name="flags">A collection of the browser flags for the driver.</param>
     public RemoteWebDriverProxy(RemoteWebDriver proxiedDriver,
                                 ICollection<string> flags = null)
     {
@@ -187,6 +223,11 @@ namespace CSF.WebDriverExtras.Proxies
       this.flags = new ReadOnlyCollection<string>(flags?.ToList() ?? Enumerable.Empty<string>().ToList());
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RemoteWebDriverProxy"/> class.
+    /// </summary>
+    /// <param name="proxiedDriver">The proxied/wrapped web driver.</param>
+    /// <param name="flags">A collection of the browser flags for the driver.</param>
     public RemoteWebDriverProxy(RemoteWebDriver proxiedDriver,
                                 IReadOnlyCollection<string> flags)
     {

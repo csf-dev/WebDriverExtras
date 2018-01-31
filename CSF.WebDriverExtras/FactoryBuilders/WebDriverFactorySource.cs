@@ -4,28 +4,33 @@ using CSF.WebDriverExtras.Factories;
 
 namespace CSF.WebDriverExtras.FactoryBuilders
 {
+  /// <summary>
+  /// A service which 'spawns' web driver factories from descriptions.
+  /// </summary>
   public class WebDriverFactorySource
   {
-    readonly IGetsFactoryConfiguration configReader;
     readonly ICreatesWebDriverFactory factoryCreator;
-    readonly ICreatesDriverOptions optionsCreator;
+    readonly ICreatesFactoryOptions optionsCreator;
 
-    public virtual ICreatesWebDriver GetWebDriverFactory()
+    /// <summary>
+    /// Gets a web driver factory matching the given description.
+    /// </summary>
+    /// <returns>The web driver factory.</returns>
+    /// <param name="description">An object which describes a web driver factory.</param>
+    public virtual ICreatesWebDriver GetWebDriverFactory(IDescribesWebDriverFactory description)
     {
-      if(!configReader.HasConfiguration)
-        return null;
+      if(description == null) return null;
 
-      var factory = factoryCreator.GetFactory(configReader.GetFactoryAssemblyQualifiedTypeName());
+      var factory = factoryCreator.GetFactory(description.GetFactoryAssemblyQualifiedTypeName());
       if(factory == null)
         return null;
 
-      var options = optionsCreator.GetDriverOptions(factory, configReader.GetProviderOptions());
+      var options = optionsCreator.GetFactoryOptions(factory, description.GetOptionKeyValuePairs());
 
       return GetFactory(factory, options);
     }
 
-    ICreatesWebDriver GetFactory(ICreatesWebDriver factory,
-                                          object options)
+    ICreatesWebDriver GetFactory(ICreatesWebDriver factory, object options)
     {
       if(options != null && (factory is ICreatesWebDriverFromOptions))
         return new OptionsCachingDriverFactoryProxy((ICreatesWebDriverFromOptions) factory, options);
@@ -33,19 +38,18 @@ namespace CSF.WebDriverExtras.FactoryBuilders
       return factory;
     }
 
-    IGetsFactoryConfiguration GetDefaultConfigurationReader()
-    {
-      var configFileReader = new ConfigurationFileFactoryConfigurationReader();
-      var environmentBasedReader = new EnvironmentVariableFactoryConfigReaderProxy(configFileReader);
+    /// <summary>
+    /// Initializes a new instance of the <see cref="WebDriverFactorySource"/> class.
+    /// </summary>
+    public WebDriverFactorySource() : this(null, null) {}
 
-      return environmentBasedReader;
-    }
-
-    public WebDriverFactorySource() : this(null, null, null) {}
-
-    public WebDriverFactorySource(IGetsFactoryConfiguration configReader,
-                                          ICreatesWebDriverFactory factoryCreator,
-                                          ICreatesDriverOptions optionsCreator)
+    /// <summary>
+    /// Initializes a new instance of the <see cref="WebDriverFactorySource"/> class.
+    /// </summary>
+    /// <param name="factoryCreator">A factory service which creates web driver factories (a factory-factory if you will).</param>
+    /// <param name="optionsCreator">A factory service which instantiates instances of factory options.</param>
+    public WebDriverFactorySource(ICreatesWebDriverFactory factoryCreator,
+                                  ICreatesFactoryOptions optionsCreator)
     {
       if(factoryCreator == null)
       {
@@ -57,8 +61,7 @@ namespace CSF.WebDriverExtras.FactoryBuilders
         this.factoryCreator = factoryCreator;
       }
 
-      this.configReader = configReader ?? GetDefaultConfigurationReader();
-      this.optionsCreator = optionsCreator ?? new DriverOptionsFactory();
+      this.optionsCreator = optionsCreator ?? new FactoryOptionsFactory();
     }
   }
 }

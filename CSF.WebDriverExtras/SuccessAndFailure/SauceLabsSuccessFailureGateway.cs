@@ -3,12 +3,24 @@ using OpenQA.Selenium;
 
 namespace CSF.WebDriverExtras.SuccessAndFailure
 {
+  /// <summary>
+  /// An implementation of <see cref="ISuccessAndFailureGateway"/> which is configured for
+  /// Sauce Labs' Sauce Connect web driver API.
+  /// </summary>
   public class SauceLabsSuccessFailureGateway : ISuccessAndFailureGateway
   {
     const string SendOutcomeJavascriptTemplate = "sauce:job-result={0}";
 
+    /// <summary>
+    /// Sends a 'test scenario success' to a web driver.
+    /// </summary>
+    /// <param name="webDriver">Web driver.</param>
     public void SendSuccess(IWebDriver webDriver) => SendOutcome(webDriver, true);
 
+    /// <summary>
+    /// Sends a 'test scenario failure' to a web driver.
+    /// </summary>
+    /// <param name="webDriver">Web driver.</param>
     public void SendFailure(IWebDriver webDriver) => SendOutcome(webDriver, false);
 
     void SendOutcome(IWebDriver webDriver, bool outcome)

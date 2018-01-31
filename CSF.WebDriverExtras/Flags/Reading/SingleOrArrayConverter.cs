@@ -5,10 +5,8 @@ using Newtonsoft.Json.Linq;
 
 namespace CSF.WebDriverExtras.Flags.Reading
 {
-  /// <summary>
-  /// Taken directly from https://stackoverflow.com/a/18997172/6221779
-  /// </summary>
-  public class SingleOrArrayConverter<T> : JsonConverter
+  // Taken directly from https://stackoverflow.com/a/18997172/6221779
+  class SingleOrArrayConverter<T> : JsonConverter
   {
     public override bool CanConvert(Type objectType)
     {
