@@ -4,22 +4,20 @@ using System.Linq;
 
 namespace CSF.WebDriverExtras.Config
 {
-  public class EnvironmentVariableFactoryConfigReaderProxy : IGetsFactoryConfiguration
+  public class EnvironmentVariableFactoryConfigProxy : IDescribesWebDriverFactory
   {
     internal const string DefaultEnvironmentVariablePrefix = "WebDriver_";
 
-    readonly IGetsFactoryConfiguration proxiedReader;
+    readonly IDescribesWebDriverFactory proxiedReader;
     readonly IReadsEnvironmentVariables environmentReader;
 
     protected IIndicatesEnvironmentSupport EnvironmentConfig => proxiedReader as IIndicatesEnvironmentSupport;
 
-    public bool HasConfiguration => proxiedReader.HasConfiguration;
-
     public string GetFactoryAssemblyQualifiedTypeName() => proxiedReader.GetFactoryAssemblyQualifiedTypeName();
 
-    public IDictionary<string, string> GetProviderOptions()
+    public IDictionary<string, string> GetOptionKeyValuePairs()
     {
-      var baseOptions = proxiedReader.GetProviderOptions();
+      var baseOptions = proxiedReader.GetOptionKeyValuePairs();
       if(!(EnvironmentConfig?.EnvironmentVariableSupportEnabled).GetValueOrDefault())
         return baseOptions;
 
@@ -49,11 +47,11 @@ namespace CSF.WebDriverExtras.Config
       return output;
     }
 
-    public EnvironmentVariableFactoryConfigReaderProxy(IGetsFactoryConfiguration proxiedReader)
+    public EnvironmentVariableFactoryConfigProxy(IDescribesWebDriverFactory proxiedReader)
       : this(proxiedReader, null) {}
     
-    public EnvironmentVariableFactoryConfigReaderProxy(IGetsFactoryConfiguration proxiedReader,
-                                                       IReadsEnvironmentVariables environmentReader)
+    public EnvironmentVariableFactoryConfigProxy(IDescribesWebDriverFactory proxiedReader,
+                                                 IReadsEnvironmentVariables environmentReader)
     {
       if(proxiedReader == null)
         throw new ArgumentNullException(nameof(proxiedReader));

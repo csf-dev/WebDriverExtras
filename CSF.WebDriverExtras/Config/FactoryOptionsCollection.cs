@@ -57,34 +57,5 @@ namespace CSF.WebDriverExtras.Config
     public FactoryOption this[int idx] => (FactoryOption) BaseGet(idx);
   }
 
-  /// <summary>
-  /// A single factory property, exposing a name/value pair, indicating a public settable property on the factory
-  /// type and the value to be set into it.
-  /// </summary>
-  public class FactoryOption : ConfigurationElement
-  {
-    const string NameConfigName = @"Name", ValueConfigName = @"Value";
-
-    /// <summary>
-    /// Gets or sets the name.
-    /// </summary>
-    /// <value>The name.</value>
-    [ConfigurationProperty(NameConfigName, IsRequired = true)]
-    public virtual string Name
-    {
-      get { return (string) this[NameConfigName]; }
-      set { this[NameConfigName] = value; }
-    }
-
-    /// <summary>
-    /// Gets or sets the value.
-    /// </summary>
-    /// <value>The value.</value>
-    [ConfigurationProperty(ValueConfigName, IsRequired = true)]
-    public virtual string Value
-    {
-      get { return (string) this[ValueConfigName]; }
-      set { this[ValueConfigName] = value; }
-    }
-  }
+  
 }
