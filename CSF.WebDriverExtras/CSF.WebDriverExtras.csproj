@@ -105,10 +105,8 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="CSF.WebDriverExtras.nuspec" />
-    <None Include="Impl\InternetExplorerWebDriverFactory.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Impl\" />
     <Folder Include="Config\" />
     <Folder Include="Factories\" />
     <Folder Include="Flags\" />
@@ -116,6 +114,10 @@
     <Folder Include="SuccessAndFailure\" />
     <Folder Include="Proxies\" />
     <Folder Include="Flags\Reading\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="app.config.install.xdt" />
+    <Content Include="app.config.uninstall.xdt" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
