@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>CSF.WebDriverExtras</id>
-    <version>0.2.0-alpha</version>
+    <version>0.3.0-beta</version>
     <title>CSF.WebDriverExtras</title>
     <authors>CSF Software Ltd</authors>
     <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
