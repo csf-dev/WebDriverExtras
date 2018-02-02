@@ -14,7 +14,7 @@ namespace CSF.WebDriverExtras.Config
   /// <para>
   /// This type is an implementation of <see cref="IDescribesWebDriverFactory"/> and also
   /// <see cref="IIndicatesEnvironmentSupport"/>, and thus it may be used as a parameter to
-  /// <see cref="FactoryBuilders.WebDriverFactorySource.GetWebDriverFactory"/>.
+  /// <see cref="FactoryBuilders.WebDriverFactorySource.CreateFactory"/>.
   /// </para>
   /// </remarks>
   [ConfigurationPath("WebDriverFactory")]
