@@ -6,17 +6,35 @@ using OpenQA.Selenium.Remote;
 
 namespace CSF.WebDriverExtras.Factories
 {
+  /// <summary>
+  /// Implementation of <see cref="T:RemoteDriverFactoryBase{TOptions}"/> for remote web drivers (those which are
+  /// accessed via a remote API call), using <see cref="RemoteDriverOptions"/>
+  /// </summary>
   public class RemoteDriverFactory : RemoteDriverFactoryBase<RemoteDriverOptions>
   {
+    /// <summary>
+    /// Creates and returns a web driver instance.
+    /// </summary>
+    /// <returns>The web driver.</returns>
+    /// <param name="requestedCapabilities">A collection of requested web driver capabilities.</param>
+    /// <param name="options">A factory options instance.</param>
+    /// <param name="flagsProvider">A service which derives a collection of browser flags for the created web driver.</param>
+    /// <param name="scenarioName">The name for the current test scenario.</param>
     public override IWebDriver CreateWebDriver(IDictionary<string,object> requestedCapabilities,
                                                RemoteDriverOptions options,
                                                IGetsBrowserFlags flagsProvider,
                                                string scenarioName)
     {
       var webDriver = GetWebDriver(requestedCapabilities, options);
-      return CreateProxy(webDriver, flagsProvider);
+      return WrapWithProxy(webDriver, flagsProvider);
     }
 
+    /// <summary>
+    /// Gets the remote web driver instance.
+    /// </summary>
+    /// <returns>The web driver.</returns>
+    /// <param name="requestedCapabilities">Requested capabilities.</param>
+    /// <param name="options">Options.</param>
     protected virtual RemoteWebDriver GetWebDriver(IDictionary<string,object> requestedCapabilities,
                                                    RemoteDriverOptions options)
     {
@@ -32,7 +50,10 @@ namespace CSF.WebDriverExtras.Factories
     /// <summary>
     /// Configures the capabilities desired for the current instance.
     /// </summary>
-    /// <param name="caps">Caps.</param>
+    /// <param name="caps">A Selenium <c>DesiredCapabilities</c> instance.</param>
+    /// <param name="requestedCapabilities">A collection of key/value pairs indicating capabilities passed to the
+    /// <see cref="CreateWebDriver"/> method.</param>
+    /// <param name="options">Options.</param>
     protected virtual void ConfigureCapabilities(DesiredCapabilities caps,
                                                  IDictionary<string,object> requestedCapabilities,
                                                  RemoteDriverOptions options)
@@ -41,6 +62,14 @@ namespace CSF.WebDriverExtras.Factories
       SetExtraCapabilities(caps, requestedCapabilities);
     }
 
+    /// <summary>
+    /// Sets up well-known capabilities which are expected to come from either the
+    /// requested capabilities dictionary or from the options object.
+    /// </summary>
+    /// <param name="caps">A Selenium <c>DesiredCapabilities</c> instance.</param>
+    /// <param name="requestedCapabilities">A collection of key/value pairs indicating capabilities passed to the
+    /// <see cref="CreateWebDriver"/> method.</param>
+    /// <param name="options">Options.</param>
     protected virtual void SetStandardCapabilities(DesiredCapabilities caps,
                                                    IDictionary<string,object> requestedCapabilities,
                                                    RemoteDriverOptions options)
@@ -50,6 +79,12 @@ namespace CSF.WebDriverExtras.Factories
       caps.SetOptionalCapability(CapabilityType.Platform, requestedCapabilities, options?.Platform);
     }
 
+    /// <summary>
+    /// Sets additional, arbitrary capabilities from the requested capabilities collection.
+    /// </summary>
+    /// <param name="caps">A Selenium <c>DesiredCapabilities</c> instance.</param>
+    /// <param name="requestedCapabilities">A collection of key/value pairs indicating capabilities passed to the
+    /// <see cref="CreateWebDriver"/> method.</param>
     protected virtual void SetExtraCapabilities(DesiredCapabilities caps,
                                                 IDictionary<string,object> requestedCapabilities)
     {

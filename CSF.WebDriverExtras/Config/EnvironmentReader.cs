@@ -4,8 +4,15 @@ using System.Linq;
 
 namespace CSF.WebDriverExtras.Config
 {
+  /// <summary>
+  /// Implementation of <see cref="IReadsEnvironmentVariables"/> which reads real environment variables.
+  /// </summary>
   public class EnvironmentReader : IReadsEnvironmentVariables
   {
+    /// <summary>
+    /// Gets a collection of key/value pairs of environment variables and their values.
+    /// </summary>
+    /// <returns>The environment variables.</returns>
     public IDictionary<string, string> GetEnvironmentVariables()
     {
       var allVariables = Environment.GetEnvironmentVariables();

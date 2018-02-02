@@ -10,27 +10,12 @@ namespace CSF.WebDriverExtras.Tests.Config
   [TestFixture,Parallelizable(ParallelScope.All)]
   public class EnvironmentVariableFactoryConfigReaderProxyTests
   {
-    [Theory,AutoMoqData]
-    public void HasConfiguration_returns_result_from_proxied_type(IGetsFactoryConfiguration proxied,
-                                                                  bool baseResult)
-    {
-      // Arrange
-      var sut = new EnvironmentVariableFactoryConfigReaderProxy(proxied);
-      Mock.Get(proxied).SetupGet(x => x.HasConfiguration).Returns(baseResult);
-
-      // Act
-      var result = sut.HasConfiguration;
-
-      // Assert
-      Assert.That(result, Is.EqualTo(baseResult));
-    }
-
     [Test,AutoMoqData]
-    public void GetFactoryAssemblyQualifiedTypeName_returns_result_from_proxied_type(IGetsFactoryConfiguration proxied,
+    public void GetFactoryAssemblyQualifiedTypeName_returns_result_from_proxied_type(IDescribesWebDriverFactory proxied,
                                                                                      string baseResult)
     {
       // Arrange
-      var sut = new EnvironmentVariableFactoryConfigReaderProxy(proxied);
+      var sut = new EnvironmentVariableFactoryDescriptionProxy(proxied);
       Mock.Get(proxied).Setup(x => x.GetFactoryAssemblyQualifiedTypeName()).Returns(baseResult);
 
       // Act
@@ -41,15 +26,15 @@ namespace CSF.WebDriverExtras.Tests.Config
     }
 
     [Test,AutoMoqData]
-    public void GetProviderOptions_returns_same_result_as_proxied_when_environment_cannot_be_supported(IGetsFactoryConfiguration proxied,
+    public void GetProviderOptions_returns_same_result_as_proxied_when_environment_cannot_be_supported(IDescribesWebDriverFactory proxied,
                                                                                                        [HasValues] Dictionary<string,string> proxiedResult)
     {
       // Arrange
-      var sut = new EnvironmentVariableFactoryConfigReaderProxy(proxied);
-      Mock.Get(proxied).Setup(x => x.GetProviderOptions()).Returns(proxiedResult);
+      var sut = new EnvironmentVariableFactoryDescriptionProxy(proxied);
+      Mock.Get(proxied).Setup(x => x.GetOptionKeyValuePairs()).Returns(proxiedResult);
 
       // Act
-      var result = sut.GetProviderOptions();
+      var result = sut.GetOptionKeyValuePairs();
 
       // Assert
       Assert.That(result, Is.EquivalentTo(proxiedResult));
@@ -61,8 +46,8 @@ namespace CSF.WebDriverExtras.Tests.Config
                                                                                                     IReadsEnvironmentVariables environment)
     {
       // Arrange
-      var sut = new EnvironmentVariableFactoryConfigReaderProxy(proxied, environment);
-      Mock.Get(proxied).Setup(x => x.GetProviderOptions()).Returns(proxiedResult);
+      var sut = new EnvironmentVariableFactoryDescriptionProxy(proxied, environment);
+      Mock.Get(proxied).Setup(x => x.GetOptionKeyValuePairs()).Returns(proxiedResult);
       Mock.Get(proxied).SetupGet(x => x.EnvironmentVariableSupportEnabled).Returns(false);
       Mock.Get(proxied).Setup(x => x.GetEnvironmentVariablePrefix()).Returns("E_");
       Mock.Get(environment)
@@ -70,7 +55,7 @@ namespace CSF.WebDriverExtras.Tests.Config
           .Returns(new Dictionary<string,string> { { "E_EnvironmentVar", "EnvironmentValue" } });
 
       // Act
-      var result = sut.GetProviderOptions();
+      var result = sut.GetOptionKeyValuePairs();
 
       // Assert
       Assert.That(result, Is.EquivalentTo(proxiedResult));
@@ -82,8 +67,8 @@ namespace CSF.WebDriverExtras.Tests.Config
                                                                                 IReadsEnvironmentVariables environment)
     {
       // Arrange
-      var sut = new EnvironmentVariableFactoryConfigReaderProxy(proxied, environment);
-      Mock.Get(proxied).Setup(x => x.GetProviderOptions()).Returns(proxiedResult);
+      var sut = new EnvironmentVariableFactoryDescriptionProxy(proxied, environment);
+      Mock.Get(proxied).Setup(x => x.GetOptionKeyValuePairs()).Returns(proxiedResult);
       Mock.Get(proxied).SetupGet(x => x.EnvironmentVariableSupportEnabled).Returns(true);
       Mock.Get(proxied).Setup(x => x.GetEnvironmentVariablePrefix()).Returns("E_");
       Mock.Get(environment)
@@ -93,7 +78,7 @@ namespace CSF.WebDriverExtras.Tests.Config
       expected.Add("EnvironmentVar", "EnvironmentValue");
 
       // Act
-      var result = sut.GetProviderOptions();
+      var result = sut.GetOptionKeyValuePairs();
 
       // Assert
       Assert.That(result, Is.EquivalentTo(expected));
@@ -105,8 +90,8 @@ namespace CSF.WebDriverExtras.Tests.Config
                                                                                                           IReadsEnvironmentVariables environment)
     {
       // Arrange
-      var sut = new EnvironmentVariableFactoryConfigReaderProxy(proxied, environment);
-      Mock.Get(proxied).Setup(x => x.GetProviderOptions()).Returns(proxiedResult);
+      var sut = new EnvironmentVariableFactoryDescriptionProxy(proxied, environment);
+      Mock.Get(proxied).Setup(x => x.GetOptionKeyValuePairs()).Returns(proxiedResult);
       Mock.Get(proxied).SetupGet(x => x.EnvironmentVariableSupportEnabled).Returns(true);
       Mock.Get(proxied).Setup(x => x.GetEnvironmentVariablePrefix()).Returns("E_");
       Mock.Get(environment)
@@ -115,7 +100,7 @@ namespace CSF.WebDriverExtras.Tests.Config
       var expected = new Dictionary<string,string>(proxiedResult);
 
       // Act
-      var result = sut.GetProviderOptions();
+      var result = sut.GetOptionKeyValuePairs();
 
       // Assert
       Assert.That(result, Is.EquivalentTo(expected));
@@ -127,9 +112,9 @@ namespace CSF.WebDriverExtras.Tests.Config
                                                                                          IReadsEnvironmentVariables environment)
     {
       // Arrange
-      var sut = new EnvironmentVariableFactoryConfigReaderProxy(proxied, environment);
+      var sut = new EnvironmentVariableFactoryDescriptionProxy(proxied, environment);
       proxiedResult.Add("VariableName", "ValueFromBase");
-      Mock.Get(proxied).Setup(x => x.GetProviderOptions()).Returns(proxiedResult);
+      Mock.Get(proxied).Setup(x => x.GetOptionKeyValuePairs()).Returns(proxiedResult);
       Mock.Get(proxied).SetupGet(x => x.EnvironmentVariableSupportEnabled).Returns(true);
       Mock.Get(proxied).Setup(x => x.GetEnvironmentVariablePrefix()).Returns("E_");
       Mock.Get(environment)
@@ -138,7 +123,7 @@ namespace CSF.WebDriverExtras.Tests.Config
       var expected = new Dictionary<string,string>{ { "VariableName", "ValueFromEnvironment" } };
 
       // Act
-      var result = sut.GetProviderOptions();
+      var result = sut.GetOptionKeyValuePairs();
 
       // Assert
       Assert.That(result, Is.EquivalentTo(expected));

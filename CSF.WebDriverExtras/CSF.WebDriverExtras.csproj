@@ -8,7 +8,7 @@
     <RootNamespace>CSF.WebDriverExtras</RootNamespace>
     <AssemblyName>CSF.WebDriverExtras</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <ReleaseVersion>0.1.0-alpha</ReleaseVersion>
+    <ReleaseVersion>0.2.0-alpha</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -18,7 +18,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\CSF.WebDriverFactory.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\CSF.WebDriverExtras.xml</DocumentationFile>
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -27,7 +27,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\CSF.WebDriverFactory.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\CSF.WebDriverExtras.xml</DocumentationFile>
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
@@ -40,13 +40,15 @@
       <HintPath>..\packages\CSF.Configuration.1.1.0\lib\net45\CSF.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="System.Configuration" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Config\FactoryOptionsCollection.cs" />
     <Compile Include="ICanReceiveScenarioStatus.cs" />
     <Compile Include="ICreatesWebDriver.cs" />
-    <Compile Include="BrowserName.cs" />
     <Compile Include="Factories\LocalDriverOptions.cs" />
     <Compile Include="Factories\LocalChromeOptions.cs" />
     <Compile Include="Factories\LocalFirefoxOptions.cs" />
@@ -57,21 +59,20 @@
     <Compile Include="Factories\RemoteDriverFactory.cs" />
     <Compile Include="Factories\RemoteDriverOptions.cs" />
     <Compile Include="Factories\DesiredCapabilitiesExtensions.cs" />
-    <Compile Include="Config\IGetsFactoryConfiguration.cs" />
+    <Compile Include="Config\IDescribesWebDriverFactory.cs" />
     <Compile Include="FactoryBuilders\OptionsCachingDriverFactoryProxy.cs" />
     <Compile Include="FactoryBuilders\WebDriverFactorySource.cs" />
     <Compile Include="FactoryBuilders\ActivatorInstanceCreator.cs" />
-    <Compile Include="FactoryBuilders\DriverOptionsFactory.cs" />
-    <Compile Include="FactoryBuilders\ICreatesDriverOptions.cs" />
+    <Compile Include="FactoryBuilders\FactoryOptionsFactory.cs" />
+    <Compile Include="FactoryBuilders\ICreatesFactoryOptions.cs" />
     <Compile Include="FactoryBuilders\ICreatesWebDriverFactory.cs" />
     <Compile Include="FactoryBuilders\IInstanceCreator.cs" />
     <Compile Include="FactoryBuilders\WebDriverFactoryCreator.cs" />
-    <Compile Include="Config\ConfigurationFileFactoryConfigurationReader.cs" />
-    <Compile Include="Config\EnvironmentVariableFactoryConfigReaderProxy.cs" />
+    <Compile Include="Config\EnvironmentVariableFactoryDescriptionProxy.cs" />
     <Compile Include="Config\IIndicatesEnvironmentSupport.cs" />
     <Compile Include="Config\IReadsEnvironmentVariables.cs" />
     <Compile Include="Config\EnvironmentReader.cs" />
-    <Compile Include="Get.cs" />
+    <Compile Include="GetWebDriverFactory.cs" />
     <Compile Include="Flags\EmptyFlagsProvider.cs" />
     <Compile Include="SuccessAndFailure\ISuccessAndFailureGateway.cs" />
     <Compile Include="SuccessAndFailure\NoOpSuccessAndFailureGateway.cs" />
@@ -80,12 +81,26 @@
     <Compile Include="Factories\SauceConnectDriverFactory.cs" />
     <Compile Include="Proxies\RemoteWebDriverProxy.cs" />
     <Compile Include="IHasFlags.cs" />
-    <Compile Include="Proxies\SauceConnectWebDriverProxy.cs" />
+    <Compile Include="Proxies\SauceConnectRemoteWebDriverProxy.cs" />
     <Compile Include="Factories\ICreatesWebDriverFromOptions.cs" />
     <Compile Include="Factories\RemoteDriverFactoryBase.cs" />
     <Compile Include="Proxies\RemoteWebDriverProxyCreator.cs" />
     <Compile Include="Proxies\IWrapsRemoteDriversInProxies.cs" />
     <Compile Include="Proxies\SauceConnectWebDriverProxyCreator.cs" />
+    <Compile Include="Flags\FlagsDefinition.cs" />
+    <Compile Include="Flags\BrowserVersion.cs" />
+    <Compile Include="Flags\SemanticVersion.cs" />
+    <Compile Include="Flags\BrowserIdentification.cs" />
+    <Compile Include="Flags\Reading\SerializableFlagsDefinition.cs" />
+    <Compile Include="Flags\Reading\SingleOrArrayConverter.cs" />
+    <Compile Include="Flags\IReadsFlagsDefinitions.cs" />
+    <Compile Include="Flags\DefinitionReader.cs" />
+    <Compile Include="Flags\ICreatesBrowserVersions.cs" />
+    <Compile Include="Flags\VersionFactory.cs" />
+    <Compile Include="Flags\BrowserFlagsProvider.cs" />
+    <Compile Include="Flags\IGetsBrowserIdentification.cs" />
+    <Compile Include="Flags\BrowserIdentificationFactory.cs" />
+    <Compile Include="Config\FactoryOption.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -100,6 +115,7 @@
     <Folder Include="FactoryBuilders\" />
     <Folder Include="SuccessAndFailure\" />
     <Folder Include="Proxies\" />
+    <Folder Include="Flags\Reading\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
