@@ -61,7 +61,7 @@
     <Compile Include="FactoryBuilders\OptionsCachingProviderFactoryProxyTests.cs" />
     <Compile Include="FactoryBuilders\WebDriverProviderFactoryCreatorTests.cs" />
     <Compile Include="FactoryBuilders\ProviderOptionsFactoryTests.cs" />
-    <Compile Include="FactoryBuilders\WebDriverProviderFactorySourceTests.cs" />
+    <Compile Include="FactoryBuilders\WebDriverFactorySourceTests.cs" />
     <Compile Include="Config\EnvironmentVariableFactoryConfigReaderProxyTests.cs" />
     <Compile Include="HasValuesAttribute.cs" />
     <Compile Include="SuccessAndFailure\SauceLabsSuccessFailureGatewayTests.cs" />
@@ -71,6 +71,7 @@
     <Compile Include="Flags\SimpleStringVersion.cs" />
     <Compile Include="Flags\FlagsDefinitionTests.cs" />
     <Compile Include="Flags\BrowserFlagsProviderTests.cs" />
+    <Compile Include="FactoryBuilders\WebDriverFactorySourceIntegrationTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

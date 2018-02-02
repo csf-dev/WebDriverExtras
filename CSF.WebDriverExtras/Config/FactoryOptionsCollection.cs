@@ -55,7 +55,11 @@ namespace CSF.WebDriverExtras.Config
     /// </summary>
     /// <param name="idx">Index.</param>
     public FactoryOption this[int idx] => (FactoryOption) BaseGet(idx);
-  }
 
-  
+    /// <summary>
+    /// Add the specified option.
+    /// </summary>
+    /// <param name="option">Option.</param>
+    public void Add(FactoryOption option) => BaseAdd(option);
+  }
 }

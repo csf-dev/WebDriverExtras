@@ -10,7 +10,7 @@ using CSF.WebDriverExtras.Config;
 namespace CSF.WebDriverExtras.Tests.FactoryBuilders
 {
   [TestFixture,Parallelizable(ParallelScope.All)]
-  public class WebDriverProviderFactorySourceTests
+  public class WebDriverFactorySourceTests
   {
     [Test,AutoMoqData]
     public void GetWebDriverProviderFactory_returns_null_when_config_does_not_exist(ICreatesWebDriverFactory factoryCreator,
@@ -20,7 +20,7 @@ namespace CSF.WebDriverExtras.Tests.FactoryBuilders
       var sut = new WebDriverFactorySource(factoryCreator, optionsCreator);
 
       // Act
-      var result = sut.GetWebDriverFactory(null);
+      var result = sut.CreateFactory(null);
 
       // Assert
       Assert.That(result, Is.Null);
@@ -43,7 +43,7 @@ namespace CSF.WebDriverExtras.Tests.FactoryBuilders
           .Returns(optionsDictionary);
 
       // Act
-      var result = sut.GetWebDriverFactory(config);
+      var result = sut.CreateFactory(config);
 
       // Assert
       Mock.Get(factoryCreator).Verify(x => x.GetFactory(typeName), Times.Once);
@@ -70,7 +70,7 @@ namespace CSF.WebDriverExtras.Tests.FactoryBuilders
           .Returns(factory);
 
       // Act
-      var result = sut.GetWebDriverFactory(config);
+      var result = sut.CreateFactory(config);
 
       // Assert
       Assert.That(result, Is.SameAs(factory));
@@ -101,7 +101,7 @@ namespace CSF.WebDriverExtras.Tests.FactoryBuilders
           .Returns(options);
 
       // Act
-      var result = sut.GetWebDriverFactory(config);
+      var result = sut.CreateFactory(config);
 
       // Assert
       Assert.That(result, Is.InstanceOf<OptionsCachingDriverFactoryProxy>());
