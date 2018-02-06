@@ -44,15 +44,12 @@ namespace CSF.WebDriverExtras.Factories
                                                IGetsBrowserFlags flagsProvider,
                                                string scenarioName)
     {
-      var caps = requestedCapabilities;
+      var requestedCaps = requestedCapabilities ?? new Dictionary<string,object>();
 
       if(scenarioName != null)
-      {
-        caps = caps ?? new Dictionary<string,object>();
-        caps[ScenarioNameCapabilityName] = scenarioName;
-      }
+        requestedCaps[ScenarioNameCapabilityName] = scenarioName;
 
-      return base.CreateWebDriver(requestedCapabilities, options, flagsProvider, scenarioName);
+      return base.CreateWebDriver(requestedCaps, options, flagsProvider, scenarioName);
     }
 
     /// <summary>
