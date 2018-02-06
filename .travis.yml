@@ -7,8 +7,9 @@ addons:
     direct_domains: google.com
 
 env:
-  - WebDriver_Platform="Windows 10"
-  - WebDriver_BrowserName="Chrome"
+  global:
+    - WebDriver_Platform="Windows 10"
+    - WebDriver_BrowserName="Chrome"
 
 install: Tools/Travis.install.sh
 
