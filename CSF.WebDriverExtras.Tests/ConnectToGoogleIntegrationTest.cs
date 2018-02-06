@@ -13,13 +13,16 @@ namespace CSF.WebDriverExtras.Tests
       // Arrange
       var scenarioName = "Connect a web driver to Google: The web driver can read the title from the Google home page";
       var driverFactory = GetWebDriverFactory.FromConfiguration();
-      var webDriver = driverFactory.CreateWebDriver(scenarioName: scenarioName);
+      string result;
 
       // Act
-      webDriver.Navigate().GoToUrl("https://google.com/");
-      var wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(2))
-        .Until(ExpectedConditions.TitleContains("Google"));
-      var result = webDriver.Title;
+      using(var webDriver = driverFactory.CreateWebDriver(scenarioName: scenarioName))
+      {
+        webDriver.Navigate().GoToUrl("https://google.com/");
+        var wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(2))
+          .Until(ExpectedConditions.TitleContains("Google"));
+        result = webDriver.Title;
+      }
 
       // Assert
       Assert.That(result, Contains.Substring("Google"));
