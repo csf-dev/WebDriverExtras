@@ -1,6 +1,18 @@
 #!/bin/bash
 
 
-Tools/Build.sh
+setup_webdriver_environment_variables()
+{
+  WebDriver_SauceLabsBuildName="Travis job ${TRAVIS_JOB_NUMBER}; ${WebDriver_BrowserName}"
+  WebDriver_TunnelIdentifier="$TRAVIS_JOB_NUMBER"
+}
+
+setup_webdriver_environment_variables
+
+export WebDriver_SauceLabsBuildName
+export WebDriver_TunnelIdentifier
+
+# The Y parameter indicates that web browser tests should run
+Tools/Build.sh "Y"
 
 exit "$?"
