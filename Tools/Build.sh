@@ -41,7 +41,7 @@ run_webbrowser_tests()
 build_solution
 run_unit_tests
 
-if [ "$should_run_browser_tests" -eq "Y" ]
+if [ "$should_run_browser_tests" = "Y" ]
 then
   run_webbrowser_tests
 else
