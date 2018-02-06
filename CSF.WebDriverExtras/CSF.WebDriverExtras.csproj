@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -45,6 +45,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Factories\EdgeDriverFactory.cs" />
+    <Compile Include="Factories\LocalEdgeOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Config\FactoryOptionsCollection.cs" />
     <Compile Include="ICanReceiveScenarioStatus.cs" />
@@ -106,15 +108,7 @@
     <None Include="packages.config" />
     <None Include="CSF.WebDriverExtras.nuspec" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Config\" />
-    <Folder Include="Factories\" />
-    <Folder Include="Flags\" />
-    <Folder Include="FactoryBuilders\" />
-    <Folder Include="SuccessAndFailure\" />
-    <Folder Include="Proxies\" />
-    <Folder Include="Flags\Reading\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="app.config.install.xdt" />
     <Content Include="app.config.uninstall.xdt" />
