@@ -11,6 +11,14 @@ namespace CSF.WebDriverExtras.Flags
     /// </summary>
     /// <returns>The version.</returns>
     /// <param name="versionString">The string to parse.</param>
-    public BrowserVersion CreateVersion(string versionString) => SemanticVersion.Parse(versionString);
+    public BrowserVersion CreateVersion(string versionString)
+    {
+      var output = SemanticVersion.Parse(versionString);
+
+      if(output != null)
+        return output;
+
+      return new UnrecognisedVersion(versionString);
+    }
   }
 }

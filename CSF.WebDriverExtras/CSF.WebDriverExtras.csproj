@@ -8,7 +8,7 @@
     <RootNamespace>CSF.WebDriverExtras</RootNamespace>
     <AssemblyName>CSF.WebDriverExtras</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <ReleaseVersion>0.3.1-beta</ReleaseVersion>
+    <ReleaseVersion>0.3.2-beta</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -101,6 +101,7 @@
     <Compile Include="Flags\IGetsBrowserIdentification.cs" />
     <Compile Include="Flags\BrowserIdentificationFactory.cs" />
     <Compile Include="Config\FactoryOption.cs" />
+    <Compile Include="Flags\UnrecognisedVersion.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
