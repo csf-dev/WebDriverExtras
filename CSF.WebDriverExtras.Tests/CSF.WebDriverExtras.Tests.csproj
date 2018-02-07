@@ -76,6 +76,8 @@
     <Compile Include="Flags\BrowserFlagsProviderTests.cs" />
     <Compile Include="FactoryBuilders\WebDriverFactorySourceIntegrationTests.cs" />
     <Compile Include="ConnectToGoogleIntegrationTest.cs" />
+    <Compile Include="Flags\VersionFactoryTests.cs" />
+    <Compile Include="Flags\BrowserIdentificationFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

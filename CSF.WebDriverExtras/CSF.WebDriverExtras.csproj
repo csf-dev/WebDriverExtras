@@ -101,6 +101,7 @@
     <Compile Include="Flags\IGetsBrowserIdentification.cs" />
     <Compile Include="Flags\BrowserIdentificationFactory.cs" />
     <Compile Include="Config\FactoryOption.cs" />
+    <Compile Include="Flags\UnrecognisedVersion.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
