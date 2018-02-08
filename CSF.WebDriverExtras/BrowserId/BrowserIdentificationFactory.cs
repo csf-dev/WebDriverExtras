@@ -19,8 +19,11 @@ namespace CSF.WebDriverExtras.BrowserId
     {
       if(webDriver == null) return BrowserIdentification.UnidentifiedBrowser;
 
-      return new BrowserIdentification(webDriver.Capabilities.BrowserName,
-                                       versionFactory.CreateVersion(webDriver.Capabilities.Version),
+      var browserName = webDriver.Capabilities.BrowserName;
+      var version = versionFactory.CreateVersion(webDriver.Capabilities.Version, browserName);
+
+      return new BrowserIdentification(browserName,
+                                       version,
                                        webDriver.Capabilities.Platform.ToString());
     }
 

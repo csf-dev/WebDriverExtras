@@ -32,5 +32,20 @@ namespace CSF.WebDriverExtras.Tests.BrowserId
       // Assert
       Assert.That(result, Is.EqualTo(new UnrecognisedVersion(versionString)));
     }
+
+    [TestCaseSource(typeof(SupportedBrowserConfigurations), nameof(SupportedBrowserConfigurations.ActualIdentifierTestCaseData))]
+    public void CreateVersion_can_create_versions_for_all_supported_browsers(string browserName, string browserVersion)
+    {
+      // Arrange
+      var sut = new VersionFactory();
+
+      // Act
+      var result = sut.CreateVersion(browserVersion, browserName);
+
+      // Assert
+      Assert.That(result,
+                  Is.Not.InstanceOf<UnrecognisedVersion>(),
+                  $"{nameof(VersionFactory)} created an unrecognised version for {browserName}: '{browserVersion}'.");
+    }
   }
 }

@@ -11,7 +11,15 @@ namespace CSF.WebDriverExtras.BrowserId
     /// </summary>
     /// <returns>The version.</returns>
     /// <param name="versionString">The string to parse.</param>
-    public BrowserVersion CreateVersion(string versionString)
+    public BrowserVersion CreateVersion(string versionString) => CreateVersion(versionString, null);
+
+    /// <summary>
+    /// Creates and returns a browser version instance for a given browser.
+    /// </summary>
+    /// <returns>The version.</returns>
+    /// <param name="versionString">The string to parse.</param>
+    /// <param name="browserName">The name of the browser for which to create a version.</param>
+    public BrowserVersion CreateVersion(string versionString, string browserName)
     {
       var output = SemanticVersion.Parse(versionString);
 
