@@ -25,6 +25,12 @@ namespace CSF.WebDriverExtras.BrowserId
     public BrowserVersion Version { get; private set; }
 
     /// <summary>
+    /// Returns a <see cref="T:System.String"/> that represents the current <see cref="BrowserIdentification"/>.
+    /// </summary>
+    /// <returns>A <see cref="T:System.String"/> that represents the current <see cref="BrowserIdentification"/>.</returns>
+    public override string ToString() => $"{Name} {Version.ToString()} ({Platform})";
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="BrowserIdentification"/> class.
     /// </summary>
     /// <param name="name">Name.</param>

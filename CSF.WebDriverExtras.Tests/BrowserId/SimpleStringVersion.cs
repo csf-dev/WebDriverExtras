@@ -27,6 +27,8 @@ namespace CSF.WebDriverExtras.Tests.BrowserId
 
     public override int GetHashCode() => version.GetHashCode();
 
+    public override string ToString() => version;
+
     public SimpleStringVersion(string version)
     {
       if(version == null)
