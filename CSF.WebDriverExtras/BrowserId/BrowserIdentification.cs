@@ -1,5 +1,5 @@
 ﻿using System;
-namespace CSF.WebDriverExtras.Flags
+namespace CSF.WebDriverExtras.BrowserId
 {
   /// <summary>
   /// Indicates the identification of a web browser.
@@ -23,6 +23,12 @@ namespace CSF.WebDriverExtras.Flags
     /// </summary>
     /// <value>The version.</value>
     public BrowserVersion Version { get; private set; }
+
+    /// <summary>
+    /// Returns a <see cref="T:System.String"/> that represents the current <see cref="BrowserIdentification"/>.
+    /// </summary>
+    /// <returns>A <see cref="T:System.String"/> that represents the current <see cref="BrowserIdentification"/>.</returns>
+    public override string ToString() => $"{Name} {Version.ToString()} ({Platform})";
 
     /// <summary>
     /// Initializes a new instance of the <see cref="BrowserIdentification"/> class.

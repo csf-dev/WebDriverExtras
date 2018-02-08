@@ -1,5 +1,5 @@
 ﻿using System;
-namespace CSF.WebDriverExtras.Flags
+namespace CSF.WebDriverExtras.BrowserId
 {
   /// <summary>
   /// Default implementation of <see cref="ICreatesBrowserVersions"/>.

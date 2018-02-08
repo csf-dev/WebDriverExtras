@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CSF.WebDriverExtras.BrowserId;
 using OpenQA.Selenium;
 
 namespace CSF.WebDriverExtras.Flags

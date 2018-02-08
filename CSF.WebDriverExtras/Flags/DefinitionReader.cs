@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using CSF.WebDriverExtras.BrowserId;
 using CSF.WebDriverExtras.Flags.Reading;
 using Newtonsoft.Json;
 

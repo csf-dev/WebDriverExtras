@@ -1,8 +1,8 @@
 ﻿using System;
-using CSF.WebDriverExtras.Flags;
+using CSF.WebDriverExtras.BrowserId;
 using NUnit.Framework;
 
-namespace CSF.WebDriverExtras.Tests.Flags
+namespace CSF.WebDriverExtras.Tests.BrowserId
 {
   [TestFixture,Parallelizable(ParallelScope.All)]
   public class SemanticVersionTests

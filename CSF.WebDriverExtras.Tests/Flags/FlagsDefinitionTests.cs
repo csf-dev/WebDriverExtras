@@ -1,6 +1,8 @@
 ﻿using System;
 using NUnit.Framework;
 using CSF.WebDriverExtras.Flags;
+using CSF.WebDriverExtras.BrowserId;
+using CSF.WebDriverExtras.Tests.BrowserId;
 
 namespace CSF.WebDriverExtras.Tests.Flags
 {

@@ -1,7 +1,7 @@
 ﻿using System;
-using CSF.WebDriverExtras.Flags;
+using CSF.WebDriverExtras.BrowserId;
 
-namespace CSF.WebDriverExtras.Tests.Flags
+namespace CSF.WebDriverExtras.Tests.BrowserId
 {
   public class SimpleStringVersion : BrowserVersion
   {
@@ -26,6 +26,8 @@ namespace CSF.WebDriverExtras.Tests.Flags
     }
 
     public override int GetHashCode() => version.GetHashCode();
+
+    public override string ToString() => version;
 
     public SimpleStringVersion(string version)
     {

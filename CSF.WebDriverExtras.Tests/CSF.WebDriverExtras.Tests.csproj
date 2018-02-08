@@ -69,15 +69,16 @@
     <Compile Include="HasValuesAttribute.cs" />
     <Compile Include="SuccessAndFailure\SauceLabsSuccessFailureGatewayTests.cs" />
     <Compile Include="ExecutesScriptAttribute.cs" />
-    <Compile Include="Flags\SemanticVersionTests.cs" />
     <Compile Include="Flags\DefinitionReaderTests.cs" />
-    <Compile Include="Flags\SimpleStringVersion.cs" />
     <Compile Include="Flags\FlagsDefinitionTests.cs" />
-    <Compile Include="Flags\BrowserFlagsProviderTests.cs" />
     <Compile Include="FactoryBuilders\WebDriverFactorySourceIntegrationTests.cs" />
     <Compile Include="ConnectToGoogleIntegrationTest.cs" />
-    <Compile Include="Flags\VersionFactoryTests.cs" />
-    <Compile Include="Flags\BrowserIdentificationFactoryTests.cs" />
+    <Compile Include="BrowserId\BrowserIdentificationFactoryTests.cs" />
+    <Compile Include="BrowserId\SemanticVersionTests.cs" />
+    <Compile Include="BrowserId\SimpleStringVersion.cs" />
+    <Compile Include="BrowserId\VersionFactoryTests.cs" />
+    <Compile Include="Flags\BrowserFlagsProviderTests.cs" />
+    <Compile Include="BrowserId\BrowserIdentificationTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -95,6 +96,7 @@
     <Folder Include="Config\" />
     <Folder Include="SuccessAndFailure\" />
     <Folder Include="Flags\" />
+    <Folder Include="BrowserId\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Flags\SampleFlagsDefinitions.json">
