@@ -6,6 +6,8 @@ namespace CSF.WebDriverExtras.BrowserId
   /// </summary>
   public class BrowserIdentification
   {
+    static readonly BrowserIdentification unknownBrowser;
+
     /// <summary>
     /// Gets the browser name.
     /// </summary>
@@ -28,7 +30,15 @@ namespace CSF.WebDriverExtras.BrowserId
     /// Returns a <see cref="T:System.String"/> that represents the current <see cref="BrowserIdentification"/>.
     /// </summary>
     /// <returns>A <see cref="T:System.String"/> that represents the current <see cref="BrowserIdentification"/>.</returns>
-    public override string ToString() => $"{Name} {Version.ToString()} ({Platform})";
+    public override string ToString()
+    {
+      if(ReferenceEquals(this, unknownBrowser))
+        return "Unidentified browser";
+      
+      return $"{Name} {Version.ToString()} ({Platform})";
+    }
+
+    BrowserIdentification() {}
 
     /// <summary>
     /// Initializes a new instance of the <see cref="BrowserIdentification"/> class.
@@ -49,5 +59,19 @@ namespace CSF.WebDriverExtras.BrowserId
       Version = version;
       Platform = platform;
     }
+
+    /// <summary>
+    /// Initializes the <see cref="T:CSF.WebDriverExtras.BrowserId.BrowserIdentification"/> class.
+    /// </summary>
+    static BrowserIdentification()
+    {
+      unknownBrowser = new BrowserIdentification { Version = new UnrecognisedVersion(null) };
+    }
+
+    /// <summary>
+    /// Gets a special singleton instance which represents a completely unidentified browser.
+    /// </summary>
+    /// <value>The unknown browser.</value>
+    public static BrowserIdentification UnidentifiedBrowser => unknownBrowser;
   }
 }

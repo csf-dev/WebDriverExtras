@@ -17,7 +17,7 @@ namespace CSF.WebDriverExtras.BrowserId
     /// <param name="webDriver">Web driver.</param>
     public BrowserIdentification GetIdentification(IHasCapabilities webDriver)
     {
-      if(webDriver == null) return null;
+      if(webDriver == null) return BrowserIdentification.UnidentifiedBrowser;
 
       return new BrowserIdentification(webDriver.Capabilities.BrowserName,
                                        versionFactory.CreateVersion(webDriver.Capabilities.Version),
