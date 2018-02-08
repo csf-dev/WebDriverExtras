@@ -79,6 +79,7 @@
     <Compile Include="BrowserId\VersionFactoryTests.cs" />
     <Compile Include="Flags\BrowserFlagsProviderTests.cs" />
     <Compile Include="BrowserId\BrowserIdentificationTests.cs" />
+    <Compile Include="SupportedBrowserConfigurations.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

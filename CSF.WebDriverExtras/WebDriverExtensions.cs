@@ -16,7 +16,7 @@ namespace CSF.WebDriverExtras
     /// </summary>
     /// <returns>The browser identification.</returns>
     /// <param name="webDriver">Web driver.</param>
-    public static BrowserIdentification IdentifyBrowser(this IWebDriver webDriver)
+    public static BrowserIdentification GetIdentification(this IWebDriver webDriver)
       => browserIdFactory.GetIdentification(webDriver as IHasCapabilities);
 
     /// <summary>
