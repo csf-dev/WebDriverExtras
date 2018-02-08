@@ -1,7 +1,7 @@
 ﻿using System;
-using CSF.WebDriverExtras.Flags;
+using CSF.WebDriverExtras.BrowserId;
 
-namespace CSF.WebDriverExtras.Tests.Flags
+namespace CSF.WebDriverExtras.Tests.BrowserId
 {
   public class SimpleStringVersion : BrowserVersion
   {

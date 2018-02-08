@@ -1,5 +1,5 @@
 ﻿using System;
-namespace CSF.WebDriverExtras.Flags
+namespace CSF.WebDriverExtras.BrowserId
 {
   /// <summary>
   /// Describes the version of a web browser.

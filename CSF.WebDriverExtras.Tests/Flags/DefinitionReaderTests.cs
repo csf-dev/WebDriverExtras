@@ -5,6 +5,8 @@ using System.Reflection;
 using System.Collections.Generic;
 using CSF.WebDriverExtras.Flags;
 using Moq;
+using CSF.WebDriverExtras.BrowserId;
+using CSF.WebDriverExtras.Tests.BrowserId;
 
 namespace CSF.WebDriverExtras.Tests.Flags
 {

@@ -1,5 +1,5 @@
 ﻿using System;
-namespace CSF.WebDriverExtras.Flags
+namespace CSF.WebDriverExtras.BrowserId
 {
   /// <summary>
   /// A factory service which parses strings and creates a suitable implementation of

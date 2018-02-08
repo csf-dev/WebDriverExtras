@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CSF.WebDriverExtras.BrowserId;
 using CSF.WebDriverExtras.Flags;
 using Moq;
 using NUnit.Framework;
