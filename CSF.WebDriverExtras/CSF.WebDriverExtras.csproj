@@ -103,6 +103,8 @@
     <Compile Include="BrowserId\UnrecognisedVersion.cs" />
     <Compile Include="BrowserId\VersionFactory.cs" />
     <Compile Include="WebDriverExtensions.cs" />
+    <Compile Include="BrowserId\DottedNumericVersion.cs" />
+    <Compile Include="BrowserId\EmptyBrowserVersion.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

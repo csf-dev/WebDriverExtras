@@ -92,10 +92,10 @@ namespace CSF.WebDriverExtras.Flags
         output.Platforms = new HashSet<string>(definition.Platform ?? Enumerable.Empty<string>());
 
       if(definition.MinVersion != null)
-        output.MinimumVersion = versionFactory.CreateVersion(definition.MinVersion);
+        output.MinimumVersion = versionFactory.CreateVersion(definition.MinVersion, definition.BrowserName.First());
 
       if(definition.MaxVersion != null)
-        output.MaximumVersion = versionFactory.CreateVersion(definition.MaxVersion);
+        output.MaximumVersion = versionFactory.CreateVersion(definition.MaxVersion, definition.BrowserName.First());
 
       return output;
     }
