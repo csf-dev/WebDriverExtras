@@ -21,10 +21,14 @@ namespace CSF.WebDriverExtras.BrowserId
     /// <param name="browserName">The name of the browser for which to create a version.</param>
     public BrowserVersion CreateVersion(string versionString, string browserName)
     {
-      var output = SemanticVersion.Parse(versionString);
+      if(String.IsNullOrEmpty(versionString))
+        return EmptyBrowserVersion.Singleton;
 
-      if(output != null)
-        return output;
+      BrowserVersion output = SemanticVersion.Parse(versionString);
+      if(output != null) return output;
+
+      output = DottedNumericVersion.Parse(versionString);
+      if(output != null) return output;
 
       return new UnrecognisedVersion(versionString);
     }

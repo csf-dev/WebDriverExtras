@@ -24,7 +24,7 @@ namespace CSF.WebDriverExtras.Tests.BrowserId
     public void CreateVersion_can_create_an_unrecognised_version(VersionFactory sut)
     {
       // Arrange
-      var versionString = "55.20";
+      var versionString = "version 55.20";
 
       // Act
       var result = sut.CreateVersion(versionString);
