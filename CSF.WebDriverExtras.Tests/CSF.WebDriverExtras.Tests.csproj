@@ -80,6 +80,7 @@
     <Compile Include="Flags\BrowserFlagsProviderTests.cs" />
     <Compile Include="BrowserId\BrowserIdentificationTests.cs" />
     <Compile Include="SupportedBrowserConfigurations.cs" />
+    <Compile Include="BrowserId\DottedNumericVersionTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
