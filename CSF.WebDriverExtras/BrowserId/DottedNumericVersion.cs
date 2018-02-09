@@ -5,6 +5,11 @@ using System.Text.RegularExpressions;
 
 namespace CSF.WebDriverExtras.BrowserId
 {
+  /// <summary>
+  /// A <see cref="BrowserVersion"/> expressed as a series of numeric components, for example
+  /// <c>1.2</c> or <c>55</c> or even <c>12.34.56.78</c>.  The number of components does not matter, as long as there
+  /// is at least one and that they are separated by full stops (periods).
+  /// </summary>
   public class DottedNumericVersion : BrowserVersion, IComparable<DottedNumericVersion>, IEquatable<DottedNumericVersion>
   {
     const string
@@ -15,6 +20,10 @@ namespace CSF.WebDriverExtras.BrowserId
 
     readonly IReadOnlyList<int> components;
 
+    /// <summary>
+    /// Gets the collection of numeric version components.
+    /// </summary>
+    /// <value>The components.</value>
     public IReadOnlyList<int> Components => components;
 
     /// <summary>
