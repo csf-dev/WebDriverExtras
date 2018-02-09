@@ -1,7 +1,7 @@
 ﻿using System;
 using OpenQA.Selenium;
 
-namespace CSF.WebDriverExtras.Flags
+namespace CSF.WebDriverExtras.BrowserId
 {
   /// <summary>
   /// A factory which creates <see cref="BrowserIdentification"/> instances from web drivers.

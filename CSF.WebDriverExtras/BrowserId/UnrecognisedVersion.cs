@@ -1,5 +1,5 @@
 ﻿using System;
-namespace CSF.WebDriverExtras.Flags
+namespace CSF.WebDriverExtras.BrowserId
 {
   /// <summary>
   /// Implementation of <see cref="BrowserVersion"/> which works for any version string.

@@ -8,7 +8,7 @@
     <RootNamespace>CSF.WebDriverExtras</RootNamespace>
     <AssemblyName>CSF.WebDriverExtras</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <ReleaseVersion>0.3.2-beta</ReleaseVersion>
+    <ReleaseVersion>0.3.3-beta</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -88,20 +88,23 @@
     <Compile Include="Proxies\IWrapsRemoteDriversInProxies.cs" />
     <Compile Include="Proxies\SauceConnectWebDriverProxyCreator.cs" />
     <Compile Include="Flags\FlagsDefinition.cs" />
-    <Compile Include="Flags\BrowserVersion.cs" />
-    <Compile Include="Flags\SemanticVersion.cs" />
-    <Compile Include="Flags\BrowserIdentification.cs" />
     <Compile Include="Flags\Reading\SerializableFlagsDefinition.cs" />
     <Compile Include="Flags\Reading\SingleOrArrayConverter.cs" />
     <Compile Include="Flags\IReadsFlagsDefinitions.cs" />
     <Compile Include="Flags\DefinitionReader.cs" />
-    <Compile Include="Flags\ICreatesBrowserVersions.cs" />
-    <Compile Include="Flags\VersionFactory.cs" />
     <Compile Include="Flags\BrowserFlagsProvider.cs" />
-    <Compile Include="Flags\IGetsBrowserIdentification.cs" />
-    <Compile Include="Flags\BrowserIdentificationFactory.cs" />
     <Compile Include="Config\FactoryOption.cs" />
-    <Compile Include="Flags\UnrecognisedVersion.cs" />
+    <Compile Include="BrowserId\BrowserIdentification.cs" />
+    <Compile Include="BrowserId\BrowserIdentificationFactory.cs" />
+    <Compile Include="BrowserId\BrowserVersion.cs" />
+    <Compile Include="BrowserId\ICreatesBrowserVersions.cs" />
+    <Compile Include="BrowserId\IGetsBrowserIdentification.cs" />
+    <Compile Include="BrowserId\SemanticVersion.cs" />
+    <Compile Include="BrowserId\UnrecognisedVersion.cs" />
+    <Compile Include="BrowserId\VersionFactory.cs" />
+    <Compile Include="WebDriverExtensions.cs" />
+    <Compile Include="BrowserId\DottedNumericVersion.cs" />
+    <Compile Include="BrowserId\EmptyBrowserVersion.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -115,6 +118,7 @@
     <Folder Include="SuccessAndFailure\" />
     <Folder Include="Proxies\" />
     <Folder Include="Flags\Reading\" />
+    <Folder Include="BrowserId\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="app.config.install.xdt" />

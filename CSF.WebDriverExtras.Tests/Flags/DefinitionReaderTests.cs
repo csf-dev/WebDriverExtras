@@ -5,6 +5,8 @@ using System.Reflection;
 using System.Collections.Generic;
 using CSF.WebDriverExtras.Flags;
 using Moq;
+using CSF.WebDriverExtras.BrowserId;
+using CSF.WebDriverExtras.Tests.BrowserId;
 
 namespace CSF.WebDriverExtras.Tests.Flags
 {
@@ -19,8 +21,8 @@ namespace CSF.WebDriverExtras.Tests.Flags
       // Arrange
       var sut = new DefinitionReader(versionFactory);
       Mock.Get(versionFactory)
-          .Setup(x => x.CreateVersion(It.IsAny<string>()))
-          .Returns((string str) => new SimpleStringVersion(str));
+          .Setup(x => x.CreateVersion(It.IsAny<string>(), It.IsAny<string>()))
+          .Returns((string ver, string browser) => new SimpleStringVersion(ver));
       var expected = GetSampleDefinitionsContents();
 
       // Act

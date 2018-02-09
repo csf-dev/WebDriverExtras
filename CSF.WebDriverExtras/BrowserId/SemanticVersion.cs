@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace CSF.WebDriverExtras.Flags
+namespace CSF.WebDriverExtras.BrowserId
 {
   /// <summary>
   /// Implementation of <see cref="BrowserVersion"/> which follows the semantic versioning v2.0.0 spec

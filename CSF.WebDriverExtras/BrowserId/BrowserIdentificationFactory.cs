@@ -1,7 +1,7 @@
 ﻿using System;
 using OpenQA.Selenium;
 
-namespace CSF.WebDriverExtras.Flags
+namespace CSF.WebDriverExtras.BrowserId
 {
   /// <summary>
   /// Default implementation of <see cref="IGetsBrowserIdentification"/>.
@@ -17,10 +17,13 @@ namespace CSF.WebDriverExtras.Flags
     /// <param name="webDriver">Web driver.</param>
     public BrowserIdentification GetIdentification(IHasCapabilities webDriver)
     {
-      if(webDriver == null) return null;
+      if(webDriver == null) return BrowserIdentification.UnidentifiedBrowser;
 
-      return new BrowserIdentification(webDriver.Capabilities.BrowserName,
-                                       versionFactory.CreateVersion(webDriver.Capabilities.Version),
+      var browserName = webDriver.Capabilities.BrowserName;
+      var version = versionFactory.CreateVersion(webDriver.Capabilities.Version, browserName);
+
+      return new BrowserIdentification(browserName,
+                                       version,
                                        webDriver.Capabilities.Platform.ToString());
     }
 
