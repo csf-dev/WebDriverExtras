@@ -3,7 +3,7 @@
 
 setup_webdriver_environment_variables()
 {
-  WebDriver_SauceLabsBuildName="Travis job ${TRAVIS_JOB_NUMBER}; ${WebDriver_BrowserName}"
+  WebDriver_SauceLabsBuildName="Travis WebDriverExtras job ${TRAVIS_JOB_NUMBER}"
   WebDriver_TunnelIdentifier="$TRAVIS_JOB_NUMBER"
 }
 
