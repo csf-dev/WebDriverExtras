@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using CSF.WebDriverExtras.Flags;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
@@ -17,6 +18,9 @@ namespace CSF.WebDriverExtras.Proxies
     /// <returns>The web driver proxy.</returns>
     /// <param name="driver">The web driver to wrap.</param>
     /// <param name="flagsProvider">A service which provides web browser flags.</param>
-    IWebDriver WrapWithProxy(RemoteWebDriver driver, IGetsBrowserFlags flagsProvider);
+    /// <param name="desiredCapabilities">A collection of the originally-requested browser capabilities.</param>
+    IWebDriver WrapWithProxy(RemoteWebDriver driver,
+                             IGetsBrowserFlags flagsProvider,
+                             ICapabilities desiredCapabilities);
   }
 }

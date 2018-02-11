@@ -15,7 +15,7 @@ namespace CSF.WebDriverExtras.Proxies
   /// functionality/interfaces to that instance, whilst still supporting all of Selenium's underlying
   /// functionality.
   /// </summary>
-  public class RemoteWebDriverProxy : IHasFlags,
+  public class RemoteWebDriverProxy : IHasFlags, IHasRequestedVersion,
   #region Selenium interfaces
   IWebDriver, IDisposable, ISearchContext, IJavaScriptExecutor, IFindsById,
   IFindsByClassName, IFindsByLinkText, IFindsByName, IFindsByTagName, IFindsByXPath,
@@ -26,6 +26,7 @@ namespace CSF.WebDriverExtras.Proxies
   {
     #region fields
 
+    readonly string requestedVersion;
     readonly RemoteWebDriver proxiedDriver;
     readonly IReadOnlyCollection<string> flags;
 
@@ -38,6 +39,13 @@ namespace CSF.WebDriverExtras.Proxies
     /// </summary>
     /// <value>The proxied driver.</value>
     protected RemoteWebDriver ProxiedDriver => proxiedDriver;
+
+    /// <summary>
+    /// Gets the browser version which was originally requested (which may or may not be the same as the actual
+    /// browser version in-use).
+    /// </summary>
+    /// <value>The requested browser version.</value>
+    public string RequestedBrowserVersion => requestedVersion;
 
     #endregion
 
@@ -213,14 +221,17 @@ namespace CSF.WebDriverExtras.Proxies
     /// </summary>
     /// <param name="proxiedDriver">The proxied/wrapped web driver.</param>
     /// <param name="flags">A collection of the browser flags for the driver.</param>
+    /// <param name="requestedVersion">The originally-requested browser version.</param>
     public RemoteWebDriverProxy(RemoteWebDriver proxiedDriver,
-                                ICollection<string> flags = null)
+                                ICollection<string> flags = null,
+                                string requestedVersion = null)
     {
       if(proxiedDriver == null)
         throw new ArgumentNullException(nameof(proxiedDriver));
 
       this.proxiedDriver = proxiedDriver;
       this.flags = new ReadOnlyCollection<string>(flags?.ToList() ?? Enumerable.Empty<string>().ToList());
+      this.requestedVersion = requestedVersion;
     }
 
     /// <summary>
@@ -228,14 +239,17 @@ namespace CSF.WebDriverExtras.Proxies
     /// </summary>
     /// <param name="proxiedDriver">The proxied/wrapped web driver.</param>
     /// <param name="flags">A collection of the browser flags for the driver.</param>
+    /// <param name="requestedVersion">The originally-requested browser version.</param>
     public RemoteWebDriverProxy(RemoteWebDriver proxiedDriver,
-                                IReadOnlyCollection<string> flags)
+                                IReadOnlyCollection<string> flags,
+                                string requestedVersion = null)
     {
       if(proxiedDriver == null)
         throw new ArgumentNullException(nameof(proxiedDriver));
 
       this.proxiedDriver = proxiedDriver;
       this.flags = flags ?? new string[0];
+      this.requestedVersion = requestedVersion;
     }
 
     #endregion
