@@ -224,9 +224,11 @@ namespace CSF.WebDriverExtras.BrowserId
     /// <param name="patch">Patch.</param>
     /// <param name="prereleaseIdentifiers">Prerelease identifiers.</param>
     /// <param name="metadata">Metadata.</param>
+    /// <param name="isPresumed">If set to <c>true</c> then this instance will represent a presumed version number.</param>
     public SemanticVersion(int major, int minor, int patch,
                            IList<string> prereleaseIdentifiers = null,
-                           IList<string> metadata = null)
+                           IList<string> metadata = null,
+                           bool isPresumed = false) : base(isPresumed)
     {
       if(major < 0) throw new ArgumentOutOfRangeException(nameof(major), "No version number component may be negative");
       if(minor < 0) throw new ArgumentOutOfRangeException(nameof(minor), "No version number component may be negative");
@@ -245,7 +247,8 @@ namespace CSF.WebDriverExtras.BrowserId
     /// Returns either a semantic version instance or <c>null</c> if the string is not a properly-formed semantic version.
     /// </summary>
     /// <param name="versionString">Version string.</param>
-    public static SemanticVersion Parse(string versionString)
+    /// <param name="isPresumed">If set to <c>true</c> then this instance will represent a presumed version number.</param>
+    public static SemanticVersion Parse(string versionString, bool isPresumed = false)
     {
       if(versionString == null) return null;
 
@@ -259,7 +262,7 @@ namespace CSF.WebDriverExtras.BrowserId
       var prereleases = match.Groups[4].Captures.Cast<Capture>().Select(x => x.Value).ToList();
       var metadatas = match.Groups[5].Captures.Cast<Capture>().Select(x => x.Value).ToList();
 
-      return new SemanticVersion(major, minor, patch, prereleases, metadatas);
+      return new SemanticVersion(major, minor, patch, prereleases, metadatas, isPresumed);
     }
   }
 }
