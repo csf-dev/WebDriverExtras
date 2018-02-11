@@ -6,6 +6,7 @@ using OpenQA.Selenium;
 using Moq;
 using System.Collections.Generic;
 using OpenQA.Selenium.Remote;
+using CSF.WebDriverExtras.Tests.Autofixture;
 
 namespace CSF.WebDriverExtras.Tests.BrowserId
 {
@@ -14,16 +15,13 @@ namespace CSF.WebDriverExtras.Tests.BrowserId
   {
     [Test,AutoMoqData]
     public void GetIdentification_uses_version_creator(ICreatesBrowserVersions versionFactory,
-                                                       IHasCapabilities driver,
-                                                       string browser,
-                                                       string version,
+                                                       [BrowserId] IHasCapabilities driver,
                                                        SimpleStringVersion expectedVersion)
     {
       // Arrange
       var sut = new BrowserIdentificationFactory(versionFactory);
-      SetupIdentificationCapabilities(driver, browserName: browser, browserVersion: version);
       Mock.Get(versionFactory)
-          .Setup(x => x.CreateVersion(version, browser, null))
+          .Setup(x => x.CreateVersion(driver.Capabilities.Version, driver.Capabilities.BrowserName, null))
           .Returns(expectedVersion);
 
       // Act
@@ -34,12 +32,77 @@ namespace CSF.WebDriverExtras.Tests.BrowserId
     }
 
     [Test,AutoMoqData]
-    public void GetIdentification_integration_test_can_create_identification_for_a_browser(IHasCapabilities driver,
-                                                                                           ICapabilities caps)
+    public void GetIdentification_passes_original_browser_version_to_version_factory_when_it_exists(ICreatesBrowserVersions versionFactory,
+                                                                                                    [BrowserId(RequestedVersion = "123")] IHasCapabilities driver)
+    {
+      // Arrange
+      var sut = new BrowserIdentificationFactory(versionFactory);
+
+      // Act
+      sut.GetIdentification(driver);
+
+      // Assert
+      Mock.Get(versionFactory)
+          .Verify(x => x.CreateVersion(It.IsAny<string>(), It.IsAny<string>(), "123"), Times.Once);
+    }
+
+    [Test,AutoMoqData]
+    public void GetIdentification_can_pass_null_to_version_factory_as_original_version(ICreatesBrowserVersions versionFactory,
+                                                                                       [BrowserId(HasRequestedVersion = true)] IHasCapabilities driver)
+    {
+      // Arrange
+      var sut = new BrowserIdentificationFactory(versionFactory);
+
+      // Act
+      sut.GetIdentification(driver);
+
+      // Assert
+      Mock.Get(versionFactory)
+          .Verify(x => x.CreateVersion(It.IsAny<string>(), It.IsAny<string>(), null), Times.Once);
+    }
+
+    [Test,AutoMoqData]
+    public void GetIdentification_passes_explicit_requested_version_to_factory(ICreatesBrowserVersions versionFactory,
+                                                                               [BrowserId] IHasCapabilities driver,
+                                                                               ICapabilities requestedCaps,
+                                                                               string requestedVersion)
+    {
+      // Arrange
+      var sut = new BrowserIdentificationFactory(versionFactory);
+      Mock.Get(requestedCaps).SetupGet(x => x.Version).Returns(requestedVersion);
+
+      // Act
+      sut.GetIdentification(driver, requestedCaps);
+
+      // Assert
+      Mock.Get(versionFactory)
+          .Verify(x => x.CreateVersion(It.IsAny<string>(), It.IsAny<string>(), requestedVersion), Times.Once);
+    }
+
+    [Test,AutoMoqData]
+    public void GetIdentification_uses_explicit_requested_version_over_version_stored_in_driver(ICreatesBrowserVersions versionFactory,
+                                                                                                [BrowserId(RequestedVersion = "123")] IHasCapabilities driver,
+                                                                                                ICapabilities requestedCaps)
+    {
+      // Arrange
+      var sut = new BrowserIdentificationFactory(versionFactory);
+      Mock.Get(requestedCaps).SetupGet(x => x.Version).Returns("456");
+
+      // Act
+      sut.GetIdentification(driver, requestedCaps);
+
+      // Assert
+      Mock.Get(versionFactory)
+          .Verify(x => x.CreateVersion(It.IsAny<string>(), It.IsAny<string>(), "456"), Times.Once);
+      Mock.Get(versionFactory)
+          .Verify(x => x.CreateVersion(It.IsAny<string>(), It.IsAny<string>(), "123"), Times.Never);
+    }
+
+    [Test,AutoMoqData]
+    public void GetIdentification_integration_test_can_create_identification_for_a_browser([BrowserId] IHasCapabilities driver)
     {
       // Arrange
       var sut = new BrowserIdentificationFactory();
-      SetupIdentificationCapabilities(driver);
 
       // Act
       var result = sut.GetIdentification(driver);
@@ -49,69 +112,55 @@ namespace CSF.WebDriverExtras.Tests.BrowserId
     }
 
     [Test,AutoMoqData]
-    public void GetIdentification_integration_test_gets_correct_browser_name(IHasCapabilities driver,
-                                                                             ICapabilities caps)
+    public void GetIdentification_integration_test_gets_correct_browser_name([BrowserId(Browser = "FooBrowser")] IHasCapabilities driver)
     {
       // Arrange
-      var browserName = "FooBrowser";
-
       var sut = new BrowserIdentificationFactory();
-      SetupIdentificationCapabilities(driver, browserName: browserName);
 
       // Act
       var result = sut.GetIdentification(driver);
 
       // Assert
-      Assert.That(result.Name, Is.EqualTo(browserName));
+      Assert.That(result.Name, Is.EqualTo("FooBrowser"));
     }
 
     [Test,AutoMoqData]
-    public void GetIdentification_integration_test_gets_correct_unrecognised_version(IHasCapabilities driver,
-                                                                                     ICapabilities caps)
+    public void GetIdentification_integration_test_gets_correct_unrecognised_version([BrowserId(Version = "FlamboyantBannana")] IHasCapabilities driver)
     {
       // Arrange
-      var versionString = "FlamboyantBannana";
-
       var sut = new BrowserIdentificationFactory();
-      SetupIdentificationCapabilities(driver, browserVersion: versionString);
 
       // Act
       var result = sut.GetIdentification(driver);
 
       // Assert
-      Assert.That(result.Version, Is.EqualTo(new UnrecognisedVersion(versionString)));
+      Assert.That(result.Version, Is.EqualTo(new UnrecognisedVersion("FlamboyantBannana")));
     }
 
     [Test,AutoMoqData]
-    public void GetIdentification_integration_test_gets_correct_semantic_version(IHasCapabilities driver,
-                                                                                 ICapabilities caps)
+    public void GetIdentification_integration_test_gets_correct_semantic_version([BrowserId(Version = "v1.2.3")] IHasCapabilities driver)
     {
       // Arrange
-      var versionString = "v1.2.3";
-
       var sut = new BrowserIdentificationFactory();
-      SetupIdentificationCapabilities(driver, browserVersion: versionString);
 
       // Act
       var result = sut.GetIdentification(driver);
 
       // Assert
-      Assert.That(result.Version, Is.EqualTo(SemanticVersion.Parse(versionString)));
+      Assert.That(result.Version, Is.EqualTo(SemanticVersion.Parse("v1.2.3")));
     }
 
     [Test,AutoMoqData]
-    public void GetIdentification_integration_test_gets_correct_platform_name(IHasCapabilities driver)
+    public void GetIdentification_integration_test_gets_correct_platform_name([BrowserId(Platform = PlatformType.Android)] IHasCapabilities driver)
     {
       // Arrange
-      var platformType = PlatformType.Android;
-      SetupIdentificationCapabilities(driver, platformType);
       var sut = new BrowserIdentificationFactory();
 
       // Act
       var result = sut.GetIdentification(driver);
 
       // Assert
-      Assert.That(result.Platform, Is.EqualTo(platformType.ToString()));
+      Assert.That(result.Platform, Is.EqualTo(PlatformType.Android.ToString()));
     }
 
     /// <summary>
@@ -189,26 +238,6 @@ namespace CSF.WebDriverExtras.Tests.BrowserId
         caps.Add(CapabilityType.Version, browserVersion);
       
       return caps;
-    }
-
-    void SetupIdentificationCapabilities(IHasCapabilities driver,
-                                         PlatformType? platformType = null,
-                                         string browserName = null,
-                                         string browserVersion = null)
-    {
-      if(driver == null)
-        throw new ArgumentNullException(nameof(driver));
-
-      PlatformType platform = platformType ?? PlatformType.Android;
-      browserName = browserName ?? "FooBrowser";
-      browserVersion = browserVersion ?? "FooVersion";
-
-      var caps = Mock.Of<ICapabilities>();
-
-      Mock.Get(driver).SetupGet(x => x.Capabilities).Returns(caps);
-      Mock.Get(caps).SetupGet(x => x.BrowserName).Returns(browserName);
-      Mock.Get(caps).SetupGet(x => x.Version).Returns(browserVersion);
-      Mock.Get(caps).SetupGet(x => x.Platform).Returns(new Platform(platform));
     }
 
     void SendScenarioStatus(IWebDriver driver, bool isSuccess)

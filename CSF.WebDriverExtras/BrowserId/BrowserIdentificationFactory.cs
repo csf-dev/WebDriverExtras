@@ -33,10 +33,25 @@ namespace CSF.WebDriverExtras.BrowserId
       var platform = webDriver.Capabilities.Platform.ToString();
       var browserName = webDriver.Capabilities.BrowserName;
       var actualVersion = webDriver.Capabilities.Version;
-      var requestedVersion = desiredCapabilities?.Version;
+      var requestedVersion = GetRequestedVersion(webDriver, desiredCapabilities);
 
       var version = versionFactory.CreateVersion(actualVersion, browserName, requestedVersion);
       return new BrowserIdentification(browserName, version, platform);
+    }
+
+    string GetRequestedVersion(IHasCapabilities webDriver, ICapabilities desiredCapabilities)
+    {
+      string output = desiredCapabilities?.Version;
+
+      if(!String.IsNullOrEmpty(output))
+        return output;
+
+      var requestedVersionProvider = webDriver as IHasRequestedVersion;
+      output = requestedVersionProvider?.RequestedBrowserVersion;
+      if(!String.IsNullOrEmpty(output))
+        return output;
+
+      return null;
     }
 
     /// <summary>
