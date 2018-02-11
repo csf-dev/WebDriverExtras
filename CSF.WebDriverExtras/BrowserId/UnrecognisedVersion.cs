@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace CSF.WebDriverExtras.BrowserId
 {
   /// <summary>
@@ -8,6 +10,10 @@ namespace CSF.WebDriverExtras.BrowserId
   /// </summary>
   public class UnrecognisedVersion : BrowserVersion, IComparable<UnrecognisedVersion>, IEquatable<UnrecognisedVersion>
   {
+    const string
+      UnrecognisedAttrib = "unrecognised",
+      PresumedAttrib = "presumed";
+
     readonly string versionString;
 
     /// <summary>
@@ -72,7 +78,16 @@ namespace CSF.WebDriverExtras.BrowserId
     /// Returns a <see cref="T:System.String"/> that represents the current <see cref="UnrecognisedVersion"/>.
     /// </summary>
     /// <returns>A <see cref="T:System.String"/> that represents the current <see cref="UnrecognisedVersion"/>.</returns>
-    public override string ToString() => $"Unrecognised version:{VersionString ?? "<null>"}";
+    public override string ToString()
+    {
+      var attribs = new List<string>();
+      attribs.Add(UnrecognisedAttrib);
+
+      if(IsPresumedVersion)
+        attribs.Add(PresumedAttrib);
+
+      return $"[{String.Join(",", attribs)}] {VersionString ?? "<null>"}";
+    }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="UnrecognisedVersion"/> class.

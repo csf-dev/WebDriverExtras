@@ -198,7 +198,10 @@ namespace CSF.WebDriverExtras.BrowserId
     /// </summary>
     /// <returns>A <see cref="T:System.String"/> that represents the current <see cref="SemanticVersion"/>.</returns>
     public override string ToString()
-      => $"v{Major}.{Minor}.{Patch}{GetPrereleaseIdentifiersString()}{GetMetadataString()}";
+    {
+      var presumedPrefix = IsPresumedVersion? "[presumed] " : String.Empty;
+      return $"{presumedPrefix}v{Major}.{Minor}.{Patch}{GetPrereleaseIdentifiersString()}{GetMetadataString()}";
+    }
 
     string GetPrereleaseIdentifiersString()
     {
