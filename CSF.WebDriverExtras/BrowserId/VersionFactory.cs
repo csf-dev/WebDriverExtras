@@ -7,30 +7,36 @@ namespace CSF.WebDriverExtras.BrowserId
   public class VersionFactory : ICreatesBrowserVersions
   {
     /// <summary>
-    /// Creates and returns a browser version instance.
-    /// </summary>
-    /// <returns>The version.</returns>
-    /// <param name="versionString">The string to parse.</param>
-    public BrowserVersion CreateVersion(string versionString) => CreateVersion(versionString, null);
-
-    /// <summary>
     /// Creates and returns a browser version instance for a given browser.
     /// </summary>
     /// <returns>The version.</returns>
-    /// <param name="versionString">The string to parse.</param>
+    /// <param name="versionString">The browser version string to parse.</param>
     /// <param name="browserName">The name of the browser for which to create a version.</param>
-    public BrowserVersion CreateVersion(string versionString, string browserName)
+    /// <param name="requestedVersionString">A string indicating the browser version which was 'requested'.</param>
+    public BrowserVersion CreateVersion(string versionString,
+                                        string browserName = null,
+                                        string requestedVersionString = null)
+    {
+      if(String.IsNullOrEmpty(versionString))
+        return CreateVersion(requestedVersionString, browserName, true);
+
+      return CreateVersion(versionString, browserName, false);
+    }
+
+    BrowserVersion CreateVersion(string versionString,
+                                 string browserName,
+                                 bool isPresumedVersion)
     {
       if(String.IsNullOrEmpty(versionString))
         return EmptyBrowserVersion.Singleton;
-
-      BrowserVersion output = SemanticVersion.Parse(versionString);
+      
+      BrowserVersion output = SemanticVersion.Parse(versionString, isPresumedVersion);
       if(output != null) return output;
 
-      output = DottedNumericVersion.Parse(versionString);
+      output = DottedNumericVersion.Parse(versionString, isPresumedVersion);
       if(output != null) return output;
 
-      return new UnrecognisedVersion(versionString);
+      return new UnrecognisedVersion(versionString, isPresumedVersion);
     }
   }
 }

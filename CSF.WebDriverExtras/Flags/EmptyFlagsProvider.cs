@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using OpenQA.Selenium;
+using CSF.WebDriverExtras.BrowserId;
 
 namespace CSF.WebDriverExtras.Flags
 {
@@ -15,7 +15,7 @@ namespace CSF.WebDriverExtras.Flags
     /// Gets the browser flags which apply to the given web driver.
     /// </summary>
     /// <returns>The flags.</returns>
-    /// <param name="webDriver">Web driver.</param>
-    public IReadOnlyCollection<string> GetFlags(IHasCapabilities webDriver) => Empty;
+    /// <param name="browserId">Browser identification.</param>
+    public IReadOnlyCollection<string> GetFlags(BrowserIdentification browserId) => Empty;
   }
 }

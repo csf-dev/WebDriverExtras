@@ -67,11 +67,13 @@ namespace CSF.WebDriverExtras.Factories
     /// <returns>The proxied web driver.</returns>
     /// <param name="driver">A remote web driver.</param>
     /// <param name="flagsProvider">A service which provides browser flags.</param>
+    /// <param name="desiredCapabilities">A collection of the desired capabilities for the web driver.</param>
     protected virtual IWebDriver WrapWithProxy(RemoteWebDriver driver,
-                                               IGetsBrowserFlags flagsProvider)
+                                               IGetsBrowserFlags flagsProvider,
+                                               ICapabilities desiredCapabilities = null)
     {
       var proxyFactory = GetProxyFactory();
-      return proxyFactory.WrapWithProxy(driver, flagsProvider);
+      return proxyFactory.WrapWithProxy(driver, flagsProvider, desiredCapabilities);
     }
 
     /// <summary>

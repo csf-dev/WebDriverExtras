@@ -23,18 +23,18 @@ namespace CSF.WebDriverExtras.Flags
   public class BrowserFlagsProvider : IGetsBrowserFlags
   {
     readonly IReadOnlyCollection<FlagsDefinition> flagsDefinitions;
-    readonly IGetsBrowserIdentification identificationFactory;
 
     /// <summary>
     /// Gets the browser flags which apply to the given web driver.
     /// </summary>
     /// <returns>The flags.</returns>
-    /// <param name="webDriver">Web driver.</param>
-    public IReadOnlyCollection<string> GetFlags(IHasCapabilities webDriver)
+    /// <param name="browserId">The browser identification.</param>
+    public IReadOnlyCollection<string> GetFlags(BrowserIdentification browserId)
     {
-      var identification = identificationFactory.GetIdentification(webDriver);
+      if(browserId == null)
+        throw new ArgumentNullException(nameof(browserId));
 
-      var matchingDefinitions = flagsDefinitions.Where(x => x.Matches(identification));
+      var matchingDefinitions = flagsDefinitions.Where(x => x.Matches(browserId));
 
       var flagsToInclude = matchingDefinitions.SelectMany(x => x.AddFlags).Distinct();
       var flagsToExclude = matchingDefinitions.SelectMany(x => x.RemoveFlags).Distinct();
@@ -46,21 +46,12 @@ namespace CSF.WebDriverExtras.Flags
     /// Initializes a new instance of the <see cref="BrowserFlagsProvider"/> class.
     /// </summary>
     /// <param name="flagsDefinitions">A collection of all of the available flags definitions to consider.</param>
-    public BrowserFlagsProvider(IReadOnlyCollection<FlagsDefinition> flagsDefinitions) : this(flagsDefinitions, null) {}
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="BrowserFlagsProvider"/> class.
-    /// </summary>
-    /// <param name="flagsDefinitions">A collection of all of the available flags definitions to consider.</param>
-    /// <param name="identificationFactory">A service which creates browser identifications.</param>
-    public BrowserFlagsProvider(IReadOnlyCollection<FlagsDefinition> flagsDefinitions,
-                                IGetsBrowserIdentification identificationFactory)
+    public BrowserFlagsProvider(IReadOnlyCollection<FlagsDefinition> flagsDefinitions)
     {
       if(flagsDefinitions == null)
         throw new ArgumentNullException(nameof(flagsDefinitions));
       
       this.flagsDefinitions = flagsDefinitions;
-      this.identificationFactory = identificationFactory ?? new BrowserIdentificationFactory();
     }
   }
 }

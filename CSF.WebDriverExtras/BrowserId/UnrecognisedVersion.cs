@@ -78,7 +78,8 @@ namespace CSF.WebDriverExtras.BrowserId
     /// Initializes a new instance of the <see cref="UnrecognisedVersion"/> class.
     /// </summary>
     /// <param name="versionString">Version string.</param>
-    public UnrecognisedVersion(string versionString)
+    /// <param name="isPresumed">If set to <c>true</c> then this instance will represent a presumed version number.</param>
+    public UnrecognisedVersion(string versionString, bool isPresumed = false) : base(isPresumed)
     {
       this.versionString = versionString;
     }
