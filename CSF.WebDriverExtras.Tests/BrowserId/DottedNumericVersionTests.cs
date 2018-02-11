@@ -25,6 +25,16 @@ namespace CSF.WebDriverExtras.Tests.BrowserId
     }
 
     [Test]
+    public void ToString_adds_presumed_flag_when_version_is_presumed()
+    {
+      // Act
+      var result = DottedNumericVersion.Parse("0.1.2", true);
+
+      // Assert
+      Assert.That(result.ToString(), Is.EqualTo("[presumed] 0.1.2"));
+    }
+
+    [Test]
     public void Parse_returns_null_for_a_version_with_an_alphabetic_component()
     {
       // Act

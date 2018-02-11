@@ -103,7 +103,11 @@ namespace CSF.WebDriverExtras.BrowserId
     /// Returns a <see cref="T:System.String"/> that represents the current <see cref="DottedNumericVersion"/>.
     /// </summary>
     /// <returns>A <see cref="T:System.String"/> that represents the current <see cref="DottedNumericVersion"/>.</returns>
-    public override string ToString() => String.Join(".", Components);
+    public override string ToString()
+    {
+      var presumedPrefix = IsPresumedVersion? "[presumed] " : String.Empty;
+      return presumedPrefix + String.Join(".", Components);
+    }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="T:CSF.WebDriverExtras.BrowserId.DottedNumericVersion"/> class.

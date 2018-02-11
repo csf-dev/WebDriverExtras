@@ -294,9 +294,9 @@ namespace CSF.WebDriverExtras.Tests.BrowserId
 
     void SendScenarioStatus(IWebDriver driver, bool isSuccess)
     {
-      if(driver is ICanReceiveScenarioStatus)
+      if(driver is ICanReceiveScenarioOutcome)
       {
-        var statusDriver = (ICanReceiveScenarioStatus) driver;
+        var statusDriver = (ICanReceiveScenarioOutcome) driver;
 
         if(isSuccess)
           statusDriver.MarkScenarioAsSuccess();

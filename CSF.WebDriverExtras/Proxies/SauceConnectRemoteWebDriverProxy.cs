@@ -7,12 +7,18 @@ namespace CSF.WebDriverExtras.Proxies
 {
   /// <summary>
   /// A specialisation of <see cref="RemoteWebDriverProxy"/> which also implements
-  /// <see cref="ICanReceiveScenarioStatus"/> in order to receive information about the success/failure of
+  /// <see cref="ICanReceiveScenarioOutcome"/> in order to receive information about the success/failure of
   /// each test scenario (as is possible via Sauce Connect).
   /// </summary>
-  public class SauceConnectRemoteWebDriverProxy : RemoteWebDriverProxy, ICanReceiveScenarioStatus
+  public class SauceConnectRemoteWebDriverProxy : RemoteWebDriverProxy, ICanReceiveScenarioOutcome
   {
     readonly ISuccessAndFailureGateway successFailureGateway;
+
+    /// <summary>
+    /// Sends information to the web driver indicating the outcome of the current test scenario.
+    /// </summary>
+    /// <param name="success">If set to <c>true</c> then the scenario was a success; otherwise failure.</param>
+    public void MarkScenarioWithOutcome(bool success) => successFailureGateway.SendOutcome(ProxiedDriver, success);
 
     /// <summary>
     /// Sends information to the web driver indicating that the current test scenario was a failure.
