@@ -8,7 +8,7 @@
     <RootNamespace>CSF.WebDriverExtras</RootNamespace>
     <AssemblyName>CSF.WebDriverExtras</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <ReleaseVersion>0.3.3-beta</ReleaseVersion>
+    <ReleaseVersion>0.4.0-beta</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
