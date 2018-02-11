@@ -307,9 +307,8 @@ namespace CSF.WebDriverExtras.Tests.BrowserId
 
     bool IsUsefulVersion(BrowserVersion version)
     {
-      if(version is DottedNumericVersion) return true;
-      
       if(version is SemanticVersion) return true;
+      if(version is DottedNumericVersion) return true;
 
       return false;
     }
