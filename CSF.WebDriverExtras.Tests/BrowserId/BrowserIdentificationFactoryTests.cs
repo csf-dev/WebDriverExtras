@@ -208,6 +208,9 @@ namespace CSF.WebDriverExtras.Tests.BrowserId
       using(var webDriver = factory.CreateWebDriver(caps, scenarioName: scenarioName))
       {
         result = webDriver.GetIdentification();
+
+        // This line is required because remote web driver providers may consider the test an error
+        // if we never sent any commands to the web driver.  Otherwise it's irrelevant.
         webDriver.Navigate().GoToUrl("http://google.com/");
 
         SendScenarioStatus(webDriver, !(result.Version is UnrecognisedVersion));
@@ -218,6 +221,55 @@ namespace CSF.WebDriverExtras.Tests.BrowserId
                   Is.Not.InstanceOf<UnrecognisedVersion>(),
                   "Browser was not recognised:{0}",
                   result);
+    }
+
+    /// <summary>
+    /// Integration test which uses a real Web Driver to verify that every supported web driver is identified
+    /// using some kind of version number.  Under every circumstance, we are expecting the browser to be identified
+    /// using an instance of an 'useful' numeric version type which can be compared.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// This test method (and the many scenarios it executes) connects to a Remote Web Driver (usually Sauce Labs)
+    /// and spins up a browser instance, then gets its identification, sends the browser a single simple command
+    /// and then closes the web driver.
+    /// </para>
+    /// <para>
+    /// The single command sent is required, because Sauce Labs (but perhaps other remote web driver providers) counts
+    /// the test as an error if no commands are sent.  The command itself is not important.
+    /// </para>
+    /// </remarks>
+    /// <param name="platform">Platform.</param>
+    /// <param name="browserName">Browser name.</param>
+    /// <param name="browserVersion">Browser version.</param>
+    [NonParallelizable]
+    [Category("Browser")]
+    [Explicit("This can only be executed with configuration for a remote web browser.  See the comments on the test for more info.")]
+    [TestCaseSource(typeof(SupportedBrowserConfigurations), nameof(SupportedBrowserConfigurations.AsTestCaseData))]
+    public void GetIdentification_integration_creates_useful_version_numbers(string platform, string browserName, string browserVersion)
+    {
+      // Arrange
+      var scenarioName = nameof(GetIdentification_integration_creates_useful_version_numbers);
+      var caps = GetCapabilities(platform, browserName, browserVersion);
+      var factory = GetWebDriverFactory.FromConfiguration();
+
+      BrowserIdentification result;
+
+      // Act
+      using(var webDriver = factory.CreateWebDriver(caps, scenarioName: scenarioName))
+      {
+        result = webDriver.GetIdentification();
+
+        // This line is required because remote web driver providers may consider the test an error
+        // if we never sent any commands to the web driver.  Otherwise it's irrelevant.
+        webDriver.Navigate().GoToUrl("http://google.com/");
+
+        SendScenarioStatus(webDriver, IsUsefulVersion(result.Version));
+      }
+
+      // Assert
+      var isUsable = IsUsefulVersion(result.Version);
+      Assert.That(isUsable, Is.True, "Browser version was not useful:{0}", result);
     }
 
     IDictionary<string,object> GetCapabilities(string platform,
@@ -251,6 +303,15 @@ namespace CSF.WebDriverExtras.Tests.BrowserId
         else
           statusDriver.MarkScenarioAsFailure();
       }
+    }
+
+    bool IsUsefulVersion(BrowserVersion version)
+    {
+      if(version is DottedNumericVersion) return true;
+      
+      if(version is SemanticVersion) return true;
+
+      return false;
     }
   }
 }
