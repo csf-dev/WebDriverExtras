@@ -72,7 +72,7 @@
     <Compile Include="Flags\DefinitionReaderTests.cs" />
     <Compile Include="Flags\FlagsDefinitionTests.cs" />
     <Compile Include="FactoryBuilders\WebDriverFactorySourceIntegrationTests.cs" />
-    <Compile Include="ConnectToGoogleIntegrationTest.cs" />
+    <Compile Include="WebDriverFactoryFromConfigurationIntegrationTests.cs" />
     <Compile Include="BrowserId\BrowserIdentificationFactoryTests.cs" />
     <Compile Include="BrowserId\SemanticVersionTests.cs" />
     <Compile Include="BrowserId\SimpleStringVersion.cs" />

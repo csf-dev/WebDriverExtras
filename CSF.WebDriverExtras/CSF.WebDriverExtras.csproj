@@ -47,7 +47,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Config\FactoryOptionsCollection.cs" />
-    <Compile Include="ICanReceiveScenarioStatus.cs" />
+    <Compile Include="ICanReceiveScenarioOutcome.cs" />
     <Compile Include="ICreatesWebDriver.cs" />
     <Compile Include="Factories\LocalDriverOptions.cs" />
     <Compile Include="Factories\LocalChromeOptions.cs" />

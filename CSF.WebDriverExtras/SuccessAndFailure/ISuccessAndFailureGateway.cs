@@ -9,6 +9,13 @@ namespace CSF.WebDriverExtras.SuccessAndFailure
   public interface ISuccessAndFailureGateway
   {
     /// <summary>
+    /// Sends a 'test scenario outcome' to a web driver (either success or failure).
+    /// </summary>
+    /// <param name="webDriver">Web driver.</param>
+    /// <param name="outcome">If set to <c>true</c> then success is sent; otherwise failure.</param>
+    void SendOutcome(IWebDriver webDriver, bool outcome);
+
+    /// <summary>
     /// Sends a 'test scenario success' to a web driver.
     /// </summary>
     /// <param name="webDriver">Web driver.</param>
