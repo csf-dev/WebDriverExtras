@@ -13,34 +13,26 @@ namespace CSF.WebDriverExtras.Tests.Flags
   {
     [Test,AutoMoqData]
     public void GetFlags_returns_flags_added_by_single_provider(BrowserIdentification browserId,
-                                                                IHasCapabilities webDriver,
-                                                                IGetsBrowserIdentification idFactory,
                                                                 List<string> flags)
     {
       // Arrange
-      SetupToReturnBrowserId(idFactory, webDriver, browserId);
-
       var definition = new FlagsDefinition();
       definition.BrowserNames.Add(browserId.Name);
       definition.AddFlags.UnionWith(flags);
 
-      var sut = new BrowserFlagsProvider(new [] { definition }, idFactory);
+      var sut = new BrowserFlagsProvider(new [] { definition });
 
       // Act
-      var result = sut.GetFlags(webDriver);
+      var result = sut.GetFlags(browserId);
 
       // Assert
       Assert.That(result, Is.EquivalentTo(flags));
     }
 
     [Test,AutoMoqData]
-    public void GetFlags_returns_flags_added_by_two_providers(BrowserIdentification browserId,
-                                                                IHasCapabilities webDriver,
-                                                                IGetsBrowserIdentification idFactory)
+    public void GetFlags_returns_flags_added_by_two_providers(BrowserIdentification browserId)
     {
       // Arrange
-      SetupToReturnBrowserId(idFactory, webDriver, browserId);
-
       var definitionOne = new FlagsDefinition();
       definitionOne.BrowserNames.Add(browserId.Name);
       definitionOne.AddFlags.Add("One");
@@ -49,12 +41,12 @@ namespace CSF.WebDriverExtras.Tests.Flags
       definitionTwo.BrowserNames.Add(browserId.Name);
       definitionTwo.AddFlags.Add("Two");
 
-      var sut = new BrowserFlagsProvider(new [] { definitionOne, definitionTwo }, idFactory);
+      var sut = new BrowserFlagsProvider(new [] { definitionOne, definitionTwo });
 
       var expected = new [] { "One", "Two" };
 
       // Act
-      var result = sut.GetFlags(webDriver);
+      var result = sut.GetFlags(browserId);
 
       // Assert
       Assert.That(result, Is.EquivalentTo(expected));
@@ -62,13 +54,9 @@ namespace CSF.WebDriverExtras.Tests.Flags
 
     [Test,AutoMoqData]
     public void GetFlags_ignores_flags_added_by_non_matching_provider(BrowserIdentification browserId,
-                                                                      IHasCapabilities webDriver,
-                                                                      IGetsBrowserIdentification idFactory,
                                                                       string otherBrowserName)
     {
       // Arrange
-      SetupToReturnBrowserId(idFactory, webDriver, browserId);
-
       var definitionOne = new FlagsDefinition();
       definitionOne.BrowserNames.Add(browserId.Name);
       definitionOne.AddFlags.Add("One");
@@ -77,25 +65,21 @@ namespace CSF.WebDriverExtras.Tests.Flags
       definitionTwo.BrowserNames.Add(otherBrowserName);
       definitionTwo.AddFlags.Add("Two");
 
-      var sut = new BrowserFlagsProvider(new [] { definitionOne, definitionTwo }, idFactory);
+      var sut = new BrowserFlagsProvider(new [] { definitionOne, definitionTwo });
 
       var expected = new [] { "One" };
 
       // Act
-      var result = sut.GetFlags(webDriver);
+      var result = sut.GetFlags(browserId);
 
       // Assert
       Assert.That(result, Is.EquivalentTo(expected));
     }
 
     [Test,AutoMoqData]
-    public void GetFlags_does_not_include_flags_removed_by_same_provider(BrowserIdentification browserId,
-                                                                         IHasCapabilities webDriver,
-                                                                         IGetsBrowserIdentification idFactory)
+    public void GetFlags_does_not_include_flags_removed_by_same_provider(BrowserIdentification browserId)
     {
       // Arrange
-      SetupToReturnBrowserId(idFactory, webDriver, browserId);
-
       var definitionOne = new FlagsDefinition();
       definitionOne.BrowserNames.Add(browserId.Name);
       definitionOne.AddFlags.Add("One");
@@ -105,25 +89,21 @@ namespace CSF.WebDriverExtras.Tests.Flags
       definitionTwo.BrowserNames.Add(browserId.Name);
       definitionTwo.AddFlags.Add("Two");
 
-      var sut = new BrowserFlagsProvider(new [] { definitionOne, definitionTwo }, idFactory);
+      var sut = new BrowserFlagsProvider(new [] { definitionOne, definitionTwo });
 
       var expected = new [] { "Two" };
 
       // Act
-      var result = sut.GetFlags(webDriver);
+      var result = sut.GetFlags(browserId);
 
       // Assert
       Assert.That(result, Is.EquivalentTo(expected));
     }
 
     [Test,AutoMoqData]
-    public void GetFlags_does_not_include_flags_removed_by_other_provider(BrowserIdentification browserId,
-                                                                          IHasCapabilities webDriver,
-                                                                          IGetsBrowserIdentification idFactory)
+    public void GetFlags_does_not_include_flags_removed_by_other_provider(BrowserIdentification browserId)
     {
       // Arrange
-      SetupToReturnBrowserId(idFactory, webDriver, browserId);
-
       var definitionOne = new FlagsDefinition();
       definitionOne.BrowserNames.Add(browserId.Name);
       definitionOne.AddFlags.Add("One");
@@ -133,24 +113,15 @@ namespace CSF.WebDriverExtras.Tests.Flags
       definitionTwo.AddFlags.Add("Two");
       definitionTwo.RemoveFlags.Add("One");
 
-      var sut = new BrowserFlagsProvider(new [] { definitionOne, definitionTwo }, idFactory);
+      var sut = new BrowserFlagsProvider(new [] { definitionOne, definitionTwo });
 
       var expected = new [] { "Two" };
 
       // Act
-      var result = sut.GetFlags(webDriver);
+      var result = sut.GetFlags(browserId);
 
       // Assert
       Assert.That(result, Is.EquivalentTo(expected));
-    }
-
-    void SetupToReturnBrowserId(IGetsBrowserIdentification idFactory,
-                                IHasCapabilities webDriver,
-                                BrowserIdentification browserId)
-    {
-      Mock.Get(idFactory)
-          .Setup(x => x.GetIdentification(webDriver))
-          .Returns(browserId);
     }
   }
 }

@@ -30,10 +30,12 @@ namespace CSF.WebDriverExtras.Proxies
     /// <param name="proxiedDriver">The proxied/wrapped web driver.</param>
     /// <param name="flags">A collection of the browser flags for the driver.</param>
     /// <param name="successFailureGateway">Success and failure gateway service.</param>
+    /// <param name="requestedVersion">The originally-requested browser version.</param>
     public SauceConnectRemoteWebDriverProxy(RemoteWebDriver proxiedDriver,
                                             ICollection<string> flags = null,
-                                            ISuccessAndFailureGateway successFailureGateway = null)
-      : base(proxiedDriver, flags)
+                                            ISuccessAndFailureGateway successFailureGateway = null,
+                                            string requestedVersion = null)
+      : base(proxiedDriver, flags, requestedVersion)
     {
       this.successFailureGateway = successFailureGateway ?? new SauceLabsSuccessFailureGateway();
     }
@@ -44,10 +46,12 @@ namespace CSF.WebDriverExtras.Proxies
     /// <param name="proxiedDriver">The proxied/wrapped web driver.</param>
     /// <param name="flags">A collection of the browser flags for the driver.</param>
     /// <param name="successFailureGateway">Success and failure gateway service.</param>
+    /// <param name="requestedVersion">The originally-requested browser version.</param>
     public SauceConnectRemoteWebDriverProxy(RemoteWebDriver proxiedDriver,
                                             IReadOnlyCollection<string> flags,
-                                            ISuccessAndFailureGateway successFailureGateway = null)
-      : base(proxiedDriver, flags)
+                                            ISuccessAndFailureGateway successFailureGateway = null,
+                                            string requestedVersion = null)
+      : base(proxiedDriver, flags, requestedVersion)
     {
       this.successFailureGateway = successFailureGateway ?? new SauceLabsSuccessFailureGateway();
     }

@@ -21,8 +21,8 @@ namespace CSF.WebDriverExtras.Tests.Flags
       // Arrange
       var sut = new DefinitionReader(versionFactory);
       Mock.Get(versionFactory)
-          .Setup(x => x.CreateVersion(It.IsAny<string>(), It.IsAny<string>()))
-          .Returns((string ver, string browser) => new SimpleStringVersion(ver));
+          .Setup(x => x.CreateVersion(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+          .Returns((string ver, string browser, string presumed) => new SimpleStringVersion(ver));
       var expected = GetSampleDefinitionsContents();
 
       // Act

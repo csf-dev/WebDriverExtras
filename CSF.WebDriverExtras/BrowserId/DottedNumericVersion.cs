@@ -109,7 +109,8 @@ namespace CSF.WebDriverExtras.BrowserId
     /// Initializes a new instance of the <see cref="T:CSF.WebDriverExtras.BrowserId.DottedNumericVersion"/> class.
     /// </summary>
     /// <param name="components">Components.</param>
-    public DottedNumericVersion(IList<int> components)
+    /// <param name="isPresumed">If set to <c>true</c> then this instance will represent a presumed version number.</param>
+    public DottedNumericVersion(IList<int> components, bool isPresumed = false) : base(isPresumed)
     {
       if(components == null)
         throw new ArgumentNullException(nameof(components));
@@ -121,7 +122,8 @@ namespace CSF.WebDriverExtras.BrowserId
     /// Initializes a new instance of the <see cref="T:CSF.WebDriverExtras.BrowserId.DottedNumericVersion"/> class.
     /// </summary>
     /// <param name="components">Components.</param>
-    public DottedNumericVersion(params int[] components)
+    /// <param name="isPresumed">If set to <c>true</c> then this instance will represent a presumed version number.</param>
+    public DottedNumericVersion(bool isPresumed, params int[] components) : base(isPresumed)
     {
       if(components == null)
         throw new ArgumentNullException(nameof(components));
@@ -134,7 +136,8 @@ namespace CSF.WebDriverExtras.BrowserId
     /// Returns either a version instance or <c>null</c> if the string is not a properly-formed.
     /// </summary>
     /// <param name="versionString">Version string.</param>
-    public static DottedNumericVersion Parse(string versionString)
+    /// <param name="isPresumed">If set to <c>true</c> then this instance will represent a presumed version number.</param>
+    public static DottedNumericVersion Parse(string versionString, bool isPresumed = false)
     {
       if(versionString == null) return null;
 
@@ -148,7 +151,7 @@ namespace CSF.WebDriverExtras.BrowserId
         .ToList();
       
       components.Insert(0, firstComponent);
-      return new DottedNumericVersion(components);
+      return new DottedNumericVersion(components, isPresumed);
     }
   }
 }

@@ -8,18 +8,12 @@ namespace CSF.WebDriverExtras.BrowserId
   public interface ICreatesBrowserVersions
   {
     /// <summary>
-    /// Creates and returns a browser version instance.
-    /// </summary>
-    /// <returns>The version.</returns>
-    /// <param name="versionString">The string to parse.</param>
-    BrowserVersion CreateVersion(string versionString);
-
-    /// <summary>
     /// Creates and returns a browser version instance for a given browser.
     /// </summary>
     /// <returns>The version.</returns>
-    /// <param name="versionString">The string to parse.</param>
+    /// <param name="versionString">The browser version string to parse.</param>
     /// <param name="browserName">The name of the browser for which to create a version.</param>
-    BrowserVersion CreateVersion(string versionString, string browserName);
+    /// <param name="requestedVersionString">A string indicating the browser version which was 'requested'.</param>
+    BrowserVersion CreateVersion(string versionString, string browserName = null, string requestedVersionString = null);
   }
 }

@@ -7,6 +7,13 @@ namespace CSF.WebDriverExtras.BrowserId
   public abstract class BrowserVersion : IComparable<BrowserVersion>, IEquatable<BrowserVersion>
   {
     /// <summary>
+    /// Gets a value indicating whether or not this <see cref="BrowserVersion"/> represents a presumed
+    /// version and not an actual version taken from the web driver itself.
+    /// </summary>
+    /// <value><c>true</c> if is this version number is presumed; otherwise, <c>false</c>.</value>
+    public bool IsPresumedVersion { get; private set; }
+
+    /// <summary>
     /// Compares the current instance to another <see cref="BrowserVersion"/> instance, returning eiher
     /// minus one, zero or one.
     /// </summary>
@@ -34,6 +41,20 @@ namespace CSF.WebDriverExtras.BrowserId
     /// </summary>
     /// <returns>A hash code for this instance that is suitable for use in hashing algorithms and data structures such as a hash table.</returns>
     public override int GetHashCode() => base.GetHashCode();
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="T:CSF.WebDriverExtras.BrowserId.BrowserVersion"/> class.
+    /// </summary>
+    protected BrowserVersion() : this(false) {}
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="T:CSF.WebDriverExtras.BrowserId.BrowserVersion"/> class.
+    /// </summary>
+    /// <param name="isPresumedVersion">If set to <c>true</c> then this instance will represent a presumed version number.</param>
+    protected BrowserVersion(bool isPresumedVersion)
+    {
+      IsPresumedVersion = isPresumedVersion;
+    }
 
     /// <summary>
     /// Determines whether one specified <see cref="BrowserVersion"/> is lower than another

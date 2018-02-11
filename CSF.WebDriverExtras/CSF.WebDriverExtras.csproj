@@ -105,6 +105,7 @@
     <Compile Include="WebDriverExtensions.cs" />
     <Compile Include="BrowserId\DottedNumericVersion.cs" />
     <Compile Include="BrowserId\EmptyBrowserVersion.cs" />
+    <Compile Include="IHasRequestedVersion.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

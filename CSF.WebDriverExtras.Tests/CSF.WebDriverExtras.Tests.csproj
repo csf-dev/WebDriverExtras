@@ -81,6 +81,8 @@
     <Compile Include="BrowserId\BrowserIdentificationTests.cs" />
     <Compile Include="SupportedBrowserConfigurations.cs" />
     <Compile Include="BrowserId\DottedNumericVersionTests.cs" />
+    <Compile Include="Autofixture\BrowserIdAttribute.cs" />
+    <Compile Include="Autofixture\WebDriverWithIdentificationCustomiszation.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -99,6 +101,7 @@
     <Folder Include="SuccessAndFailure\" />
     <Folder Include="Flags\" />
     <Folder Include="BrowserId\" />
+    <Folder Include="Autofixture\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Flags\SampleFlagsDefinitions.json">
