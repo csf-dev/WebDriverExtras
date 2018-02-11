@@ -18,15 +18,25 @@ namespace CSF.WebDriverExtras.BrowserId
                                         string requestedVersionString = null)
     {
       if(String.IsNullOrEmpty(versionString))
+        return CreateVersion(requestedVersionString, browserName, true);
+
+      return CreateVersion(versionString, browserName, false);
+    }
+
+    BrowserVersion CreateVersion(string versionString,
+                                 string browserName,
+                                 bool isPresumedVersion)
+    {
+      if(String.IsNullOrEmpty(versionString))
         return EmptyBrowserVersion.Singleton;
-
-      BrowserVersion output = SemanticVersion.Parse(versionString);
+      
+      BrowserVersion output = SemanticVersion.Parse(versionString, isPresumedVersion);
       if(output != null) return output;
 
-      output = DottedNumericVersion.Parse(versionString);
+      output = DottedNumericVersion.Parse(versionString, isPresumedVersion);
       if(output != null) return output;
 
-      return new UnrecognisedVersion(versionString);
+      return new UnrecognisedVersion(versionString, isPresumedVersion);
     }
   }
 }
