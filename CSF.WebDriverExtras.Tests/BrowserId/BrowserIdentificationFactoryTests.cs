@@ -13,19 +13,33 @@ namespace CSF.WebDriverExtras.Tests.BrowserId
   public class BrowserIdentificationFactoryTests
   {
     [Test,AutoMoqData]
+    public void GetIdentification_uses_version_creator(ICreatesBrowserVersions versionFactory,
+                                                       IHasCapabilities driver,
+                                                       string browser,
+                                                       string version,
+                                                       SimpleStringVersion expectedVersion)
+    {
+      // Arrange
+      var sut = new BrowserIdentificationFactory(versionFactory);
+      SetupIdentificationCapabilities(driver, browserName: browser, browserVersion: version);
+      Mock.Get(versionFactory)
+          .Setup(x => x.CreateVersion(version, browser, null))
+          .Returns(expectedVersion);
+
+      // Act
+      var result = sut.GetIdentification(driver);
+
+      // Assert
+      Assert.That(result.Version, Is.SameAs(expectedVersion));
+    }
+
+    [Test,AutoMoqData]
     public void GetIdentification_integration_test_can_create_identification_for_a_browser(IHasCapabilities driver,
                                                                                            ICapabilities caps)
     {
       // Arrange
-      var versionString = "FlamboyantBannana";
-      var platformType = PlatformType.Android;
-      var browserName = "FooBrowser";
-
       var sut = new BrowserIdentificationFactory();
-      Mock.Get(driver).SetupGet(x => x.Capabilities).Returns(caps);
-      Mock.Get(caps).SetupGet(x => x.BrowserName).Returns(browserName);
-      Mock.Get(caps).SetupGet(x => x.Version).Returns(versionString);
-      Mock.Get(caps).SetupGet(x => x.Platform).Returns(new Platform(platformType));
+      SetupIdentificationCapabilities(driver);
 
       // Act
       var result = sut.GetIdentification(driver);
@@ -39,15 +53,10 @@ namespace CSF.WebDriverExtras.Tests.BrowserId
                                                                              ICapabilities caps)
     {
       // Arrange
-      var versionString = "FlamboyantBannana";
-      var platformType = PlatformType.Android;
       var browserName = "FooBrowser";
 
       var sut = new BrowserIdentificationFactory();
-      Mock.Get(driver).SetupGet(x => x.Capabilities).Returns(caps);
-      Mock.Get(caps).SetupGet(x => x.BrowserName).Returns(browserName);
-      Mock.Get(caps).SetupGet(x => x.Version).Returns(versionString);
-      Mock.Get(caps).SetupGet(x => x.Platform).Returns(new Platform(platformType));
+      SetupIdentificationCapabilities(driver, browserName: browserName);
 
       // Act
       var result = sut.GetIdentification(driver);
@@ -62,14 +71,9 @@ namespace CSF.WebDriverExtras.Tests.BrowserId
     {
       // Arrange
       var versionString = "FlamboyantBannana";
-      var platformType = PlatformType.Android;
-      var browserName = "FooBrowser";
 
       var sut = new BrowserIdentificationFactory();
-      Mock.Get(driver).SetupGet(x => x.Capabilities).Returns(caps);
-      Mock.Get(caps).SetupGet(x => x.BrowserName).Returns(browserName);
-      Mock.Get(caps).SetupGet(x => x.Version).Returns(versionString);
-      Mock.Get(caps).SetupGet(x => x.Platform).Returns(new Platform(platformType));
+      SetupIdentificationCapabilities(driver, browserVersion: versionString);
 
       // Act
       var result = sut.GetIdentification(driver);
@@ -84,14 +88,9 @@ namespace CSF.WebDriverExtras.Tests.BrowserId
     {
       // Arrange
       var versionString = "v1.2.3";
-      var platformType = PlatformType.Android;
-      var browserName = "FooBrowser";
 
       var sut = new BrowserIdentificationFactory();
-      Mock.Get(driver).SetupGet(x => x.Capabilities).Returns(caps);
-      Mock.Get(caps).SetupGet(x => x.BrowserName).Returns(browserName);
-      Mock.Get(caps).SetupGet(x => x.Version).Returns(versionString);
-      Mock.Get(caps).SetupGet(x => x.Platform).Returns(new Platform(platformType));
+      SetupIdentificationCapabilities(driver, browserVersion: versionString);
 
       // Act
       var result = sut.GetIdentification(driver);
@@ -101,19 +100,12 @@ namespace CSF.WebDriverExtras.Tests.BrowserId
     }
 
     [Test,AutoMoqData]
-    public void GetIdentification_integration_test_gets_correct_platform_name(IHasCapabilities driver,
-                                                                              ICapabilities caps)
+    public void GetIdentification_integration_test_gets_correct_platform_name(IHasCapabilities driver)
     {
       // Arrange
-      var versionString = "FlamboyantBannana";
       var platformType = PlatformType.Android;
-      var browserName = "FooBrowser";
-
+      SetupIdentificationCapabilities(driver, platformType);
       var sut = new BrowserIdentificationFactory();
-      Mock.Get(driver).SetupGet(x => x.Capabilities).Returns(caps);
-      Mock.Get(caps).SetupGet(x => x.BrowserName).Returns(browserName);
-      Mock.Get(caps).SetupGet(x => x.Version).Returns(versionString);
-      Mock.Get(caps).SetupGet(x => x.Platform).Returns(new Platform(platformType));
 
       // Act
       var result = sut.GetIdentification(driver);
@@ -197,6 +189,26 @@ namespace CSF.WebDriverExtras.Tests.BrowserId
         caps.Add(CapabilityType.Version, browserVersion);
       
       return caps;
+    }
+
+    void SetupIdentificationCapabilities(IHasCapabilities driver,
+                                         PlatformType? platformType = null,
+                                         string browserName = null,
+                                         string browserVersion = null)
+    {
+      if(driver == null)
+        throw new ArgumentNullException(nameof(driver));
+
+      PlatformType platform = platformType ?? PlatformType.Android;
+      browserName = browserName ?? "FooBrowser";
+      browserVersion = browserVersion ?? "FooVersion";
+
+      var caps = Mock.Of<ICapabilities>();
+
+      Mock.Get(driver).SetupGet(x => x.Capabilities).Returns(caps);
+      Mock.Get(caps).SetupGet(x => x.BrowserName).Returns(browserName);
+      Mock.Get(caps).SetupGet(x => x.Version).Returns(browserVersion);
+      Mock.Get(caps).SetupGet(x => x.Platform).Returns(new Platform(platform));
     }
 
     void SendScenarioStatus(IWebDriver driver, bool isSuccess)

@@ -17,14 +17,26 @@ namespace CSF.WebDriverExtras.BrowserId
     /// <param name="webDriver">Web driver.</param>
     public BrowserIdentification GetIdentification(IHasCapabilities webDriver)
     {
+      return GetIdentification(webDriver, null);
+    }
+
+    /// <summary>
+    /// Gets a browser identification instance from the given web driver.
+    /// </summary>
+    /// <returns>The identification.</returns>
+    /// <param name="webDriver">A web drivr which has capabilities.</param>
+    /// <param name="desiredCapabilities">The originally-requested capabilities.</param>
+    public BrowserIdentification GetIdentification(IHasCapabilities webDriver, ICapabilities desiredCapabilities)
+    {
       if(webDriver == null) return BrowserIdentification.UnidentifiedBrowser;
 
+      var platform = webDriver.Capabilities.Platform.ToString();
       var browserName = webDriver.Capabilities.BrowserName;
-      var version = versionFactory.CreateVersion(webDriver.Capabilities.Version, browserName);
+      var actualVersion = webDriver.Capabilities.Version;
+      var requestedVersion = desiredCapabilities?.Version;
 
-      return new BrowserIdentification(browserName,
-                                       version,
-                                       webDriver.Capabilities.Platform.ToString());
+      var version = versionFactory.CreateVersion(actualVersion, browserName, requestedVersion);
+      return new BrowserIdentification(browserName, version, platform);
     }
 
     /// <summary>
