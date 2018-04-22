@@ -46,9 +46,6 @@
     <Reference Include="Ploeh.AutoFixture.NUnit3">
       <HintPath>..\packages\AutoFixture.NUnit3.3.50.3\lib\net40\Ploeh.AutoFixture.NUnit3.dll</HintPath>
     </Reference>
-    <Reference Include="CSF.Configuration">
-      <HintPath>..\packages\CSF.Configuration.1.1.0\lib\net45\CSF.Configuration.dll</HintPath>
-    </Reference>
     <Reference Include="System.Configuration" />
     <Reference Include="WebDriver">
       <HintPath>..\packages\Selenium.WebDriver.3.4.0\lib\net40\WebDriver.dll</HintPath>
@@ -56,6 +53,9 @@
     <Reference Include="System.Drawing" />
     <Reference Include="WebDriver.Support">
       <HintPath>..\packages\Selenium.Support.3.4.0\lib\net40\WebDriver.Support.dll</HintPath>
+    </Reference>
+    <Reference Include="CSF.Configuration">
+      <HintPath>..\packages\CSF.Configuration.1.1.1\lib\net45\CSF.Configuration.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
