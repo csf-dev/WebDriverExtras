@@ -7,8 +7,6 @@ then
   exit 1
 fi
 
-sn -R CSF.WebDriverExtras/bin/Release/CSF.WebDriverExtras.dll CSF-Software-OSS.snk
-
 find . \
   -type f \
   -name "*.nuspec" \
