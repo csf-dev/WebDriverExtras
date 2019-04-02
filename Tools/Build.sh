@@ -27,14 +27,14 @@ build_solution()
 run_unit_tests()
 {
   echo "Running unit tests ..."
-  mono "$NUNIT_PATH" "CSF.WebDriverExtras.Tests/bin/Debug/CSF.WebDriverExtras.Tests.dll" --where "cat != Browser"
+  mono "$NUNIT_PATH" --labels=All "CSF.WebDriverExtras.Tests/bin/Debug/CSF.WebDriverExtras.Tests.dll" --where "cat != Browser"
   stop_if_failure $? "Run unit tests"
 }
 
 run_webbrowser_tests()
 {
   echo "Running web browser tests ..."
-  mono "$NUNIT_PATH" "CSF.WebDriverExtras.Tests/bin/Debug/CSF.WebDriverExtras.Tests.dll" --where "cat == Browser"
+  mono "$NUNIT_PATH" --labels=All "CSF.WebDriverExtras.Tests/bin/Debug/CSF.WebDriverExtras.Tests.dll" --where "cat == Browser"
   stop_if_failure $? "Run web browser tests"
 }
 
