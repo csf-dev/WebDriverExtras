@@ -14,7 +14,7 @@ namespace CSF.WebDriverExtras.Tests
       ConnectToGoogleScenarioName = "It should be possible to create a web driver from configuration, then use that driver to connect to the Google home page and read the window title",
       GoogleHomeUrl = "https://google.com/",
       Google = "Google";
-    const int TimeoutSecondsToConnectToGoogleHomePage = 2;
+    const int TimeoutSecondsToConnectToGoogleHomePage = 10;
 
     [Test]
     [Description(ConnectToGoogleScenarioName)]

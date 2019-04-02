@@ -21,7 +21,6 @@ namespace CSF.WebDriverExtras.Tests
        */
       // new BrowserConfiguration { Platform = "Windows 10",     Name = "Firefox",               Version = "latest"    },
       // Internet Explorer
-      new BrowserConfiguration { Platform = "Windows 7",      Name = "Internet Explorer",     Version = "8.0"       },
       new BrowserConfiguration { Platform = "Windows 7",      Name = "Internet Explorer",     Version = "9.0"       },
       new BrowserConfiguration { Platform = "Windows 7",      Name = "Internet Explorer",     Version = "10.0"      },
       new BrowserConfiguration { Platform = "Windows 7",      Name = "Internet Explorer",     Version = "11.0"      },
@@ -36,8 +35,7 @@ namespace CSF.WebDriverExtras.Tests
       new BrowserConfiguration { Platform = "Windows 10",     Name = "MicrosoftEdge",         Version = "14.14393"  },
       new BrowserConfiguration { Platform = "Windows 10",     Name = "MicrosoftEdge",         Version = "13.10586"  },
       // Safari
-      new BrowserConfiguration { Platform = "macOS 10.13",    Name = "Safari",                Version = "latest"    },
-      new BrowserConfiguration { Platform = "macOS 10.13",    Name = "Safari",                Version = "11.0"      },
+      new BrowserConfiguration { Platform = "macOS 10.13",    Name = "Safari",                Version = "11.1"      },
       new BrowserConfiguration { Platform = "macOS 10.12",    Name = "Safari",                Version = "10.1"      },
       new BrowserConfiguration { Platform = "OS X 10.11",     Name = "Safari",                Version = "10.0"      },
     };
@@ -56,7 +54,6 @@ namespace CSF.WebDriverExtras.Tests
       new BrowserConfiguration { Name = "firefox",            Version = String.Empty },
       new BrowserConfiguration { Name = "internet explorer",  Version = "10" },
       new BrowserConfiguration { Name = "internet explorer",  Version = "11" },
-      new BrowserConfiguration { Name = "internet explorer",  Version = "8" },
       new BrowserConfiguration { Name = "internet explorer",  Version = "9" },
       new BrowserConfiguration { Name = "MicrosoftEdge",      Version = String.Empty },
       new BrowserConfiguration { Name = "safari",             Version = "10.0.1" },
